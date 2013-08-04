@@ -11,14 +11,4 @@ Pod::Spec.new do |s|
     s.source_files = 'ObjectiveHAL', 'ObjectiveHAL/**/*.{h,m}'
     s.public_header_files = 'ObjectiveHAL/ObjectiveHAL.h'
     s.requires_arc = true
-    s.documentation = {
-        :appledoc => [
-            '--project-name',      'ObjectiveHAL',
-            '--project-company',   'ObjectiveHAL',
-            '--docset-copyright',  'ObjectiveHAL',
-            '--ignore',            'Common',
-            '--index-desc',        'README.md',
-            '--no-keep-undocumented-objects',
-            '--no-keep-undocumented-members',
-        ]}
 end
