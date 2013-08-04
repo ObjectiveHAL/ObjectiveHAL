@@ -90,11 +90,12 @@
     // when
     OHResource *resource = [[OHResource alloc] initWithJSONData:embedsResource];
     NSArray *appLinks = [resource linksForRel:@"r:app"];
-    for (OHLink *link in appLinks) {
-        id linkData = [resource embeddedJSONDataForLink:link];
-        NSLog(@"%@", linkData);
-    }
+    OHLink *embeddedResourceLink = [appLinks objectAtIndex:0];
+    OHResource *embeddedResource = [resource embeddedResourceForRel:[embeddedResourceLink rel]];
     
     // then
+    assertThat(embeddedResource, notNilValue());
+    assertThat([embeddedResource linkForRel:@"self"], is(embeddedResourceLink));
+    
 }
 @end

@@ -30,4 +30,18 @@
     return self;
 }
 
+- (BOOL)isEqual:(id)object
+{
+    if ([object isKindOfClass:[self class]]) {
+        return [self.href isEqualToString:[(OHLink *)object href]];
+    } else {
+        return NO;
+    }
+}
+
+- (NSUInteger)hash
+{
+    return [self.href hash];
+}
+
 @end

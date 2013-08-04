@@ -17,6 +17,8 @@
 - (OHLink *)linkForRel:(NSString *)rel;
 - (NSArray *)linksForRel:(NSString *)rel;
 
-- (id)embeddedJSONDataForLink:(OHLink *)link;
+- (OHResource *)embeddedResourceForRel:(NSString *)rel;
+- (NSArray *)embeddedResourcesForRel:(NSString *)rel;
+
 
 @end

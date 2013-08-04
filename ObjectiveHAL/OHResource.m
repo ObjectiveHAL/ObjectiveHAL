@@ -39,6 +39,27 @@
     return self;
 }
 
+- (BOOL)isEqual:(id)object
+{
+    // TODO: Decide if this is good enough for testing equality of resources.
+    // It might make sense to actually test the values of the properties in
+    // the resource, though that would be slower.  If we did test the values,
+    // the _links and _embedded sections could possibly be skipped.
+    if ([object isKindOfClass:[self class]]) {
+        OHLink *selfLink = [self linkForRel:@"self"];
+        OHLink *otherSelfLink = [(OHResource *)object linkForRel:@"self"];
+        return [selfLink isEqual:otherSelfLink];
+    } else {
+        return NO;
+    }
+}
+
+- (NSUInteger)hash
+{
+    OHLink *selfLink = [self linkForRel:@"self"];
+    return [selfLink hash];
+}
+
 + (NSDictionary *)embeddedFromJSONData:(id)jsonData withCuries:(NSDictionary *)curies
 {
     NSMutableDictionary *embedded = [NSMutableDictionary dictionary];
@@ -147,9 +168,30 @@
     return nil;
 }
 
-- (id)embeddedJSONDataForLink:(OHLink *)link
+- (OHResource *)embeddedResourceForRel:(NSString *)rel
 {
-    return nil;
+    OHResource *embeddedResource = [[self embeddedResourcesForRel:rel] objectAtIndex:0];
+    return embeddedResource;
+}
+
+- (NSArray *)embeddedResourcesForRel:(NSString *)rel
+{
+    NSMutableArray *embeddedResources = [NSMutableArray array];
+    
+    NSString *absoluteRel = [OHResource expandRelationIfPossible:rel withCuries:self.curies];
+    id value = [self.embedded objectForKey:absoluteRel];
+    if ([value isKindOfClass:[NSArray class]]) {
+        for (id embeddedJSONData in value) {
+            OHResource *embeddedResource = [[OHResource alloc] initWithJSONData:embeddedJSONData];
+            [embeddedResources addObject:embeddedResource];
+        }
+    } else if ([value isKindOfClass:[NSDictionary class]]) {
+        OHResource *embeddedResource = [[OHResource alloc] initWithJSONData:value];
+        [embeddedResources addObject:embeddedResource];
+    } else {
+        // TODO: Handle error.
+    }
+    return embeddedResources;
 }
 
 @end
