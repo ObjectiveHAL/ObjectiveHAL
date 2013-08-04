@@ -1,0 +1,7 @@
+{
+    "href" : "https://example.com/api/customer/1234",
+    "name" : "bob",
+    "title" : "The Parent",
+    "hreflang" : "en",
+    "templated" : false
+}

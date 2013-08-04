@@ -10,6 +10,15 @@
 		18405E084EE84B65AF4A3FF0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E7688A979C64921A72D54A9 /* libPods.a */; };
 		915BC46B17ADF83000230C3C /* OHResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 915BC46717ADF83000230C3C /* OHResource.m */; };
 		915BC46C17ADF83000230C3C /* OHLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 915BC46917ADF83000230C3C /* OHLink.m */; };
+		9162596E17ADFED200C1791F /* OHLinkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9162596A17ADFED200C1791F /* OHLinkTests.m */; };
+		9162596F17ADFED200C1791F /* OHResourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9162596B17ADFED200C1791F /* OHResourceTests.m */; };
+		9162597017ADFED200C1791F /* NSData+TestInfected.m in Sources */ = {isa = PBXBuildFile; fileRef = 9162596D17ADFED200C1791F /* NSData+TestInfected.m */; };
+		9162597817AE015200C1791F /* complete-link.json in Resources */ = {isa = PBXBuildFile; fileRef = 9162597217AE015200C1791F /* complete-link.json */; };
+		9162597917AE015200C1791F /* curies-resource.json in Resources */ = {isa = PBXBuildFile; fileRef = 9162597317AE015200C1791F /* curies-resource.json */; };
+		9162597A17AE015200C1791F /* orders.json in Resources */ = {isa = PBXBuildFile; fileRef = 9162597417AE015200C1791F /* orders.json */; };
+		9162597B17AE015200C1791F /* resource-with-embeds.json in Resources */ = {isa = PBXBuildFile; fileRef = 9162597517AE015200C1791F /* resource-with-embeds.json */; };
+		9162597C17AE015200C1791F /* simple-link.json in Resources */ = {isa = PBXBuildFile; fileRef = 9162597617AE015200C1791F /* simple-link.json */; };
+		9162597D17AE015200C1791F /* simple-resource.json in Resources */ = {isa = PBXBuildFile; fileRef = 9162597717AE015200C1791F /* simple-resource.json */; };
 		91ECCC6D17ADE63E00DDCCDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */; };
 		91ECCC7217ADE63E00DDCCDC /* ObjectiveHAL.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91ECCC7117ADE63E00DDCCDC /* ObjectiveHAL.h */; };
 		91ECCC7C17ADE63E00DDCCDC /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC7B17ADE63E00DDCCDC /* SenTestingKit.framework */; };
@@ -17,7 +26,6 @@
 		91ECCC7F17ADE63E00DDCCDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */; };
 		91ECCC8217ADE63E00DDCCDC /* libObjectiveHAL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC6917ADE63E00DDCCDC /* libObjectiveHAL.a */; };
 		91ECCC8817ADE63E00DDCCDC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 91ECCC8617ADE63E00DDCCDC /* InfoPlist.strings */; };
-		91ECCC8B17ADE63E00DDCCDC /* ObjectiveHALTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 91ECCC8A17ADE63E00DDCCDC /* ObjectiveHALTests.m */; };
 		F0694C107CBD4BC581E7CA20 /* libPods-ObjectiveHALTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19DDC463AD3F4C19B4E6C52E /* libPods-ObjectiveHALTests.a */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +59,21 @@
 		915BC46817ADF83000230C3C /* OHLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHLink.h; sourceTree = "<group>"; };
 		915BC46917ADF83000230C3C /* OHLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHLink.m; sourceTree = "<group>"; };
 		915BC46A17ADF83000230C3C /* OHResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHResource.h; sourceTree = "<group>"; };
+		9162596A17ADFED200C1791F /* OHLinkTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHLinkTests.m; sourceTree = "<group>"; };
+		9162596B17ADFED200C1791F /* OHResourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHResourceTests.m; sourceTree = "<group>"; };
+		9162596C17ADFED200C1791F /* NSData+TestInfected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+TestInfected.h"; sourceTree = "<group>"; };
+		9162596D17ADFED200C1791F /* NSData+TestInfected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+TestInfected.m"; sourceTree = "<group>"; };
+		9162597217AE015200C1791F /* complete-link.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "complete-link.json"; sourceTree = "<group>"; };
+		9162597317AE015200C1791F /* curies-resource.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "curies-resource.json"; sourceTree = "<group>"; };
+		9162597417AE015200C1791F /* orders.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = orders.json; sourceTree = "<group>"; };
+		9162597517AE015200C1791F /* resource-with-embeds.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "resource-with-embeds.json"; sourceTree = "<group>"; };
+		9162597617AE015200C1791F /* simple-link.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "simple-link.json"; sourceTree = "<group>"; };
+		9162597717AE015200C1791F /* simple-resource.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "simple-resource.json"; sourceTree = "<group>"; };
+		9162597F17AE018E00C1791F /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		9162598017AE018E00C1791F /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		9162598117AE018E00C1791F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		9162598917AE018E00C1791F /* ObjectiveHAL.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ObjectiveHAL.podspec; sourceTree = "<group>"; };
+		91625A9B17AE018E00C1791F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		91ECCC6917ADE63E00DDCCDC /* libObjectiveHAL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libObjectiveHAL.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		91ECCC7017ADE63E00DDCCDC /* ObjectiveHAL-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjectiveHAL-Prefix.pch"; sourceTree = "<group>"; };
@@ -60,8 +83,6 @@
 		91ECCC7D17ADE63E00DDCCDC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		91ECCC8517ADE63E00DDCCDC /* ObjectiveHALTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ObjectiveHALTests-Info.plist"; sourceTree = "<group>"; };
 		91ECCC8717ADE63E00DDCCDC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		91ECCC8917ADE63E00DDCCDC /* ObjectiveHALTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjectiveHALTests.h; sourceTree = "<group>"; };
-		91ECCC8A17ADE63E00DDCCDC /* ObjectiveHALTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjectiveHALTests.m; sourceTree = "<group>"; };
 		BAAE93CD195A4CC18E5E82E7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		FD7FA26D3A9C4C4D978D7A7D /* Pods-ObjectiveHALTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveHALTests.xcconfig"; path = "Pods/Pods-ObjectiveHALTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -91,9 +112,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9162597117AE015200C1791F /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				9162597217AE015200C1791F /* complete-link.json */,
+				9162597317AE015200C1791F /* curies-resource.json */,
+				9162597417AE015200C1791F /* orders.json */,
+				9162597517AE015200C1791F /* resource-with-embeds.json */,
+				9162597617AE015200C1791F /* simple-link.json */,
+				9162597717AE015200C1791F /* simple-resource.json */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
 		91ECCC6017ADE63E00DDCCDC = {
 			isa = PBXGroup;
 			children = (
+				9162598117AE018E00C1791F /* LICENSE */,
+				91625A9B17AE018E00C1791F /* README.md */,
+				9162598017AE018E00C1791F /* .travis.yml */,
+				9162597F17AE018E00C1791F /* .gitignore */,
+				9162598917AE018E00C1791F /* ObjectiveHAL.podspec */,
 				91ECCC6E17ADE63E00DDCCDC /* ObjectiveHAL */,
 				91ECCC8317ADE63E00DDCCDC /* ObjectiveHALTests */,
 				91ECCC6B17ADE63E00DDCCDC /* Frameworks */,
@@ -148,8 +187,11 @@
 		91ECCC8317ADE63E00DDCCDC /* ObjectiveHALTests */ = {
 			isa = PBXGroup;
 			children = (
-				91ECCC8917ADE63E00DDCCDC /* ObjectiveHALTests.h */,
-				91ECCC8A17ADE63E00DDCCDC /* ObjectiveHALTests.m */,
+				9162596A17ADFED200C1791F /* OHLinkTests.m */,
+				9162596B17ADFED200C1791F /* OHResourceTests.m */,
+				9162596C17ADFED200C1791F /* NSData+TestInfected.h */,
+				9162596D17ADFED200C1791F /* NSData+TestInfected.m */,
+				9162597117AE015200C1791F /* Fixtures */,
 				91ECCC8417ADE63E00DDCCDC /* Supporting Files */,
 			);
 			path = ObjectiveHALTests;
@@ -241,6 +283,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				91ECCC8817ADE63E00DDCCDC /* InfoPlist.strings in Resources */,
+				9162597817AE015200C1791F /* complete-link.json in Resources */,
+				9162597917AE015200C1791F /* curies-resource.json in Resources */,
+				9162597A17AE015200C1791F /* orders.json in Resources */,
+				9162597B17AE015200C1791F /* resource-with-embeds.json in Resources */,
+				9162597C17AE015200C1791F /* simple-link.json in Resources */,
+				9162597D17AE015200C1791F /* simple-resource.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,7 +384,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91ECCC8B17ADE63E00DDCCDC /* ObjectiveHALTests.m in Sources */,
+				9162596E17ADFED200C1791F /* OHLinkTests.m in Sources */,
+				9162596F17ADFED200C1791F /* OHResourceTests.m in Sources */,
+				9162597017ADFED200C1791F /* NSData+TestInfected.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

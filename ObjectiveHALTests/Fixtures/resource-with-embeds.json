@@ -1,0 +1,76 @@
+{
+    "_embedded": {
+        "r:app": [
+            {
+                "_links": {
+                    "app:asset_group": [
+                        {
+                            "href": "http://wonderful-acceptance.herokuapp.com/api/v1/apps/7e145ee0-dabc-0130-611d-663cccec8f82/contents/8"
+                        }
+                    ], 
+                    "app:assets": {
+                        "href": "http://wonderful-acceptance.herokuapp.com/api/v1/apps/7e145ee0-dabc-0130-611d-663cccec8f82/assets"
+                    }, 
+                    "app:background": {
+                        "href": "http://wonderful-acceptance.herokuapp.com/api/v1/apps/7e145ee0-dabc-0130-611d-663cccec8f82/contents/3"
+                    }, 
+                    "app:menu": {
+                        "href": "http://wonderful-acceptance.herokuapp.com/api/v1/apps/7e145ee0-dabc-0130-611d-663cccec8f82/contents/4"
+                    }, 
+                    "app:menu_style": {
+                        "href": "http://wonderful-acceptance.herokuapp.com/api/v1/apps/7e145ee0-dabc-0130-611d-663cccec8f82/contents/2"
+                    }, 
+                    "app:metadata": {
+                        "href": "http://wonderful-acceptance.herokuapp.com/api/v1/apps/7e145ee0-dabc-0130-611d-663cccec8f82/metadata"
+                    }, 
+                    "app:navbar_style": {
+                        "href": "http://wonderful-acceptance.herokuapp.com/api/v1/apps/7e145ee0-dabc-0130-611d-663cccec8f82/contents/1"
+                    }, 
+                    "app:screen": [
+                        {
+                            "href": "http://wonderful-acceptance.herokuapp.com/api/v1/apps/7e145ee0-dabc-0130-611d-663cccec8f82/contents/5"
+                        }
+                    ], 
+                    "curies": [
+                        {
+                            "href": "http://wonderful.com/rels/app/{rel}", 
+                            "name": "app", 
+                            "templated": "true"
+                        }
+                    ], 
+                    "self": {
+                        "href": "http://wonderful-acceptance.herokuapp.com/api/v1/apps/7e145ee0-dabc-0130-611d-663cccec8f82"
+                    }, 
+                    "type": {
+                        "href": "http://wonderful.com/rels/app"
+                    }
+                }, 
+                "errors": {}, 
+                "icon_id": null, 
+                "id": 297, 
+                "name": "An App A Day", 
+                "next_oid": 9, 
+                "uuid": "7e145ee0-dabc-0130-611d-663cccec8f82"
+            }
+        ]
+    }, 
+    "_links": {
+        "curies": [
+            {
+                "href": "http://wonderful.com/rels/{rel}", 
+                "name": "r", 
+                "templated": "true"
+            }
+        ], 
+        "r:app": [
+            {
+                "href": "http://wonderful-acceptance.herokuapp.com/api/v1/apps/7e145ee0-dabc-0130-611d-663cccec8f82", 
+                "title": "An App A Day"
+            }
+        ], 
+        "self": {
+            "href": "http://wonderful-acceptance.herokuapp.com/api/v1/apps"
+        }
+    }, 
+    "count": 1
+}
