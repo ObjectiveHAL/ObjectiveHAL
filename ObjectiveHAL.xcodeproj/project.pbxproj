@@ -7,15 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18405E084EE84B65AF4A3FF0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E7688A979C64921A72D54A9 /* libPods.a */; };
+		915BC46B17ADF83000230C3C /* OHResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 915BC46717ADF83000230C3C /* OHResource.m */; };
+		915BC46C17ADF83000230C3C /* OHLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 915BC46917ADF83000230C3C /* OHLink.m */; };
 		91ECCC6D17ADE63E00DDCCDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */; };
 		91ECCC7217ADE63E00DDCCDC /* ObjectiveHAL.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91ECCC7117ADE63E00DDCCDC /* ObjectiveHAL.h */; };
-		91ECCC7417ADE63E00DDCCDC /* ObjectiveHAL.m in Sources */ = {isa = PBXBuildFile; fileRef = 91ECCC7317ADE63E00DDCCDC /* ObjectiveHAL.m */; };
 		91ECCC7C17ADE63E00DDCCDC /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC7B17ADE63E00DDCCDC /* SenTestingKit.framework */; };
 		91ECCC7E17ADE63E00DDCCDC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC7D17ADE63E00DDCCDC /* UIKit.framework */; };
 		91ECCC7F17ADE63E00DDCCDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */; };
 		91ECCC8217ADE63E00DDCCDC /* libObjectiveHAL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC6917ADE63E00DDCCDC /* libObjectiveHAL.a */; };
 		91ECCC8817ADE63E00DDCCDC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 91ECCC8617ADE63E00DDCCDC /* InfoPlist.strings */; };
 		91ECCC8B17ADE63E00DDCCDC /* ObjectiveHALTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 91ECCC8A17ADE63E00DDCCDC /* ObjectiveHALTests.m */; };
+		F0694C107CBD4BC581E7CA20 /* libPods-ObjectiveHALTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19DDC463AD3F4C19B4E6C52E /* libPods-ObjectiveHALTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,11 +45,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		19DDC463AD3F4C19B4E6C52E /* libPods-ObjectiveHALTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjectiveHALTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E7688A979C64921A72D54A9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		915BC46717ADF83000230C3C /* OHResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHResource.m; sourceTree = "<group>"; };
+		915BC46817ADF83000230C3C /* OHLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHLink.h; sourceTree = "<group>"; };
+		915BC46917ADF83000230C3C /* OHLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHLink.m; sourceTree = "<group>"; };
+		915BC46A17ADF83000230C3C /* OHResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHResource.h; sourceTree = "<group>"; };
 		91ECCC6917ADE63E00DDCCDC /* libObjectiveHAL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libObjectiveHAL.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		91ECCC7017ADE63E00DDCCDC /* ObjectiveHAL-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjectiveHAL-Prefix.pch"; sourceTree = "<group>"; };
 		91ECCC7117ADE63E00DDCCDC /* ObjectiveHAL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjectiveHAL.h; sourceTree = "<group>"; };
-		91ECCC7317ADE63E00DDCCDC /* ObjectiveHAL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjectiveHAL.m; sourceTree = "<group>"; };
 		91ECCC7A17ADE63E00DDCCDC /* ObjectiveHALTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ObjectiveHALTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91ECCC7B17ADE63E00DDCCDC /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		91ECCC7D17ADE63E00DDCCDC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -54,6 +62,8 @@
 		91ECCC8717ADE63E00DDCCDC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		91ECCC8917ADE63E00DDCCDC /* ObjectiveHALTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjectiveHALTests.h; sourceTree = "<group>"; };
 		91ECCC8A17ADE63E00DDCCDC /* ObjectiveHALTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjectiveHALTests.m; sourceTree = "<group>"; };
+		BAAE93CD195A4CC18E5E82E7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		FD7FA26D3A9C4C4D978D7A7D /* Pods-ObjectiveHALTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectiveHALTests.xcconfig"; path = "Pods/Pods-ObjectiveHALTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +72,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				91ECCC6D17ADE63E00DDCCDC /* Foundation.framework in Frameworks */,
+				18405E084EE84B65AF4A3FF0 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +84,7 @@
 				91ECCC7E17ADE63E00DDCCDC /* UIKit.framework in Frameworks */,
 				91ECCC7F17ADE63E00DDCCDC /* Foundation.framework in Frameworks */,
 				91ECCC8217ADE63E00DDCCDC /* libObjectiveHAL.a in Frameworks */,
+				F0694C107CBD4BC581E7CA20 /* libPods-ObjectiveHALTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +98,8 @@
 				91ECCC8317ADE63E00DDCCDC /* ObjectiveHALTests */,
 				91ECCC6B17ADE63E00DDCCDC /* Frameworks */,
 				91ECCC6A17ADE63E00DDCCDC /* Products */,
+				BAAE93CD195A4CC18E5E82E7 /* Pods.xcconfig */,
+				FD7FA26D3A9C4C4D978D7A7D /* Pods-ObjectiveHALTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,6 +118,8 @@
 				91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */,
 				91ECCC7B17ADE63E00DDCCDC /* SenTestingKit.framework */,
 				91ECCC7D17ADE63E00DDCCDC /* UIKit.framework */,
+				4E7688A979C64921A72D54A9 /* libPods.a */,
+				19DDC463AD3F4C19B4E6C52E /* libPods-ObjectiveHALTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -111,8 +127,11 @@
 		91ECCC6E17ADE63E00DDCCDC /* ObjectiveHAL */ = {
 			isa = PBXGroup;
 			children = (
+				915BC46A17ADF83000230C3C /* OHResource.h */,
+				915BC46717ADF83000230C3C /* OHResource.m */,
+				915BC46817ADF83000230C3C /* OHLink.h */,
+				915BC46917ADF83000230C3C /* OHLink.m */,
 				91ECCC7117ADE63E00DDCCDC /* ObjectiveHAL.h */,
-				91ECCC7317ADE63E00DDCCDC /* ObjectiveHAL.m */,
 				91ECCC6F17ADE63E00DDCCDC /* Supporting Files */,
 			);
 			path = ObjectiveHAL;
@@ -152,9 +171,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 91ECCC8E17ADE63E00DDCCDC /* Build configuration list for PBXNativeTarget "ObjectiveHAL" */;
 			buildPhases = (
+				0030C13BDBFF46D0BAD8DD8C /* Check Pods Manifest.lock */,
 				91ECCC6517ADE63E00DDCCDC /* Sources */,
 				91ECCC6617ADE63E00DDCCDC /* Frameworks */,
 				91ECCC6717ADE63E00DDCCDC /* CopyFiles */,
+				A29BE10C5EEE44788FEB5346 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -169,10 +190,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 91ECCC9117ADE63E00DDCCDC /* Build configuration list for PBXNativeTarget "ObjectiveHALTests" */;
 			buildPhases = (
+				AD705A8166DC49CAB8E94CFA /* Check Pods Manifest.lock */,
 				91ECCC7517ADE63E00DDCCDC /* Sources */,
 				91ECCC7617ADE63E00DDCCDC /* Frameworks */,
 				91ECCC7717ADE63E00DDCCDC /* Resources */,
 				91ECCC7817ADE63E00DDCCDC /* ShellScript */,
+				48BA537A9C6A46A680CA5C25 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -190,6 +213,7 @@
 		91ECCC6117ADE63E00DDCCDC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = OH;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = ObjectiveHAL;
 			};
@@ -223,6 +247,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0030C13BDBFF46D0BAD8DD8C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		48BA537A9C6A46A680CA5C25 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-ObjectiveHALTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		91ECCC7817ADE63E00DDCCDC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -236,6 +290,36 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		A29BE10C5EEE44788FEB5346 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD705A8166DC49CAB8E94CFA /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -243,7 +327,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91ECCC7417ADE63E00DDCCDC /* ObjectiveHAL.m in Sources */,
+				915BC46B17ADF83000230C3C /* OHResource.m in Sources */,
+				915BC46C17ADF83000230C3C /* OHLink.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,11 +417,11 @@
 		};
 		91ECCC8F17ADE63E00DDCCDC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BAAE93CD195A4CC18E5E82E7 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/ObjectiveHAL.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ObjectiveHAL/ObjectiveHAL-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -344,11 +429,11 @@
 		};
 		91ECCC9017ADE63E00DDCCDC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BAAE93CD195A4CC18E5E82E7 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/ObjectiveHAL.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ObjectiveHAL/ObjectiveHAL-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -356,6 +441,7 @@
 		};
 		91ECCC9217ADE63E00DDCCDC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD7FA26D3A9C4C4D978D7A7D /* Pods-ObjectiveHALTests.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
@@ -371,6 +457,7 @@
 		};
 		91ECCC9317ADE63E00DDCCDC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD7FA26D3A9C4C4D978D7A7D /* Pods-ObjectiveHALTests.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
@@ -403,6 +490,7 @@
 				91ECCC9017ADE63E00DDCCDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		91ECCC9117ADE63E00DDCCDC /* Build configuration list for PBXNativeTarget "ObjectiveHALTests" */ = {
 			isa = XCConfigurationList;
@@ -411,6 +499,7 @@
 				91ECCC9317ADE63E00DDCCDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

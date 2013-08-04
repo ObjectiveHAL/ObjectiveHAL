@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ObjectiveHAL : NSObject
+#import <ObjectiveHAL/OHLink.h>
+#import <ObjectiveHAL/OHResource.h>
 
-@end
