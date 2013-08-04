@@ -19,6 +19,7 @@
 		9162597B17AE015200C1791F /* resource-with-embeds.json in Resources */ = {isa = PBXBuildFile; fileRef = 9162597517AE015200C1791F /* resource-with-embeds.json */; };
 		9162597C17AE015200C1791F /* simple-link.json in Resources */ = {isa = PBXBuildFile; fileRef = 9162597617AE015200C1791F /* simple-link.json */; };
 		9162597D17AE015200C1791F /* simple-resource.json in Resources */ = {isa = PBXBuildFile; fileRef = 9162597717AE015200C1791F /* simple-resource.json */; };
+		9176ACA217AE2BC1000767F0 /* contact.json in Resources */ = {isa = PBXBuildFile; fileRef = 9176ACA117AE2BC1000767F0 /* contact.json */; };
 		91ECCC6D17ADE63E00DDCCDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */; };
 		91ECCC7217ADE63E00DDCCDC /* ObjectiveHAL.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91ECCC7117ADE63E00DDCCDC /* ObjectiveHAL.h */; };
 		91ECCC7C17ADE63E00DDCCDC /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC7B17ADE63E00DDCCDC /* SenTestingKit.framework */; };
@@ -74,6 +75,7 @@
 		9162598117AE018E00C1791F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		9162598917AE018E00C1791F /* ObjectiveHAL.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ObjectiveHAL.podspec; sourceTree = "<group>"; };
 		91625A9B17AE018E00C1791F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		9176ACA117AE2BC1000767F0 /* contact.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = contact.json; sourceTree = "<group>"; };
 		91ECCC6917ADE63E00DDCCDC /* libObjectiveHAL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libObjectiveHAL.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		91ECCC7017ADE63E00DDCCDC /* ObjectiveHAL-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjectiveHAL-Prefix.pch"; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				9162597517AE015200C1791F /* resource-with-embeds.json */,
 				9162597617AE015200C1791F /* simple-link.json */,
 				9162597717AE015200C1791F /* simple-resource.json */,
+				9176ACA117AE2BC1000767F0 /* contact.json */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				9162597B17AE015200C1791F /* resource-with-embeds.json in Resources */,
 				9162597C17AE015200C1791F /* simple-link.json in Resources */,
 				9162597D17AE015200C1791F /* simple-resource.json in Resources */,
+				9176ACA217AE2BC1000767F0 /* contact.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

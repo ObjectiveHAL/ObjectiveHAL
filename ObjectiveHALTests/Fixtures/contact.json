@@ -1,0 +1,40 @@
+{
+  "first_name": "Henry",
+  "last_name": "Ford",
+  "_links": {
+    "self": {
+      href="http://tempuri.org/contacts/1234"
+    },
+    "curies": [
+      {
+        "href": "http://tempuri.org/rels/address/{rel}",
+        "name": "addr",
+        "templated": "true"
+      }
+    ],
+    "addr:home": {
+      "href": "http://tempuri.org/address/827"
+    },
+    "addr:work": {
+      "href": "http://tempuri.org/address/6421"
+    }
+  },
+  "_embedded": {
+      "addr:home": {
+          "_links": {
+              "self": "http://tempuri.org/address/827"
+          },
+          "street": "123 Main Street",
+          "city": "Detroit",
+          "state": "MI"
+      },
+      "addr:work": {
+          "_links": {
+              "self": "http://tempuri.org/address/6421"
+          },
+          "street": "1 Ford Drive",
+          "city": "Detroit",
+          "state": "MI"
+      }
+  }
+}

@@ -96,6 +96,6 @@
     // then
     assertThat(embeddedResource, notNilValue());
     assertThat([embeddedResource linkForRel:@"self"], is(embeddedResourceLink));
-    
 }
+
 @end
