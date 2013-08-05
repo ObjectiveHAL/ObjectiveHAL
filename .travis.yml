@@ -3,4 +3,5 @@
 
     before_script: travis/before_script.sh
     script: travis/script.sh
+    after_script: travis/after_script.sh
 

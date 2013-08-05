@@ -1,9 +1,8 @@
-platform :ios, '6.0'
-
+platform :ios, '6.1'
 
 target :ObjectiveHALTests, :exclusive => true do
     pod 'OCHamcrest'
 end
 
 pod 'CSURITemplate'
-# pod 'AFNetworking', '~> 1.3'
+pod 'AFNetworking', '~> 1.3'

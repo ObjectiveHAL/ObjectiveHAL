@@ -3,7 +3,7 @@
 //  ObjectiveHAL
 //
 //  Created by Bennett Smith on 7/30/13.
-//  Copyright (c) 2013 ObjectiveHAL. All rights reserved.
+//  Copyright (c) 2013 Mobile App Machine LLC. All rights reserved.
 //
 
 #import "OHLink.h"
@@ -44,4 +44,9 @@
     return [self.href hash];
 }
 
+- (NSString *)debugDescription
+{
+    NSString *dd = [NSString stringWithFormat:@"<%@: %p>{ href='%@' }", NSStringFromClass([self class]), self, self.href];
+    return dd;
+}
 @end

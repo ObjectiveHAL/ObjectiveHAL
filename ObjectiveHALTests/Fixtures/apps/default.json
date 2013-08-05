@@ -1,0 +1,77 @@
+{
+  "_embedded": {
+    "r:app": [
+      {
+        "_links": {
+          "self": {
+            "href": "/app/2"
+          },
+          "app:icon": {
+            "href": "/images/i300.png"
+          }
+        },
+        "name": "High Altitude Survival",
+        "synopsis": "A series of short films that illustrate some of the dangers inherent in high altitude mountainering and discuss life-saving survival techniques."
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/app/3"
+          },
+          "app:icon": {
+            "href": "/images.i970.png"
+          }
+        },
+        "name": "CPR Instructions",
+        "synopsis": "Red Cross instructional materials to teach CPR."
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/app/1"
+          },
+          "app:icon": {
+            "href": "/images/i310.png"
+          }
+        },
+        "name": "Family First-Aid",
+        "synopsis": "Learn seven first-aid skills that will help keep your family safe."
+      }
+    ]
+  },
+  "_links": {
+    "curies": [
+      {
+        "href": "http://tempuri.org/rels/{rel}",
+        "name": "r",
+        "templated": "true"
+      },
+      {
+        "href": "http://tempuri.org/rels/app/{rel}",
+        "name": "app",
+        "templated": "true"
+      }
+    ],
+    "self": {
+      "href": "/api/applications"
+    },
+    "r:category": {
+      "href": "/category/1",
+      "title": "Safety Applications"
+    },
+    "r:app": [
+      {
+        "href": "/app/1",
+        "title": "Family First-Aid"
+      },
+      {
+        "href": "/app/2",
+        "title": "High Altitude Survival"
+      },
+      {
+        "href": "/app/3",
+        "title": "CPR Instructions"
+      }
+    ]
+  }
+}

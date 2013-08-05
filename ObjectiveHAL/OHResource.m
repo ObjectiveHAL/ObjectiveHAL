@@ -3,7 +3,7 @@
 //  ObjectiveHAL
 //
 //  Created by Bennett Smith on 7/30/13.
-//  Copyright (c) 2013 ObjectiveHAL. All rights reserved.
+//  Copyright (c) 2013 Mobile App Machine LLC. All rights reserved.
 //
 
 #import "OHResource.h"
@@ -37,6 +37,12 @@
         }
     }
     return self;
+}
+
++ (OHResource *)resourceWithJSONData:(id)jsonData
+{
+    OHResource *resource = [[OHResource alloc] initWithJSONData:jsonData];
+    return resource;
 }
 
 - (BOOL)isEqual:(id)object
@@ -194,4 +200,10 @@
     return embeddedResources;
 }
 
+- (NSString *)debugDescription
+{
+    NSString *dd = [NSString stringWithFormat:@"<%@: %p>{ links=%d, curies=%d, embedded=%d }",
+                    NSStringFromClass([self class]), self, self.links.count, self.curies.count, self.embedded.count];
+    return dd;
+}
 @end

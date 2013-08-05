@@ -1,0 +1,24 @@
+{
+  "_links": {
+    "curies": [
+      {
+        "href": "http://tempuri.org/rels/{rel}",
+        "name": "r",
+        "templated": "true"
+      },
+      {
+        "href": "http://tempuri.org/rels/app/{rel}",
+        "name": "app",
+        "templated": "true"
+      }
+    ],
+    "self": {
+      "href": "/app/2"
+    },
+    "app:icon": {
+      "href": "/images/i300.png"
+    }
+  },
+  "name": "High Altitude Survival",
+  "synopsis": "A series of short films that illustrate some of the dangers inherent in high altitude mountainering and discuss life-saving survival techniques."
+}

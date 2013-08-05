@@ -20,10 +20,21 @@
 		9162597C17AE015200C1791F /* simple-link.json in Resources */ = {isa = PBXBuildFile; fileRef = 9162597617AE015200C1791F /* simple-link.json */; };
 		9162597D17AE015200C1791F /* simple-resource.json in Resources */ = {isa = PBXBuildFile; fileRef = 9162597717AE015200C1791F /* simple-resource.json */; };
 		9176ACA217AE2BC1000767F0 /* contact.json in Resources */ = {isa = PBXBuildFile; fileRef = 9176ACA117AE2BC1000767F0 /* contact.json */; };
+		917AC2E217AF204C005D3A4D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2E117AF204C005D3A4D /* Security.framework */; };
+		917AC2E417AF2053005D3A4D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2E317AF2053005D3A4D /* MobileCoreServices.framework */; };
+		917AC2E617AF2059005D3A4D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2E517AF2059005D3A4D /* SystemConfiguration.framework */; };
+		917AC2E717AF2060005D3A4D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2E517AF2059005D3A4D /* SystemConfiguration.framework */; };
+		917AC2E817AF2063005D3A4D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2E317AF2053005D3A4D /* MobileCoreServices.framework */; };
+		917AC2E917AF2065005D3A4D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2E117AF204C005D3A4D /* Security.framework */; };
+		917AC2EC17AF20BB005D3A4D /* OHClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 917AC2EB17AF20BB005D3A4D /* OHClient.m */; };
+		917AC2EE17AF279B005D3A4D /* OHClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 917AC2ED17AF279B005D3A4D /* OHClientTests.m */; };
+		917AC2FA17AF8198005D3A4D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2F917AF8198005D3A4D /* CoreGraphics.framework */; };
+		917AC2FC17AF819E005D3A4D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2FB17AF819E005D3A4D /* UIKit.framework */; };
+		917AC2FD17AF81A9005D3A4D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2F917AF8198005D3A4D /* CoreGraphics.framework */; };
+		917AC2FE17AF81AE005D3A4D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2FB17AF819E005D3A4D /* UIKit.framework */; };
 		91ECCC6D17ADE63E00DDCCDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */; };
 		91ECCC7217ADE63E00DDCCDC /* ObjectiveHAL.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91ECCC7117ADE63E00DDCCDC /* ObjectiveHAL.h */; };
 		91ECCC7C17ADE63E00DDCCDC /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC7B17ADE63E00DDCCDC /* SenTestingKit.framework */; };
-		91ECCC7E17ADE63E00DDCCDC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC7D17ADE63E00DDCCDC /* UIKit.framework */; };
 		91ECCC7F17ADE63E00DDCCDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */; };
 		91ECCC8217ADE63E00DDCCDC /* libObjectiveHAL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC6917ADE63E00DDCCDC /* libObjectiveHAL.a */; };
 		91ECCC8817ADE63E00DDCCDC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 91ECCC8617ADE63E00DDCCDC /* InfoPlist.strings */; };
@@ -76,6 +87,20 @@
 		9162598917AE018E00C1791F /* ObjectiveHAL.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ObjectiveHAL.podspec; sourceTree = "<group>"; };
 		91625A9B17AE018E00C1791F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		9176ACA117AE2BC1000767F0 /* contact.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = contact.json; sourceTree = "<group>"; };
+		917AC2E117AF204C005D3A4D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		917AC2E317AF2053005D3A4D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		917AC2E517AF2059005D3A4D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		917AC2EA17AF20BB005D3A4D /* OHClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHClient.h; sourceTree = "<group>"; };
+		917AC2EB17AF20BB005D3A4D /* OHClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHClient.m; sourceTree = "<group>"; };
+		917AC2ED17AF279B005D3A4D /* OHClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHClientTests.m; sourceTree = "<group>"; };
+		917AC2EF17AF2AC7005D3A4D /* travis */ = {isa = PBXFileReference; lastKnownFileType = folder; path = travis; sourceTree = "<group>"; };
+		917AC2F417AF7CE1005D3A4D /* default.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = default.json; path = apps/default.json; sourceTree = "<group>"; };
+		917AC2F617AF7D26005D3A4D /* 3.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = 3.json; path = app/3.json; sourceTree = "<group>"; };
+		917AC2F717AF7D26005D3A4D /* 2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = 2.json; path = app/2.json; sourceTree = "<group>"; };
+		917AC2F817AF7D26005D3A4D /* 1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = 1.json; path = app/1.json; sourceTree = "<group>"; };
+		917AC2F917AF8198005D3A4D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		917AC2FB17AF819E005D3A4D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		917AC30017AF89D8005D3A4D /* 1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = 1.json; path = category/1.json; sourceTree = "<group>"; };
 		91ECCC6917ADE63E00DDCCDC /* libObjectiveHAL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libObjectiveHAL.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		91ECCC7017ADE63E00DDCCDC /* ObjectiveHAL-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjectiveHAL-Prefix.pch"; sourceTree = "<group>"; };
@@ -94,6 +119,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				917AC2FC17AF819E005D3A4D /* UIKit.framework in Frameworks */,
+				917AC2FA17AF8198005D3A4D /* CoreGraphics.framework in Frameworks */,
+				917AC2E617AF2059005D3A4D /* SystemConfiguration.framework in Frameworks */,
+				917AC2E417AF2053005D3A4D /* MobileCoreServices.framework in Frameworks */,
+				917AC2E217AF204C005D3A4D /* Security.framework in Frameworks */,
 				91ECCC6D17ADE63E00DDCCDC /* Foundation.framework in Frameworks */,
 				18405E084EE84B65AF4A3FF0 /* libPods.a in Frameworks */,
 			);
@@ -103,11 +133,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				917AC2FE17AF81AE005D3A4D /* UIKit.framework in Frameworks */,
+				917AC2FD17AF81A9005D3A4D /* CoreGraphics.framework in Frameworks */,
 				91ECCC7C17ADE63E00DDCCDC /* SenTestingKit.framework in Frameworks */,
-				91ECCC7E17ADE63E00DDCCDC /* UIKit.framework in Frameworks */,
 				91ECCC7F17ADE63E00DDCCDC /* Foundation.framework in Frameworks */,
 				91ECCC8217ADE63E00DDCCDC /* libObjectiveHAL.a in Frameworks */,
 				F0694C107CBD4BC581E7CA20 /* libPods-ObjectiveHALTests.a in Frameworks */,
+				917AC2E717AF2060005D3A4D /* SystemConfiguration.framework in Frameworks */,
+				917AC2E817AF2063005D3A4D /* MobileCoreServices.framework in Frameworks */,
+				917AC2E917AF2065005D3A4D /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,6 +151,9 @@
 		9162597117AE015200C1791F /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				917AC2FF17AF8985005D3A4D /* category */,
+				917AC2F517AF7CE7005D3A4D /* app */,
+				917AC2F317AF7CC4005D3A4D /* apps */,
 				9162597217AE015200C1791F /* complete-link.json */,
 				9162597317AE015200C1791F /* curies-resource.json */,
 				9162597417AE015200C1791F /* orders.json */,
@@ -128,12 +165,39 @@
 			path = Fixtures;
 			sourceTree = "<group>";
 		};
+		917AC2F317AF7CC4005D3A4D /* apps */ = {
+			isa = PBXGroup;
+			children = (
+				917AC2F417AF7CE1005D3A4D /* default.json */,
+			);
+			name = apps;
+			sourceTree = "<group>";
+		};
+		917AC2F517AF7CE7005D3A4D /* app */ = {
+			isa = PBXGroup;
+			children = (
+				917AC2F617AF7D26005D3A4D /* 3.json */,
+				917AC2F717AF7D26005D3A4D /* 2.json */,
+				917AC2F817AF7D26005D3A4D /* 1.json */,
+			);
+			name = app;
+			sourceTree = "<group>";
+		};
+		917AC2FF17AF8985005D3A4D /* category */ = {
+			isa = PBXGroup;
+			children = (
+				917AC30017AF89D8005D3A4D /* 1.json */,
+			);
+			name = category;
+			sourceTree = "<group>";
+		};
 		91ECCC6017ADE63E00DDCCDC = {
 			isa = PBXGroup;
 			children = (
 				9162598117AE018E00C1791F /* LICENSE */,
 				91625A9B17AE018E00C1791F /* README.md */,
 				9162598017AE018E00C1791F /* .travis.yml */,
+				917AC2EF17AF2AC7005D3A4D /* travis */,
 				9162597F17AE018E00C1791F /* .gitignore */,
 				9162598917AE018E00C1791F /* ObjectiveHAL.podspec */,
 				91ECCC6E17ADE63E00DDCCDC /* ObjectiveHAL */,
@@ -157,6 +221,11 @@
 		91ECCC6B17ADE63E00DDCCDC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				917AC2FB17AF819E005D3A4D /* UIKit.framework */,
+				917AC2F917AF8198005D3A4D /* CoreGraphics.framework */,
+				917AC2E517AF2059005D3A4D /* SystemConfiguration.framework */,
+				917AC2E317AF2053005D3A4D /* MobileCoreServices.framework */,
+				917AC2E117AF204C005D3A4D /* Security.framework */,
 				91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */,
 				91ECCC7B17ADE63E00DDCCDC /* SenTestingKit.framework */,
 				91ECCC7D17ADE63E00DDCCDC /* UIKit.framework */,
@@ -169,6 +238,8 @@
 		91ECCC6E17ADE63E00DDCCDC /* ObjectiveHAL */ = {
 			isa = PBXGroup;
 			children = (
+				917AC2EA17AF20BB005D3A4D /* OHClient.h */,
+				917AC2EB17AF20BB005D3A4D /* OHClient.m */,
 				915BC46A17ADF83000230C3C /* OHResource.h */,
 				915BC46717ADF83000230C3C /* OHResource.m */,
 				915BC46817ADF83000230C3C /* OHLink.h */,
@@ -190,6 +261,7 @@
 		91ECCC8317ADE63E00DDCCDC /* ObjectiveHALTests */ = {
 			isa = PBXGroup;
 			children = (
+				917AC2ED17AF279B005D3A4D /* OHClientTests.m */,
 				9162596A17ADFED200C1791F /* OHLinkTests.m */,
 				9162596B17ADFED200C1791F /* OHResourceTests.m */,
 				9162596C17ADFED200C1791F /* NSData+TestInfected.h */,
@@ -381,6 +453,7 @@
 			files = (
 				915BC46B17ADF83000230C3C /* OHResource.m in Sources */,
 				915BC46C17ADF83000230C3C /* OHLink.m in Sources */,
+				917AC2EC17AF20BB005D3A4D /* OHClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +464,7 @@
 				9162596E17ADFED200C1791F /* OHLinkTests.m in Sources */,
 				9162596F17ADFED200C1791F /* OHResourceTests.m in Sources */,
 				9162597017ADFED200C1791F /* NSData+TestInfected.m in Sources */,
+				917AC2EE17AF279B005D3A4D /* OHClientTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
