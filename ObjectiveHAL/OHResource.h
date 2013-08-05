@@ -18,8 +18,4 @@
 - (OHLink *)linkForRel:(NSString *)rel;
 - (NSArray *)linksForRel:(NSString *)rel;
 
-- (OHResource *)embeddedResourceForRel:(NSString *)rel;
-- (NSArray *)embeddedResourcesForRel:(NSString *)rel;
-
-
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "OHResource.h"
+#import "OHResource+PrivateMethods.h"
+
 #import "OHLink.h"
 #import "CSURITemplate.h"
 
@@ -174,6 +176,17 @@
     return nil;
 }
 
+- (NSString *)debugDescription
+{
+    NSString *dd = [NSString stringWithFormat:@"<%@: %p>{ links=%d, curies=%d, embedded=%d }",
+                    NSStringFromClass([self class]), self, self.links.count, self.curies.count, self.embedded.count];
+    return dd;
+}
+
+@end
+
+@implementation OHResource (PrivateMethods)
+
 - (OHResource *)embeddedResourceForRel:(NSString *)rel
 {
     OHResource *embeddedResource = [[self embeddedResourcesForRel:rel] objectAtIndex:0];
@@ -200,10 +213,4 @@
     return embeddedResources;
 }
 
-- (NSString *)debugDescription
-{
-    NSString *dd = [NSString stringWithFormat:@"<%@: %p>{ links=%d, curies=%d, embedded=%d }",
-                    NSStringFromClass([self class]), self, self.links.count, self.curies.count, self.embedded.count];
-    return dd;
-}
 @end

@@ -18,3 +18,5 @@ profile
 DerivedData
 .idea/
 Pods
+lighttpd/error.log
+lighttpd/access.log

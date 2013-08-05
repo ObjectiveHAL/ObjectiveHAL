@@ -7,9 +7,10 @@
 //
     // Class under test
 #import "OHResource.h"
-#import "OHLink.h"
 
     // Collaborators
+#import "OHResource+PrivateMethods.h"
+#import "OHLink.h"
 
     // Test support
 #import <SenTestingKit/SenTestingKit.h>

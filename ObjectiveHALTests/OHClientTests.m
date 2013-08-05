@@ -130,6 +130,7 @@
         NSLog(@"%@", [targetResource debugDescription]);
     } whenFinished:^{
         assertThatUnsignedInteger([apps count], is(equalToUnsignedInteger(3)));
+        self.done = YES;
     }];
     
     // then
