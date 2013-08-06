@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = "ObjectiveHAL"
-    s.version      = "0.1.1"
+    s.version      = "0.1.2"
     s.summary      = "Objective-C implementation of the JSON Hypertext Application Language."
     s.homepage     = "https://github.com/ObjectiveHAL/ObjectiveHAL"
     s.license      = { :type => 'MIT', :file => 'LICENSE' }
@@ -13,4 +13,5 @@ Pod::Spec.new do |s|
     s.requires_arc = true
     
     s.dependency 'CSURITemplate'
+    s.dependency 'AFNetworking', '~> 1.3'
 end
