@@ -24,5 +24,5 @@
 @property (strong, nonatomic, readonly) NSString *hreflang;
 
 - (id)initWithJSONData:(id)jsonData rel:(NSString *)rel;
-
+- (id)initWithRel:(NSString *)rel href:(NSString *)href;
 @end

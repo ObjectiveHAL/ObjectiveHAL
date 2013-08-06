@@ -12,10 +12,16 @@
 
 @interface OHResource : NSObject
 
+@property (nonatomic, assign) BOOL useEmbeddedResources;
+@property (nonatomic, strong, readonly) NSDictionary *json;
+
 - (id)initWithJSONData:(id)jsonData;
 + (OHResource *)resourceWithJSONData:(id)jsonData;
 
 - (OHLink *)linkForRel:(NSString *)rel;
 - (NSArray *)linksForRel:(NSString *)rel;
+
+- (OHResource *)embeddedResourceForRel:(NSString *)rel;
+- (NSArray *)embeddedResourcesForRel:(NSString *)rel;
 
 @end

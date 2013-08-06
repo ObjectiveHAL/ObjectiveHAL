@@ -13,9 +13,9 @@
 #import "CSURITemplate.h"
 
 @interface OHResource ()
-@property (nonatomic, strong) NSDictionary *links;
-@property (nonatomic, strong) NSDictionary *curies;
-@property (nonatomic, strong) NSDictionary *embedded;
+@property (nonatomic, strong, readonly) NSDictionary *links;
+@property (nonatomic, strong, readonly) NSDictionary *curies;
+@property (nonatomic, strong, readonly) NSDictionary *embedded;
 @end
 
 @implementation OHResource
@@ -25,14 +25,19 @@
     self = [super init];
     if (self) {
         if ([jsonData isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *data = (NSDictionary *)jsonData;
+            NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary *)jsonData];;
             NSDictionary *linksData = [data objectForKey:@"_links"];
             NSDictionary *embeddedData = [data objectForKey:@"_embedded"];
             
             _curies = [OHResource curiesFromJSONData:[linksData objectForKey:@"curies"]];
             _links = [OHResource linksFromJSONData:linksData withCuries:_curies];
             _embedded = [OHResource embeddedFromJSONData:embeddedData withCuries:_curies];
+
+            [data removeObjectForKey:@"_links"];
+            [data removeObjectForKey:@"_embedded"];
+            _json = [NSDictionary dictionaryWithDictionary:data];
             
+            _useEmbeddedResources = NO;
         } else {
             // ERROR: Expecting an NSDictionary.
             self = nil;
@@ -176,41 +181,44 @@
     return nil;
 }
 
-- (NSString *)debugDescription
-{
-    NSString *dd = [NSString stringWithFormat:@"<%@: %p>{ links=%d, curies=%d, embedded=%d }",
-                    NSStringFromClass([self class]), self, self.links.count, self.curies.count, self.embedded.count];
-    return dd;
-}
-
-@end
-
-@implementation OHResource (PrivateMethods)
-
-- (OHResource *)embeddedResourceForRel:(NSString *)rel
-{
-    OHResource *embeddedResource = [[self embeddedResourcesForRel:rel] objectAtIndex:0];
-    return embeddedResource;
-}
-
 - (NSArray *)embeddedResourcesForRel:(NSString *)rel
 {
     NSMutableArray *embeddedResources = [NSMutableArray array];
     
     NSString *absoluteRel = [OHResource expandRelationIfPossible:rel withCuries:self.curies];
-    id value = [self.embedded objectForKey:absoluteRel];
-    if ([value isKindOfClass:[NSArray class]]) {
-        for (id embeddedJSONData in value) {
-            OHResource *embeddedResource = [[OHResource alloc] initWithJSONData:embeddedJSONData];
+    id embeddedJSON = [self.embedded objectForKey:absoluteRel];
+    if (embeddedJSON) {
+        if ([embeddedJSON isKindOfClass:[NSDictionary class]]) {
+            // Just one object.
+            OHResource *embeddedResource = [OHResource resourceWithJSONData:embeddedJSON];
             [embeddedResources addObject:embeddedResource];
+        } else if ([embeddedJSON isKindOfClass:[NSArray class]]) {
+            // Multiple embedded objects.
+            for (id json in embeddedJSON) {
+                OHResource *embeddedResource = [OHResource resourceWithJSONData:json];
+                [embeddedResources addObject:embeddedResource];
+            }
         }
-    } else if ([value isKindOfClass:[NSDictionary class]]) {
-        OHResource *embeddedResource = [[OHResource alloc] initWithJSONData:value];
-        [embeddedResources addObject:embeddedResource];
-    } else {
-        // TODO: Handle error.
     }
+    
     return embeddedResources;
+}
+
+- (OHResource *)embeddedResourceForRel:(NSString *)rel
+{
+    NSArray *embeddedResources = [self embeddedResourcesForRel:rel];
+    if (embeddedResources) {
+        return [embeddedResources objectAtIndex:0];
+    } else {
+        return nil;
+    }
+}
+
+- (NSString *)debugDescription
+{
+    NSString *dd = [NSString stringWithFormat:@"<%@: %p>{ links=%d, curies=%d, embedded=%d }",
+                    NSStringFromClass([self class]), self, self.links.count, self.curies.count, self.embedded.count];
+    return dd;
 }
 
 @end

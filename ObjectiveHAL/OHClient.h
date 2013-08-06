@@ -17,13 +17,10 @@ typedef void (^ObjectiveHALCompletionHandler)(void);
 
 @interface OHClient : AFHTTPClient
 
-// Used to "prime the pump" and get the first resource from a service.
-- (void)getOHResource:(NSString *)resourcePath whenFinished:(ObjectiveHALResourceHandler)resourceHandler;
+- (void)followLinkForPath:(NSString *)path whenFinished:(ObjectiveHALFollowHandler)followHandler;
 
-// Follow a link 
-- (void)followLink:(OHLink *)link whenFinished:(ObjectiveHALFollowHandler)followHandler;
+- (void)followLinkForRel:(NSString *)rel inResource:(OHResource *)resource whenFinished:(ObjectiveHALFollowHandler)followHandler;
 
-// Follow all links matching a given rel.
-- (void)followLinksInResource:(OHResource *)resource forRel:(NSString *)rel forEach:(ObjectiveHALFollowHandler)followHandler whenFinished:(ObjectiveHALCompletionHandler)completionHandler;
+- (void)followLinksForRel:(NSString *)rel inResource:(OHResource *)resource forEach:(ObjectiveHALFollowHandler)followHandler whenFinished:(ObjectiveHALCompletionHandler)completionHandler;
 
 @end

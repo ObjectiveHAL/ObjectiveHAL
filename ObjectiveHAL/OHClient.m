@@ -29,34 +29,38 @@
 #pragma mark -                                       HAL Resource Access Methods
 // *****************************************************************************
 
-- (void)getOHResource:(NSString *)resourcePath whenFinished:(ObjectiveHALResourceHandler)resourceHandler
+- (void)followLinkForPath:(NSString *)path whenFinished:(ObjectiveHALFollowHandler)followHandler;
 {
-    [self getPath:resourcePath parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSError *error = nil;
-        id jsonData = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&error];
-        if (!error) {
-            OHResource *resource = [[OHResource alloc] initWithJSONData:jsonData];
-            resourceHandler(resource, error);
-        } else {
-            resourceHandler(nil, error);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        resourceHandler(nil, error);
-    }];
+    OHLink *synthesizedLink = [[OHLink alloc] initWithRel:@"http://tempuri.org/rel/unknown" href:path];
+    [self getPath:path parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              [self processHALResourceResponse:responseObject forLink:synthesizedLink followHandler:followHandler];
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              followHandler(synthesizedLink, nil, error);
+          }
+     ];
 }
 
-- (void)followLink:(OHLink *)link whenFinished:(ObjectiveHALFollowHandler)followHandler
+- (void)followLinkForRel:(NSString *)rel inResource:(OHResource *)resource whenFinished:(ObjectiveHALFollowHandler)followHandler
 {
-    AFHTTPRequestOperation *operation = [self constructOperationToFollowLink:link];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self processHALResourceResponse:responseObject forLink:link followHandler:followHandler];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        followHandler(link, nil, error);
-    }];
-    [self enqueueHTTPRequestOperation:operation];
+    OHLink *link = [resource linkForRel:rel];
+    
+    OHResource *embeddedResource = [resource embeddedResourceForRel:rel];
+    if (embeddedResource) {
+        followHandler(link, embeddedResource, nil);
+    } else {
+        AFHTTPRequestOperation *operation = [self constructOperationToFollowLink:link];
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self processHALResourceResponse:responseObject forLink:link followHandler:followHandler];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            followHandler(link, nil, error);
+        }];
+        [self enqueueHTTPRequestOperation:operation];
+    }
 }
 
-- (void)followLinksInResource:(OHResource *)resource forRel:(NSString *)rel forEach:(ObjectiveHALFollowHandler)followHandler whenFinished:(ObjectiveHALCompletionHandler)completionHandler
+- (void)followLinksForRel:(NSString *)rel inResource:(OHResource *)resource forEach:(ObjectiveHALFollowHandler)followHandler whenFinished:(ObjectiveHALCompletionHandler)completionHandler
 {
     NSArray *links = [resource linksForRel:rel];
     NSMutableArray *followRequests = [NSMutableArray array];
@@ -68,12 +72,24 @@
     } completionBlock:^(NSArray *operations) {
         [self processOperations:operations usingFollowRequestLinkMap:followRequestLinkMap visiting:followHandler];
         completionHandler();
-    }];    
+    }];
 }
 
 // *****************************************************************************
 #pragma mark -                                           Internal Helper Methods
 // *****************************************************************************
+
+- (void)processHALResourceResponse:(id)responseObject resourceHandler:(ObjectiveHALResourceHandler)resourceHandler
+{
+    NSError *error = nil;
+    id jsonData = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&error];
+    if (!error) {
+        OHResource *resource = [[OHResource alloc] initWithJSONData:jsonData];
+        resourceHandler(resource, error);
+    } else {
+        resourceHandler(nil, error);
+    }
+}
 
 - (void)prepareFollowRequests:(NSMutableArray *)followRequests withLinkMap:(NSMutableDictionary *)followRequestLinkMap usingLinks:(NSArray *)links
 {

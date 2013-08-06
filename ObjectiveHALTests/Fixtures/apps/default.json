@@ -37,7 +37,19 @@
         "name": "Family First-Aid",
         "synopsis": "Learn seven first-aid skills that will help keep your family safe."
       }
-    ]
+    ],
+    "r:category": {
+      "_links": {
+        "self": {
+          "href": "/category/1"
+        },
+        "app:icon": {
+          "href": "/images/i88.png"
+        }
+      },
+      "name": "Safety Applications",
+      "appCount": "3"
+    }
   },
   "_links": {
     "curies": [

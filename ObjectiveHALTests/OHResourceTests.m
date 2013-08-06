@@ -99,4 +99,21 @@
     assertThat([embeddedResource linkForRel:@"self"], is(embeddedResourceLink));
 }
 
+- (void)testFetchingResourceJSON
+{
+    // given
+    NSError *error = nil;
+    NSData *data = [NSData fetchTestFixtureByName:@"contact" fromBundle:testBundle];
+    assertThat(data, notNilValue());
+    id contact = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    OHResource *resource = [[OHResource alloc] initWithJSONData:contact];
+    assertThat(resource, notNilValue());
+
+    // when
+    id json = [resource json];
+    
+    // then
+    assertThatBool([json isKindOfClass:[NSDictionary class]], is(equalToBool(YES)));
+}
+
 @end

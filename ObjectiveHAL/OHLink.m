@@ -30,6 +30,16 @@
     return self;
 }
 
+- (id)initWithRel:(NSString *)rel href:(NSString *)href
+{
+    self = [super init];
+    if (self) {
+        _rel = [rel copy];
+        _href = [href copy];
+    }
+    return self;
+}
+
 - (BOOL)isEqual:(id)object
 {
     if ([object isKindOfClass:[self class]]) {
