@@ -6,6 +6,12 @@
 //  Copyright (c) 2013 Mobile App Machine LLC. All rights reserved.
 //
 
+#import <Security/Security.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+
+#import <AFNetworking/AFNetworking.h>
+
 #import "OHClient.h"
 #import "OHResource.h"
 #import "OHLink.h"
