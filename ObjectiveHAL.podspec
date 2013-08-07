@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
 
     s.summary      = "Objective-C implementation of the JSON Hypertext Application Language."
 
-    spec.authors = { 'Bennett Smith' => 'bennett@focalshift.com',
+    s.authors      = { 'Bennett Smith' => 'bennett@focalshift.com',
                      'Andre Musie' => 'andre@wonderful.com' }
 
     s.source       = { :git => "https://github.com/ObjectiveHAL/ObjectiveHAL.git", 
