@@ -165,8 +165,9 @@
     
     if (curie && [curie isTemplate]) {
         NSString *relValue = [relURL resourceSpecifier];
-        CSURITemplate *template = [[CSURITemplate alloc] initWithURITemplate:[curie href]];
-        rel = [template URIWithVariables:@{@"rel": relValue}];
+        NSError *error = nil;
+        CSURITemplate *template = [CSURITemplate URITemplateWithString:[curie href] error:&error];
+        rel = [template relativeStringWithVariables:@{@"rel": relValue} error:&error];
     } else if (curie) {
         rel = [curie href];
     }

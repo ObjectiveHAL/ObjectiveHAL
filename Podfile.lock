@@ -1,6 +1,6 @@
 PODS:
   - AFNetworking (1.3.1)
-  - CSURITemplate (0.1.1)
+  - CSURITemplate (0.2)
   - OCHamcrest (2.1.0)
 
 DEPENDENCIES:
@@ -10,7 +10,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 9ec8aafb9269236a7630bd8d9838ce2ba30fa2a0
-  CSURITemplate: d3ec6da88799010195522e0c20e049a18da6a6aa
+  CSURITemplate: 918e69048071a6555056a206e0abfb2214b6476f
   OCHamcrest: 96f5cb58fa0fd4b3609d37fe21e5246b259bba2a
 
 COCOAPODS: 0.22.3
