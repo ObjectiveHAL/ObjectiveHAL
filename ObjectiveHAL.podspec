@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
     s.source_files = 'ObjectiveHAL', 'ObjectiveHAL/**/*.{h,m}'
     s.public_header_files = 'ObjectiveHAL/*.h'
     s.requires_arc = true
-    
+    s.frameworks   = 'Security', 'SystemConfiguration', 'MobileCoreServices', 'CoreGraphics'    
     s.dependency 'CSURITemplate'
     s.dependency 'AFNetworking', '~> 1.3'
 end
