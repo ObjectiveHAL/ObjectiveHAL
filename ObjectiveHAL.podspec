@@ -1,17 +1,28 @@
 Pod::Spec.new do |s|
     s.name         = "ObjectiveHAL"
     s.version      = "0.1.3"
-    s.summary      = "Objective-C implementation of the JSON Hypertext Application Language."
-    s.homepage     = "https://github.com/ObjectiveHAL/ObjectiveHAL"
     s.license      = { :type => 'MIT', :file => 'LICENSE' }
-    s.author       = { "Bennett Smith" => "bennett@focalshift.com" }
-    s.source       = { :git => "https://github.com/ObjectiveHAL/ObjectiveHAL.git", :tag => "0.1.3" }
-    s.ios.deployment_target = '6.0'
-    s.osx.deployment_target = '10.7'
+
+    s.homepage     = "https://github.com/ObjectiveHAL/ObjectiveHAL"
+
+    s.summary      = "Objective-C implementation of the JSON Hypertext Application Language."
+
+    spec.authors = { 'Bennett Smith' => 'bennett@focalshift.com',
+                     'Andre Musie' => 'andre@wonderful.com' }
+
+    s.source       = { :git => "https://github.com/ObjectiveHAL/ObjectiveHAL.git", 
+                       :tag => "0.1.3" }
+
+    s.platform = :ios
+    s.ios.deployment_target = '6.1'
+
     s.source_files = 'ObjectiveHAL', 'ObjectiveHAL/**/*.{h,m}'
     s.public_header_files = 'ObjectiveHAL/*.h'
+
     s.requires_arc = true
-    s.frameworks   = 'Security', 'SystemConfiguration', 'MobileCoreServices', 'CoreGraphics'    
+
     s.dependency 'CSURITemplate'
     s.dependency 'AFNetworking', '~> 1.3'
+
+    s.frameworks   = 'Security', 'SystemConfiguration', 'MobileCoreServices', 'CoreGraphics'    
 end
