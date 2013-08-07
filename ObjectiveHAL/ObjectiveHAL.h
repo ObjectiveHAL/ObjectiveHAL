@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import <ObjectiveHAL/HTTPStatusCodes.h>
 #import <ObjectiveHAL/OHLink.h>
 #import <ObjectiveHAL/OHResource.h>
-
+#import <ObjectiveHAL/OHClient.h>
