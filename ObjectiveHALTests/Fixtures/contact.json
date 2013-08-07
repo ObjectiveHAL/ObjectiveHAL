@@ -22,7 +22,9 @@
   "_embedded": {
     "addr:home": {
       "_links": {
-        "self": "http://tempuri.org/address/827"
+          "self": {
+              "href": "http://tempuri.org/address/827"
+          }
       },
       "street": "123 Main Street",
       "city": "Detroit",
@@ -30,7 +32,9 @@
     },
     "addr:work": {
       "_links": {
-        "self": "http://tempuri.org/address/6421"
+          "self": {
+              "href": "http://tempuri.org/address/6421"
+          }
       },
       "street": "1 Ford Drive",
       "city": "Detroit",

@@ -13,12 +13,29 @@
 #import "CSURITemplate.h"
 
 @interface OHResource ()
-@property (nonatomic, strong, readonly) NSDictionary *links;
-@property (nonatomic, strong, readonly) NSDictionary *curies;
-@property (nonatomic, strong, readonly) NSDictionary *embedded;
+@property (nonatomic, strong) NSDictionary *links;
+@property (nonatomic, strong) NSDictionary *curies;
+@property (nonatomic, strong) NSDictionary *embedded;
+@property (nonatomic, strong) NSDictionary *resourceJSON;
 @end
 
 @implementation OHResource
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    OHResource *copy = [[OHResource alloc] init];
+    copy.links = [NSDictionary dictionaryWithDictionary:self.links];
+    copy.curies = [NSDictionary dictionaryWithDictionary:self.curies];
+    copy.embedded = [NSDictionary dictionaryWithDictionary:self.embedded];
+    copy.resourceJSON = [NSDictionary dictionaryWithDictionary:self.resourceJSON];
+
+    return copy;
+}
+
+- (NSDictionary *)json
+{
+    return self.resourceJSON;
+}
 
 - (id)initWithJSONData:(id)jsonData
 {
@@ -35,7 +52,7 @@
 
             [data removeObjectForKey:@"_links"];
             [data removeObjectForKey:@"_embedded"];
-            _json = [NSDictionary dictionaryWithDictionary:data];
+            _resourceJSON = [NSDictionary dictionaryWithDictionary:data];
             
             _useEmbeddedResources = NO;
         } else {
@@ -212,6 +229,27 @@
     } else {
         return nil;
     }
+}
+
+- (OHResource *)embeddedResourceForLink:(OHLink *)link
+{
+    for (NSString *rel in [self.embedded allKeys]) {
+        id embeddedJSON = [self.embedded objectForKey:rel];
+        if ([embeddedJSON isKindOfClass:[NSDictionary class]]) {
+            OHResource *embeddedResource = [OHResource resourceWithJSONData:embeddedJSON];
+            if ([[[embeddedResource linkForRel:@"self"] href] isEqualToString:[link href]]) {
+                return embeddedResource;
+            }
+        } else if ([embeddedJSON isKindOfClass:[NSArray class]]) {
+            for (id json in embeddedJSON) {
+                OHResource *embeddedResource = [OHResource resourceWithJSONData:json];
+                if ([[[embeddedResource linkForRel:@"self"] href] isEqualToString:[link href]]) {
+                    return embeddedResource;
+                }
+            }
+        }
+    }
+    return nil;
 }
 
 - (NSString *)debugDescription

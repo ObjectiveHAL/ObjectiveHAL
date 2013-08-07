@@ -96,7 +96,7 @@
 		917AC2EB17AF20BB005D3A4D /* OHClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHClient.m; sourceTree = "<group>"; };
 		917AC2ED17AF279B005D3A4D /* OHClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHClientTests.m; sourceTree = "<group>"; };
 		917AC2EF17AF2AC7005D3A4D /* travis */ = {isa = PBXFileReference; lastKnownFileType = folder; path = travis; sourceTree = "<group>"; };
-		917AC2F417AF7CE1005D3A4D /* default.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = default.json; path = apps/default.json; sourceTree = "<group>"; };
+		917AC2F417AF7CE1005D3A4D /* apps.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = apps.json; path = apps/apps.json; sourceTree = "<group>"; };
 		917AC2F617AF7D26005D3A4D /* 3.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = 3.json; path = app/3.json; sourceTree = "<group>"; };
 		917AC2F717AF7D26005D3A4D /* 2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = 2.json; path = app/2.json; sourceTree = "<group>"; };
 		917AC2F817AF7D26005D3A4D /* 1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = 1.json; path = app/1.json; sourceTree = "<group>"; };
@@ -170,7 +170,7 @@
 		917AC2F317AF7CC4005D3A4D /* apps */ = {
 			isa = PBXGroup;
 			children = (
-				917AC2F417AF7CE1005D3A4D /* default.json */,
+				917AC2F417AF7CE1005D3A4D /* apps.json */,
 			);
 			name = apps;
 			sourceTree = "<group>";

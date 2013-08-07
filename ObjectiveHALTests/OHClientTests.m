@@ -25,7 +25,7 @@
 //#import <OCMockitoIOS/OCMockitoIOS.h>
 
 @interface OHClientTests : SenTestCase
-@property (atomic, assign) BOOL done;
+@property (nonatomic, assign) BOOL done;
 @end
 
 @implementation OHClientTests
@@ -82,64 +82,56 @@
 - (void)testFollowLink
 {
     // given
-    OHResource __block *resource = nil;
+    OHResource __block *categoryResource = nil;
+    
+    // when
     NSString *resourcePath = @"/apps/";
     [client followLinkForPath:resourcePath whenFinished:^(OHLink *link, OHResource *targetResource, NSError *error) {
-        assertThat(targetResource, notNilValue());
-        assertThat(error, nilValue());
-        resource = targetResource;
-        self.done = YES;
+        if (!error) {
+            [client followLinkForRel:@"r:category" inResource:targetResource whenFinished:^(OHLink *link, OHResource *targetResource, NSError *error) {
+                assertThat(link, notNilValue());
+                assertThat(targetResource, notNilValue());
+                assertThat(error, nilValue());
+                categoryResource = targetResource;
+                self.done = YES;
+            }];
+        }
     }];
     assertThatBool([self waitForCompletion:90.0], is(equalToBool(YES)));
     self.done = NO;
     
-    // when
-    [client followLinkForRel:@"r:category" inResource:resource whenFinished:^(OHLink *link, OHResource *targetResource, NSError *error) {
-        assertThat(link, notNilValue());
-        assertThat(targetResource, notNilValue());
-        assertThat(error, nilValue());
-        assertThat([[targetResource linkForRel:@"self"] href], is(@"/category/1"));
-        self.done = YES;
-    }];
-    
     // then
-    assertThatBool([self waitForCompletion:90.0], is(equalToBool(YES)));
+    assertThat([[categoryResource linkForRel:@"self"] href], is(@"/category/1"));
 }
 
 - (void)testFollowLinks
 {
     // given
-    OHResource __block *resource = nil;
-    NSString *resourcePath = @"/apps/";
-    [client followLinkForPath:resourcePath whenFinished:^(OHLink *link, OHResource *targetResource, NSError *error) {
-        assertThat(targetResource, notNilValue());
-        assertThat(error, nilValue());
-        resource = targetResource;
-        self.done = YES;
+    NSMutableArray __block *apps = [NSMutableArray array];
+    
+    // when
+    [client followLinkForPath:@"/apps/" whenFinished:^(OHLink *link, OHResource *targetResource, NSError *error) {
+        if (!error) {
+            [client followLinksForRel:@"r:app" inResource:targetResource forEach:^(OHLink *link, OHResource *targetResource, NSError *error) {
+                if (!error) {
+                    [apps addObject:targetResource];
+                }
+            } whenFinished:^{
+                self.done = YES;
+            }];
+        }
     }];
     assertThatBool([self waitForCompletion:90.0], is(equalToBool(YES)));
     self.done = NO;
     
-    // when
-    NSMutableArray __block *apps = [NSMutableArray array];
-    [client followLinksForRel:@"r:app" inResource:resource forEach:^(OHLink *link, OHResource *targetResource, NSError *error) {
-        assertThat(link, notNilValue());
-        assertThat(targetResource, notNilValue());
-        assertThat(error, nilValue());
-        [apps addObject:targetResource];
-        NSLog(@"%@", [targetResource debugDescription]);
-    } whenFinished:^{
-        assertThatUnsignedInteger([apps count], is(equalToUnsignedInteger(3)));
-        self.done = YES;
-    }];
-    
     // then
-    assertThatBool([self waitForCompletion:90.0], is(equalToBool(YES)));
+    assertThatUnsignedInteger([apps count], is(equalToUnsignedInteger(3)));
 }
 
-- (void)testFollowLinksEmbeddedInResource
+- (void)testFollowLinkToRelForEmbeddedResource
 {
     // given
+    OHResource __block *homeAddress = nil;
     OHResource *resource = [self loadResourceWithName:@"contact"];
     resource.useEmbeddedResources = YES;
     
@@ -148,11 +140,13 @@
         assertThat(link, notNilValue());
         assertThat(targetResource, notNilValue());
         assertThat(error, nilValue());
+        homeAddress = [targetResource copy];
         self.done = YES;
     }];
+    assertThatBool([self waitForCompletion:90.0], is(equalToBool(YES)));
     
     // then
-    assertThatBool([self waitForCompletion:90.0], is(equalToBool(YES)));
+    assertThat([[homeAddress linkForRel:@"self"] href], is(@"http://tempuri.org/address/827"));
 }
 
 - (OHResource *)loadResourceWithName:(NSString *)resourceName
@@ -166,6 +160,31 @@
     OHResource *resource = [OHResource resourceWithJSONData:resourceJSON];
     assertThat(resource, notNilValue());
     return resource;
+}
+
+- (void)testFollowLinksToRelForSomeEmbeddedResources
+{
+    // given
+    NSMutableArray __block *apps = [NSMutableArray array];
+    
+    // when
+    [client followLinkForPath:@"/apps/" whenFinished:^(OHLink *link, OHResource *targetResource, NSError *error) {
+        if (!error) {
+            targetResource.useEmbeddedResources = YES;
+            [client followLinksForRel:@"r:app" inResource:targetResource forEach:^(OHLink *link, OHResource *targetResource, NSError *error) {
+                if (!error) {
+                    [apps addObject:targetResource];
+                }
+            } whenFinished:^{
+                self.done = YES;
+            }];
+        }
+    }];
+    assertThatBool([self waitForCompletion:90.0], is(equalToBool(YES)));
+    self.done = NO;
+    
+    // then
+    assertThatUnsignedInteger([apps count], is(equalToUnsignedInteger(3)));
 }
 
 @end

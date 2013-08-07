@@ -4,25 +4,13 @@
       {
         "_links": {
           "self": {
-            "href": "/app/2"
-          },
-          "app:icon": {
-            "href": "/images/i300.png"
-          }
-        },
-        "name": "High Altitude Survival",
-        "synopsis": "A series of short films that illustrate some of the dangers inherent in high altitude mountainering and discuss life-saving survival techniques."
-      },
-      {
-        "_links": {
-          "self": {
             "href": "/app/3"
           },
           "app:icon": {
             "href": "/images.i970.png"
           }
         },
-        "name": "CPR Instructions",
+        "name": "CPR Instructions (embedded)",
         "synopsis": "Red Cross instructional materials to teach CPR."
       },
       {
@@ -34,7 +22,7 @@
             "href": "/images/i310.png"
           }
         },
-        "name": "Family First-Aid",
+        "name": "Family First-Aid (embedded)",
         "synopsis": "Learn seven first-aid skills that will help keep your family safe."
       }
     ],

@@ -42,33 +42,62 @@
      ];
 }
 
+- (void)requestHALResourceForLink:(OHLink *)link followHandler:(ObjectiveHALFollowHandler)followHandler
+{
+    AFHTTPRequestOperation *operation = [self constructOperationToFollowLink:link];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self processHALResourceResponse:responseObject forLink:link followHandler:followHandler];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        followHandler(link, nil, error);
+    }];
+    [self enqueueHTTPRequestOperation:operation];
+}
+
 - (void)followLinkForRel:(NSString *)rel inResource:(OHResource *)resource whenFinished:(ObjectiveHALFollowHandler)followHandler
 {
     OHLink *link = [resource linkForRel:rel];
     
-    OHResource *embeddedResource = [resource embeddedResourceForRel:rel];
-    if (embeddedResource) {
-        followHandler(link, embeddedResource, nil);
+    if (resource.useEmbeddedResources == YES) {
+        OHResource *embeddedResource = [resource embeddedResourceForRel:rel];
+        if (embeddedResource) {
+            followHandler(link, embeddedResource, nil);
+        } else {
+            [self requestHALResourceForLink:link followHandler:followHandler];
+        }
     } else {
-        AFHTTPRequestOperation *operation = [self constructOperationToFollowLink:link];
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self processHALResourceResponse:responseObject forLink:link followHandler:followHandler];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            followHandler(link, nil, error);
-        }];
-        [self enqueueHTTPRequestOperation:operation];
+        [self requestHALResourceForLink:link followHandler:followHandler];
     }
 }
 
 - (void)followLinksForRel:(NSString *)rel inResource:(OHResource *)resource forEach:(ObjectiveHALFollowHandler)followHandler whenFinished:(ObjectiveHALCompletionHandler)completionHandler
 {
     NSArray *links = [resource linksForRel:rel];
+    NSMutableArray *remainingLinks = [NSMutableArray array];
+    
+    if (resource.useEmbeddedResources == YES) {
+        for (OHLink *link in links) {
+            OHResource *embeddedResource = [resource embeddedResourceForLink:link];
+            if (embeddedResource) {
+                followHandler(link, resource, nil);
+            } else {
+                [remainingLinks addObject:link];
+            }
+        }
+        if ([remainingLinks count] == 0) {
+            completionHandler();
+            return;
+        }
+    } else {
+        remainingLinks = [NSMutableArray arrayWithArray:links];
+    }
+    
     NSMutableArray *followRequests = [NSMutableArray array];
     NSMutableDictionary *followRequestLinkMap = [NSMutableDictionary dictionary];
-    [self prepareFollowRequests:followRequests withLinkMap:followRequestLinkMap usingLinks:links];
+    [self prepareFollowRequests:followRequests withLinkMap:followRequestLinkMap usingLinks:remainingLinks];
     
     [self enqueueBatchOfHTTPRequestOperationsWithRequests:followRequests progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
-        // DO NOTHING HERE
+        // DO NOTHING HERE - Handle everything at the end, once all of the resources
+        // have been gathered.
     } completionBlock:^(NSArray *operations) {
         [self processOperations:operations usingFollowRequestLinkMap:followRequestLinkMap visiting:followHandler];
         completionHandler();

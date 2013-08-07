@@ -10,7 +10,7 @@
 
 @class OHLink;
 
-@interface OHResource : NSObject
+@interface OHResource : NSObject <NSCopying>
 
 @property (nonatomic, assign) BOOL useEmbeddedResources;
 @property (nonatomic, strong, readonly) NSDictionary *json;
@@ -23,5 +23,7 @@
 
 - (OHResource *)embeddedResourceForRel:(NSString *)rel;
 - (NSArray *)embeddedResourcesForRel:(NSString *)rel;
+
+- (OHResource *)embeddedResourceForLink:(OHLink *)link;
 
 @end
