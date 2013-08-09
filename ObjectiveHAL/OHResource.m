@@ -182,7 +182,12 @@
     if ([value isKindOfClass:[OHLink class]]) {
         return value;
     } else if ([value isKindOfClass:[NSArray class]]) {
-        return [(NSArray *)value objectAtIndex:0];
+        NSArray *array = (NSArray *)value;
+        if (array.count > 0) {
+            return [array objectAtIndex:0];
+        } else {
+            return nil;
+        }
     }
     return nil;
 }
@@ -225,7 +230,7 @@
 - (OHResource *)embeddedResourceForRel:(NSString *)rel
 {
     NSArray *embeddedResources = [self embeddedResourcesForRel:rel];
-    if (embeddedResources) {
+    if (embeddedResources && embeddedResources.count > 0) {
         return [embeddedResources objectAtIndex:0];
     } else {
         return nil;
