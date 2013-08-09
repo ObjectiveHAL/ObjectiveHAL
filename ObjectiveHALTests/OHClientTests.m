@@ -51,6 +51,7 @@
     [super tearDown];
 }
 
+// assertThatBool([self waitForCompletion:90.0], is(equalToBool(YES)));
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs {
     NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:timeoutSecs];
     

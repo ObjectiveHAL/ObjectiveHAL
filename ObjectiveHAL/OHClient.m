@@ -154,6 +154,7 @@
 - (AFHTTPRequestOperation *)constructOperationToFollowLink:(OHLink *)link
 {
     NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:[link href] parameters:nil];
+    request.cachePolicy = NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // DO NOTHING HERE
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
