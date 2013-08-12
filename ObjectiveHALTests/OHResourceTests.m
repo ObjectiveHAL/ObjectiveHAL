@@ -99,6 +99,28 @@
     assertThat([embeddedResource linkForRel:@"self"], is(embeddedResourceLink));
 }
 
+- (void)testEmbeddedResourceCurieHandling
+{
+    // given
+    NSError *error = nil;
+    NSData *data = [NSData fetchTestFixtureByName:@"apps" fromBundle:testBundle];
+    assertThat(data, notNilValue());
+    id appsJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    assertThat(error, nilValue());
+    OHResource *appsResource = [OHResource resourceWithJSONData:appsJSON];
+    
+    // when
+    NSMutableArray *icons = [NSMutableArray array];
+    NSArray *apps = [appsResource embeddedResourcesForRel:@"r:app"];
+    for (OHResource *app in apps) {
+        OHLink *icon = [app linkForRel:@"app:icon"];
+        [icons addObject:icon];
+    }
+    
+    // then
+    assertThatInteger([icons count], equalToInteger(2));
+}
+
 - (void)testFetchingResourceJSON
 {
     // given
