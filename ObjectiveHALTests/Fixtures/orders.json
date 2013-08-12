@@ -18,7 +18,7 @@
         "_links": {
           "self": { "href": "/orders/124" },
           "basket": { "href": "/baskets/97213" },
-          "customer": { "href": "/custoemrs/12369" }
+          "customer": { "href": "/customers/12369" }
         },
         "total": 20.00,
         "currency": "USD",

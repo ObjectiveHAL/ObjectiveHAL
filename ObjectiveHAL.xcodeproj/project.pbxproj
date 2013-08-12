@@ -32,6 +32,7 @@
 		917AC2FC17AF819E005D3A4D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2FB17AF819E005D3A4D /* UIKit.framework */; };
 		917AC2FD17AF81A9005D3A4D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2F917AF8198005D3A4D /* CoreGraphics.framework */; };
 		917AC2FE17AF81AE005D3A4D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2FB17AF819E005D3A4D /* UIKit.framework */; };
+		918E47F917B9551600E78CCB /* apps.json in Resources */ = {isa = PBXBuildFile; fileRef = 917AC2F417AF7CE1005D3A4D /* apps.json */; };
 		91ECCC6D17ADE63E00DDCCDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */; };
 		91ECCC7217ADE63E00DDCCDC /* ObjectiveHAL.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91ECCC7117ADE63E00DDCCDC /* ObjectiveHAL.h */; };
 		91ECCC7C17ADE63E00DDCCDC /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC7B17ADE63E00DDCCDC /* SenTestingKit.framework */; };
@@ -369,6 +370,7 @@
 				9162597C17AE015200C1791F /* simple-link.json in Resources */,
 				9162597D17AE015200C1791F /* simple-resource.json in Resources */,
 				9176ACA217AE2BC1000767F0 /* contact.json in Resources */,
+				918E47F917B9551600E78CCB /* apps.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

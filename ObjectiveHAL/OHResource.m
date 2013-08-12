@@ -69,6 +69,38 @@
     return resource;
 }
 
++ (OHResource *)embeddedResourceWithJSONData:(id)jsonData curies:(NSDictionary *)curies
+{
+    OHResource *embeddedResource = [[OHResource alloc] initWithJSONData:jsonData curies:curies];
+    return embeddedResource;
+}
+
+- (id)initWithJSONData:(id)jsonData curies:(NSDictionary *)curies
+{
+    self = [super init];
+    if (self) {
+        if ([jsonData isKindOfClass:[NSDictionary class]]) {
+            NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary *)jsonData];;
+            NSDictionary *linksData = [data objectForKey:@"_links"];
+            NSDictionary *embeddedData = [data objectForKey:@"_embedded"];
+            
+            _curies = curies;
+            _links = [OHResource linksFromJSONData:linksData withCuries:_curies];
+            _embedded = [OHResource embeddedFromJSONData:embeddedData withCuries:_curies];
+            
+            [data removeObjectForKey:@"_links"];
+            [data removeObjectForKey:@"_embedded"];
+            _resourceJSON = [NSDictionary dictionaryWithDictionary:data];
+            
+            _useEmbeddedResources = NO;
+        } else {
+            // ERROR: Expecting an NSDictionary.
+            self = nil;
+        }
+    }
+    return self;
+}
+
 - (BOOL)isEqual:(id)object
 {
     // TODO: Decide if this is good enough for testing equality of resources.
@@ -213,12 +245,12 @@
     if (embeddedJSON) {
         if ([embeddedJSON isKindOfClass:[NSDictionary class]]) {
             // Just one object.
-            OHResource *embeddedResource = [OHResource resourceWithJSONData:embeddedJSON];
+            OHResource *embeddedResource = [OHResource embeddedResourceWithJSONData:embeddedJSON curies:self.curies];
             [embeddedResources addObject:embeddedResource];
         } else if ([embeddedJSON isKindOfClass:[NSArray class]]) {
             // Multiple embedded objects.
             for (id json in embeddedJSON) {
-                OHResource *embeddedResource = [OHResource resourceWithJSONData:json];
+                OHResource *embeddedResource = [OHResource embeddedResourceWithJSONData:json curies:self.curies];
                 [embeddedResources addObject:embeddedResource];
             }
         }
@@ -242,13 +274,13 @@
     for (NSString *rel in [self.embedded allKeys]) {
         id embeddedJSON = [self.embedded objectForKey:rel];
         if ([embeddedJSON isKindOfClass:[NSDictionary class]]) {
-            OHResource *embeddedResource = [OHResource resourceWithJSONData:embeddedJSON];
+            OHResource *embeddedResource = [OHResource embeddedResourceWithJSONData:embeddedJSON curies:self.curies];
             if ([[[embeddedResource linkForRel:@"self"] href] isEqualToString:[link href]]) {
                 return embeddedResource;
             }
         } else if ([embeddedJSON isKindOfClass:[NSArray class]]) {
             for (id json in embeddedJSON) {
-                OHResource *embeddedResource = [OHResource resourceWithJSONData:json];
+                OHResource *embeddedResource = [OHResource embeddedResourceWithJSONData:json curies:self.curies];
                 if ([[[embeddedResource linkForRel:@"self"] href] isEqualToString:[link href]]) {
                     return embeddedResource;
                 }
