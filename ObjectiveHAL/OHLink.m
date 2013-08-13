@@ -40,6 +40,20 @@
     return self;
 }
 
+- (id)initWithCopyOfLink:(OHLink *)link
+{
+    self = [super init];
+    if (self) {
+        _rel = link.rel;
+        _href = link.href;
+        _name = link.name;
+        _title = link.title;
+        _hreflang = link.hreflang;
+        _templated = link.templated;
+    }
+    return self;
+}
+
 - (BOOL)isEqual:(id)object
 {
     if ([object isKindOfClass:[self class]]) {
@@ -59,4 +73,11 @@
     NSString *dd = [NSString stringWithFormat:@"<%@: %p>{ href='%@' }", NSStringFromClass([self class]), self, self.href];
     return dd;
 }
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    id copy = [[[self class] alloc] initWithCopyOfLink:self];
+    return copy;
+}
+
 @end

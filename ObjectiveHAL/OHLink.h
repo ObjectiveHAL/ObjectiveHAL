@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface OHLink : NSObject
+@interface OHLink : NSObject <NSCopying>
 
 // Required Properties
 @property (strong, nonatomic, readonly) NSString *rel;
