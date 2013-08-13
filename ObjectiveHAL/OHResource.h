@@ -18,6 +18,9 @@
 - (id)initWithJSONData:(id)jsonData;
 + (OHResource *)resourceWithJSONData:(id)jsonData;
 
+- (id)initWithJSONData:(id)jsonData curies:(NSDictionary *)curies;
++ (OHResource *)embeddedResourceWithJSONData:(id)jsonData curies:(NSDictionary *)curies;
+
 - (OHLink *)linkForRel:(NSString *)rel;
 - (NSArray *)linksForRel:(NSString *)rel;
 
