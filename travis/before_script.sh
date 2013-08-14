@@ -9,7 +9,7 @@ brew install xctool
 brew install lighttpd
 
 # Launch Lighty in the background. It serves test fixtures at port 7100.
-lighttpd -f lighttpd/lighttpd.conf
+/usr/local/sbin/lighttpd -f lighttpd/lighttpd.conf
 
 # This hack is here to make sure that the xctool dividers fit.
 stty columns 60
