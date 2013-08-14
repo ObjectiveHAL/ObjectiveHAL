@@ -17,5 +17,5 @@ Installation
 
 [CocoaPods](http://cocoapods.org/) is the easiest way to use ObjectiveHAL.
 
-    platform :ios, '6.0'
+    platform :ios, '6.1'
     pod 'ObjectiveHAL'
