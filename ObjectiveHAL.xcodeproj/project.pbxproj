@@ -104,6 +104,7 @@
 		917AC2F917AF8198005D3A4D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		917AC2FB17AF819E005D3A4D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		917AC30017AF89D8005D3A4D /* 1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = 1.json; path = category/1.json; sourceTree = "<group>"; };
+		917CE2EA17BDE5630029FDDB /* lighttpd */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lighttpd; sourceTree = "<group>"; };
 		91ECCC6917ADE63E00DDCCDC /* libObjectiveHAL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libObjectiveHAL.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		91ECCC7017ADE63E00DDCCDC /* ObjectiveHAL-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjectiveHAL-Prefix.pch"; sourceTree = "<group>"; };
@@ -201,6 +202,7 @@
 				91625A9B17AE018E00C1791F /* README.md */,
 				9162598017AE018E00C1791F /* .travis.yml */,
 				917AC2EF17AF2AC7005D3A4D /* travis */,
+				917CE2EA17BDE5630029FDDB /* lighttpd */,
 				9162597F17AE018E00C1791F /* .gitignore */,
 				9162598917AE018E00C1791F /* ObjectiveHAL.podspec */,
 				91ECCC6E17ADE63E00DDCCDC /* ObjectiveHAL */,
