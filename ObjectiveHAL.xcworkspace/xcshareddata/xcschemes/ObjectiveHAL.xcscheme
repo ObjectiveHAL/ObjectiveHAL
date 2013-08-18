@@ -32,7 +32,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "(&#10; printenv&#10; cd ${SRCROOT}&#10;    ./lighttpd/start.sh&#10;) &gt;/tmp/start.log 2&gt;&amp;1&#10; &#10;"
+               scriptText = "(&#10; cd ${SRCROOT}&#10; /usr/local/sbin/lighttpd -f ./lighttpd/lighttpd.conf&#10;) &gt;/tmp/start.log 2&gt;&amp;1&#10; &#10;"
                shellToInvoke = "/bin/bash">
                <EnvironmentBuildable>
                   <BuildableReference
@@ -51,7 +51,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "(&#10; cd ${SRCROOT}&#10; ./lighttpd/stop.sh&#10; ) &gt;/tmp/start.log 2&gt;&amp;1&#10;"
+               scriptText = "(&#10; killall lighttpd&#10; ) &gt;/tmp/start.log 2&gt;&amp;1&#10;"
                shellToInvoke = "/bin/bash">
                <EnvironmentBuildable>
                   <BuildableReference
