@@ -33,12 +33,14 @@
     // test fixture ivars go here
     NSURL *baseURL;
     OHClient *client;
+    NSTimeInterval timeout;
 }
 
 - (void)setUp
 {
     [super setUp];
     // TODO: Replace with a proper test web service.
+    timeout = 30.0;
     baseURL = [NSURL URLWithString:@"http://localhost:7100"];
     client = [OHClient clientWithBaseURL:baseURL];
     self.done = NO;
@@ -53,10 +55,14 @@
 
 // assertThatBool([self waitForCompletion:90.0], is(equalToBool(YES)));
 - (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs {
+    
+    NSTimeInterval partialTimeoutSecs = timeoutSecs / 30;
+    
+    NSDate *partialTimeoutDate = [NSDate dateWithTimeIntervalSinceNow:partialTimeoutSecs];
     NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:timeoutSecs];
     
     do {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:partialTimeoutDate];
         if([timeoutDate timeIntervalSinceNow] < 0.0)
             break;
     } while (!self.done);
@@ -64,20 +70,20 @@
     return self.done;
 }
 
-- (void)testFollowLinkForPathwhenFinished
+- (void)testFollowLinkForPathWhenFinished
 {
     // given
     NSString *resourcePath = @"/apps/";
     
     // when
-    [client followLinkForPath:resourcePath whenFinished:^(OHLink *link, OHResource *targetResource, NSError *error) {
+    [client followLinkForPath:resourcePath whenFinished:^(OHResource *targetResource, NSError *error) {
         assertThat(targetResource, notNilValue());
         assertThat(error, nilValue());
         self.done = YES;
     }];
     
     // then
-    assertThatBool([self waitForCompletion:90.0], is(equalToBool(YES)));
+    assertThatBool([self waitForCompletion:timeout], is(equalToBool(YES)));
 }
 
 - (void)testFollowLink
@@ -87,10 +93,10 @@
     
     // when
     NSString *resourcePath = @"/apps/";
-    [client followLinkForPath:resourcePath whenFinished:^(OHLink *link, OHResource *targetResource, NSError *error) {
+    [client followLinkForPath:resourcePath whenFinished:^(OHResource *targetResource, NSError *error) {
+        assertThat(error, nilValue());
         if (!error) {
-            [client followLinkForRel:@"r:category" inResource:targetResource whenFinished:^(OHLink *link, OHResource *targetResource, NSError *error) {
-                assertThat(link, notNilValue());
+            [client followLinkForRel:@"r:category" inResource:targetResource whenFinished:^(OHResource *targetResource, NSError *error) {
                 assertThat(targetResource, notNilValue());
                 assertThat(error, nilValue());
                 categoryResource = targetResource;
@@ -98,7 +104,7 @@
             }];
         }
     }];
-    assertThatBool([self waitForCompletion:90.0], is(equalToBool(YES)));
+    assertThatBool([self waitForCompletion:timeout], is(equalToBool(YES)));
     self.done = NO;
     
     // then
@@ -111,18 +117,21 @@
     NSMutableArray __block *apps = [NSMutableArray array];
     
     // when
-    [client followLinkForPath:@"/apps/" whenFinished:^(OHLink *link, OHResource *targetResource, NSError *error) {
+    [client followLinkForPath:@"/apps/" whenFinished:^(OHResource *targetResource, NSError *error) {
         if (!error) {
-            [client followLinksForRel:@"r:app" inResource:targetResource forEach:^(OHLink *link, OHResource *targetResource, NSError *error) {
-                if (!error) {
+            NSLog(@"*** RECEIVED APPS RESOURCE ***");
+            [client followLinksForRel:@"r:app" inResource:targetResource forEach:^(OHResource *targetResource, NSError *error) {
+                if (!error && targetResource) {
+                    NSLog(@"*** ADDING APP RESOURCE ***");
                     [apps addObject:targetResource];
                 }
             } whenFinished:^{
+                NSLog(@"*** FINISHED ***");
                 self.done = YES;
             }];
         }
     }];
-    assertThatBool([self waitForCompletion:90.0], is(equalToBool(YES)));
+    assertThatBool([self waitForCompletion:timeout], is(equalToBool(YES)));
     self.done = NO;
     
     // then
@@ -137,14 +146,13 @@
     resource.useEmbeddedResources = YES;
     
     // when
-    [client followLinkForRel:@"addr:home" inResource:resource whenFinished:^(OHLink *link, OHResource *targetResource, NSError *error) {
-        assertThat(link, notNilValue());
+    [client followLinkForRel:@"addr:home" inResource:resource whenFinished:^(OHResource *targetResource, NSError *error) {
         assertThat(targetResource, notNilValue());
         assertThat(error, nilValue());
         homeAddress = [targetResource copy];
         self.done = YES;
     }];
-    assertThatBool([self waitForCompletion:90.0], is(equalToBool(YES)));
+    assertThatBool([self waitForCompletion:timeout], is(equalToBool(YES)));
     
     // then
     assertThat([[homeAddress linkForRel:@"self"] href], is(@"http://tempuri.org/address/827"));
@@ -169,10 +177,10 @@
     NSMutableArray __block *apps = [NSMutableArray array];
     
     // when
-    [client followLinkForPath:@"/apps/" whenFinished:^(OHLink *link, OHResource *targetResource, NSError *error) {
+    [client followLinkForPath:@"/apps/" whenFinished:^(OHResource *targetResource, NSError *error) {
         if (!error) {
             targetResource.useEmbeddedResources = YES;
-            [client followLinksForRel:@"r:app" inResource:targetResource forEach:^(OHLink *link, OHResource *targetResource, NSError *error) {
+            [client followLinksForRel:@"r:app" inResource:targetResource forEach:^(OHResource *targetResource, NSError *error) {
                 if (!error) {
                     [apps addObject:targetResource];
                 }
@@ -181,7 +189,7 @@
             }];
         }
     }];
-    assertThatBool([self waitForCompletion:90.0], is(equalToBool(YES)));
+    assertThatBool([self waitForCompletion:timeout], is(equalToBool(YES)));
     self.done = NO;
     
     // then
