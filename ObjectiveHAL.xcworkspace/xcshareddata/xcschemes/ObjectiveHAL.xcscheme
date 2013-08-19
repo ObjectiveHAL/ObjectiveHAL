@@ -75,6 +75,11 @@
                BlueprintName = "ObjectiveHALTests"
                ReferencedContainer = "container:ObjectiveHAL.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "OHClientTests/testFollowLinkForPathWhenFinished">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
