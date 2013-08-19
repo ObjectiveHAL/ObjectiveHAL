@@ -9,4 +9,5 @@
     #import <MobileCoreServices/MobileCoreServices.h>
 
     #import <AFNetworking/AFNetworking.h>
+    #import <AFNetworking/AFJSONRequestOperation.h>
 #endif

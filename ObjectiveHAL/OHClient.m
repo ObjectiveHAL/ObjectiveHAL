@@ -25,10 +25,13 @@
  */
 @property (readonly, nonatomic, strong) NSOperationQueue *embeddedResourceOperationQueue;
 
-- (NSOperation *)operationToFollowLinkForPath:(NSString *)path whenFinished:(ObjectiveHALFollowHandler)followHandler;
-- (NSOperation *)operationToFollowLinkForRel:(NSString *)rel inResource:(OHResource *)resource whenFinished:(ObjectiveHALFollowHandler)followHandler;
-- (NSArray *)operationsToFollowLinksForRel:(NSString *)rel inResource:(OHResource *)resource forEach:(ObjectiveHALFollowHandler)followHandler whenFinished:(ObjectiveHALCompletionHandler)completionHandler;
-- (void)enqueueRequestOperations:(NSArray *)operations;
+- (void)enqueueRequestOperations:(NSArray *)operations traversalContext:context completionHandler:(OHCompletionHandler)completion;
+
+- (NSOperation *)operationToTraverseLinkForPath:(NSString *)path traversalContext:(id)context traversalHandler:(OHLinkTraversalHandler)handler;
+
+- (NSOperation *)operationToTraverseLinkForRel:(NSString *)rel inResource:(OHResource *)resource traversalContext:(id)context traversalHandler:(OHLinkTraversalHandler)handler;
+
+- (NSArray *)operationsToTraverseLinksForRel:(NSString *)rel inResource:(OHResource *)resource traversalContext:(id)context traversalHandler:(OHLinkTraversalHandler)handler;
 
 @end
 
@@ -49,40 +52,49 @@
 #pragma mark -                                       HAL Resource Access Methods
 // *****************************************************************************
 
-- (void)followLinkForPath:(NSString *)path whenFinished:(ObjectiveHALFollowHandler)followHandler
+- (void)traverseLinkForPath:(NSString *)path traversalContext:(id)context traversalHandler:(OHLinkTraversalHandler)handler completionHandler:(OHCompletionHandler)completion
 {
-    NSOperation *op = [self operationToFollowLinkForPath:path whenFinished:followHandler];
-    [self enqueueRequestOperations:@[op]];
+    NSOperation *op = [self operationToTraverseLinkForPath:path traversalContext:context traversalHandler:handler];
+    [self enqueueRequestOperations:@[op] traversalContext:context completionHandler:completion];
 }
 
-- (void)followLinkForRel:(NSString *)rel inResource:(OHResource *)resource whenFinished:(ObjectiveHALFollowHandler)followHandler
+- (void)traverseLinkForRel:(NSString *)rel inResource:(OHResource *)resource traversalContext:(id)context traversalHandler:(OHLinkTraversalHandler)handler completionHandler:(OHCompletionHandler)completion
 {
-    NSOperation *op = [self operationToFollowLinkForRel:rel inResource:resource whenFinished:followHandler];
-    [self enqueueRequestOperations:@[op]];
+    NSOperation *op = [self operationToTraverseLinkForRel:rel inResource:resource traversalContext:context traversalHandler:handler];
+    [self enqueueRequestOperations:@[op] traversalContext:context completionHandler:completion];
 }
 
-- (void)followLinksForRel:(NSString *)rel inResource:(OHResource *)resource forEach:(ObjectiveHALFollowHandler)followHandler whenFinished:(ObjectiveHALCompletionHandler)completionHandler
+- (void)traverseLinksForRel:(NSString *)rel inResource:(OHResource *)resource traversalContext:(id)context traversalHandler:(OHLinkTraversalHandler)handler completionHandler:(OHCompletionHandler)completion
 {
-    NSArray *ops = [self operationsToFollowLinksForRel:rel inResource:resource forEach:followHandler whenFinished:completionHandler];
-    [self enqueueRequestOperations:ops];
+    NSArray *ops = [self operationsToTraverseLinksForRel:rel inResource:resource traversalContext:context traversalHandler:handler];
+    [self enqueueRequestOperations:ops traversalContext:context completionHandler:completion];
 }
 
 // *****************************************************************************
 #pragma mark -                               Internal NSOperation Helper Methods
 // *****************************************************************************
 
-- (void)enqueueRequestOperations:(NSArray *)operations
+- (void)enqueueRequestOperations:(NSArray *)operations traversalContext:context completionHandler:(OHCompletionHandler)completion
 {
+    NSOperation *completionOp = [NSBlockOperation blockOperationWithBlock:^{
+        completion(context);
+    }];
+    
     for (id genericOperation in operations) {
+        
+        [completionOp addDependency:genericOperation];
+        
         if ([genericOperation isKindOfClass:[AFHTTPRequestOperation class]]) {
             [self enqueueHTTPRequestOperation:(AFHTTPRequestOperation *)genericOperation];
         } else {
             [self.embeddedResourceOperationQueue addOperation:(NSOperation *)genericOperation];
         }
     }
+
+    [[NSOperationQueue mainQueue] addOperation:completionOp];
 }
 
-- (NSOperation *)operationToFollowLinkForPath:(NSString *)path whenFinished:(ObjectiveHALFollowHandler)followHandler
+- (NSOperation *)operationToTraverseLinkForPath:(NSString *)path traversalContext:(id)context traversalHandler:(OHLinkTraversalHandler)handler
 {
     NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
     
@@ -93,51 +105,59 @@
         id jsonData = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&error];
         if (!error) {
             OHResource *resource = [[OHResource alloc] initWithJSONData:jsonData];
-            followHandler(resource, error);
+            handler(resource, nil, context);
         } else {
-            followHandler(nil, error);
+            handler(nil, error, context);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        followHandler(nil, error);
+        handler(nil, error, context);
     }];
     return op;
 }
 
-- (NSOperation *)operationToFollowLinkForRel:(NSString *)rel inResource:(OHResource *)resource whenFinished:(ObjectiveHALFollowHandler)followHandler
+- (NSOperation *)operationToTraverseLinkForRel:(NSString *)rel inResource:(OHResource *)resource traversalContext:(id)context traversalHandler:(OHLinkTraversalHandler)handler
 {
     OHLink *link = [resource linkForRel:rel];
-    
+
     if (resource.useEmbeddedResources == YES) {
         OHResource *embeddedResource = [resource embeddedResourceForRel:rel];
         if (embeddedResource) {
             NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
-                followHandler(embeddedResource, nil);
+                handler(embeddedResource, nil, context);
             }];
             return op;
         }
     }
     
-    return [self operationToFollowLinkForPath:link.href whenFinished:followHandler]; 
+    return [self operationToTraverseLinkForPath:[link href] traversalContext:context traversalHandler:handler];
 }
 
-- (NSArray *)operationsToFollowLinksForRel:(NSString *)rel inResource:(OHResource *)resource forEach:(ObjectiveHALFollowHandler)followHandler whenFinished:(ObjectiveHALCompletionHandler)completionHandler
+- (NSArray *)operationsToTraverseLinksForRel:(NSString *)rel inResource:(OHResource *)resource traversalContext:(id)context traversalHandler:(OHLinkTraversalHandler)handler
 {
-    NSOperation *completionOp = [NSBlockOperation blockOperationWithBlock:^{
-        completionHandler();
-    }];
-    
     NSMutableArray *operations = [NSMutableArray array];
-    NSArray *links = [resource linksForRel:rel];
+    NSMutableArray *links = [NSMutableArray arrayWithArray:[resource linksForRel:rel]];
+
+    // Processs embedded resources...
+    if (resource.useEmbeddedResources == YES) {
+        NSArray *embeddedResources = [resource embeddedResourcesForRel:rel];
+        for (OHResource *embeddedResource in embeddedResources) {
+            NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
+                handler(embeddedResource, nil, context);
+            }];
+            [operations addObject:op];
+            
+            OHLink *resourceLink = [[OHLink alloc] initWithRel:rel href:[[embeddedResource linkForRel:@"self"] href]];
+            [links removeObject:resourceLink];
+        }
+    }
     
+    // Fetch remaining resources...
     for (OHLink *link in links) {
-        NSOperation *op = [self operationToFollowLinkForPath:link.href whenFinished:followHandler];
-        [completionOp addDependency:op];
+        NSOperation *op = [self operationToTraverseLinkForPath:[link href] traversalContext:context traversalHandler:handler];
         [operations addObject:op];
     }
-
-    [operations addObject:completionOp];
     
-    return operations;    
+    return operations;
 }
 
 @end
