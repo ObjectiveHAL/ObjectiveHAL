@@ -24,4 +24,12 @@ typedef void (^OHCompletionHandler)(id traversalContext);
 
 - (void)traverseLinksForRel:(NSString *)rel inResource:(OHResource *)resource traversalContext:(id)context traversalHandler:(OHLinkTraversalHandler)handler completionHandler:(OHCompletionHandler)completion;
 
+- (void)enqueueRequestOperations:(NSArray *)operations traversalContext:context completionHandler:(OHCompletionHandler)completion;
+
+- (NSOperation *)operationToTraverseLinkForPath:(NSString *)path traversalContext:(id)context traversalHandler:(OHLinkTraversalHandler)handler;
+
+- (NSOperation *)operationToTraverseLinkForRel:(NSString *)rel inResource:(OHResource *)resource traversalContext:(id)context traversalHandler:(OHLinkTraversalHandler)handler;
+
+- (NSArray *)operationsToTraverseLinksForRel:(NSString *)rel inResource:(OHResource *)resource traversalContext:(id)context traversalHandler:(OHLinkTraversalHandler)handler;
+
 @end
