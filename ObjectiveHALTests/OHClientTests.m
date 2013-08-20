@@ -9,6 +9,7 @@
 #import "OHClient.h"
 
     // Collaborators
+#import "OHClientContext.h"
 #import "OHLink.h"
 #import "OHResource.h"
 
@@ -33,7 +34,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 //#define MOCKITO_SHORTHAND
 //#import <OCMockitoIOS/OCMockitoIOS.h>
 
-@interface OHClientTests : SenTestCase
+@interface OHClientTests : SenTestCase <OHClientContext>
 @property (nonatomic, assign) BOOL done;
 @end
 

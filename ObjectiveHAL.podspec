@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = "ObjectiveHAL"
-    s.version      = "0.1.11"
+    s.version      = "0.1.12"
     s.license      = { :type => 'MIT', :file => 'LICENSE' }
 
     s.homepage     = "https://github.com/ObjectiveHAL/ObjectiveHAL"
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
                      'Andre Musie' => 'andre@wonderful.com' }
 
     s.source       = { :git => "https://github.com/ObjectiveHAL/ObjectiveHAL.git", 
-                       :tag => "0.1.11" }
+                       :tag => "0.1.12" }
 
     s.platform = :ios
     s.ios.deployment_target = '6.1'

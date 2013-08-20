@@ -69,7 +69,9 @@
 - (void)enqueueRequestOperations:(NSArray *)operations traversalContext:context completionHandler:(OHCompletionHandler)completion
 {
     NSOperation *completionOp = [NSBlockOperation blockOperationWithBlock:^{
-        completion(context);
+        if (completion) {
+            completion(context);
+        }
     }];
     
     for (id genericOperation in operations) {
@@ -97,12 +99,18 @@
         id jsonData = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&error];
         if (!error) {
             OHResource *resource = [[OHResource alloc] initWithJSONData:jsonData];
-            handler(resource, nil, context);
+            if (handler) {
+                handler(resource, nil, context);
+            }
         } else {
-            handler(nil, error, context);
+            if (handler) {
+                handler(nil, error, context);
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        handler(nil, error, context);
+        if (handler) {
+            handler(nil, error, context);
+        }
     }];
     return op;
 }
@@ -115,7 +123,9 @@
         OHResource *embeddedResource = [resource embeddedResourceForRel:rel];
         if (embeddedResource) {
             NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
-                handler(embeddedResource, nil, context);
+                if (handler) {
+                    handler(embeddedResource, nil, context);
+                }
             }];
             return op;
         }
@@ -134,7 +144,9 @@
         NSArray *embeddedResources = [resource embeddedResourcesForRel:rel];
         for (OHResource *embeddedResource in embeddedResources) {
             NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
-                handler(embeddedResource, nil, context);
+                if (handler) {
+                    handler(embeddedResource, nil, context);
+                }
             }];
             [operations addObject:op];
             

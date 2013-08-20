@@ -68,6 +68,7 @@
 /* Begin PBXFileReference section */
 		19DDC463AD3F4C19B4E6C52E /* libPods-ObjectiveHALTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjectiveHALTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E7688A979C64921A72D54A9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9128A1AC17C2A07B00CE73D3 /* OHClientContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHClientContext.h; sourceTree = "<group>"; };
 		915BC46717ADF83000230C3C /* OHResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHResource.m; sourceTree = "<group>"; };
 		915BC46817ADF83000230C3C /* OHLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHLink.h; sourceTree = "<group>"; };
 		915BC46917ADF83000230C3C /* OHLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHLink.m; sourceTree = "<group>"; };
@@ -246,6 +247,7 @@
 				9177FD5A17B04057001DEB66 /* HTTPStatusCodes.h */,
 				917AC2EA17AF20BB005D3A4D /* OHClient.h */,
 				917AC2EB17AF20BB005D3A4D /* OHClient.m */,
+				9128A1AC17C2A07B00CE73D3 /* OHClientContext.h */,
 				915BC46A17ADF83000230C3C /* OHResource.h */,
 				915BC46717ADF83000230C3C /* OHResource.m */,
 				9177FD5B17B04ABE001DEB66 /* OHResource+PrivateMethods.h */,
