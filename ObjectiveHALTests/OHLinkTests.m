@@ -48,7 +48,7 @@
     id simpleLink = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     
     // when
-    OHLink *link = [[OHLink alloc] initWithJSONData:simpleLink rel:nil];
+    OHLink *link = [[OHLink alloc] initWithRel:nil jsonData:simpleLink];
 
     // then
     assertThat(link, notNilValue());
@@ -64,7 +64,7 @@
     id completeLink = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     
     // when
-    OHLink *link = [[OHLink alloc] initWithJSONData:completeLink rel:nil];
+    OHLink *link = [[OHLink alloc] initWithRel:nil jsonData:completeLink];
     
     // then
     assertThat(link, notNilValue());

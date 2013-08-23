@@ -20,6 +20,20 @@
                ReferencedContainer = "container:ObjectiveHAL.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9114FA4F17C5CB3B00CA1DCC"
+               BuildableName = "Documentation"
+               BlueprintName = "Documentation"
+               ReferencedContainer = "container:ObjectiveHAL.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

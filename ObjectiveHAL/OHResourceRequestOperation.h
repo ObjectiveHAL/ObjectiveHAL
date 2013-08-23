@@ -7,7 +7,12 @@
 //
 
 #import "AFJSONRequestOperation.h"
+#import "OHResource.h"
 
 @interface OHResourceRequestOperation : AFJSONRequestOperation
+
++ (instancetype)OHResourceRequestOperationWithRequest:(NSURLRequest *)urlRequest
+                                              success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, OHResource * targetResource))success
+                                              failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON))failure;
 
 @end

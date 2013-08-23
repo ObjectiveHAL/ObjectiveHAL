@@ -40,6 +40,7 @@
     testBundle = [NSBundle bundleForClass:[self class]];
 }
 
+#if 0
 - (void)testSimpleResource
 {
     // given
@@ -137,5 +138,6 @@
     // then
     assertThatBool([json isKindOfClass:[NSDictionary class]], is(equalToBool(YES)));
 }
+#endif
 
 @end

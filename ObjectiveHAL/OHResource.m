@@ -9,6 +9,7 @@
 #import "OHResource.h"
 #import "OHResource+PrivateMethods.h"
 
+#import "OHClient.h"
 #import "OHLink.h"
 #import "CSURITemplate.h"
 
@@ -153,7 +154,7 @@
     NSMutableDictionary *curies = [NSMutableDictionary dictionary];
     if ([jsonData isKindOfClass:[NSArray class]]) {
         for (id curieArrayElement in jsonData) {
-            OHLink *curieLink = [[OHLink alloc] initWithJSONData:curieArrayElement rel:@"curies"];
+            OHLink *curieLink = [[OHLink alloc] initWithRel:@"curies" jsonData:curieArrayElement];
             [curies setValue:curieLink forKey:[curieLink name]];
         }
     }
@@ -170,13 +171,13 @@
                 NSString *expandedRelation = [OHResource expandRelationIfPossible:linkRelation withCuries:curies];
                 id jsonLink = [jsonData objectForKey:linkRelation];
                 if ([jsonLink isKindOfClass:[NSDictionary class]]) {
-                    OHLink *link = [[OHLink alloc] initWithJSONData:jsonLink rel:expandedRelation];
+                    OHLink *link = [[OHLink alloc] initWithRel:expandedRelation jsonData:jsonLink];
                     [links setValue:link forKey:expandedRelation];
                 } else if ([jsonLink isKindOfClass:[NSArray class]]) {
                     NSMutableArray *linkArray = [NSMutableArray array];
                     [links setValue:linkArray forKey:expandedRelation];
                     for (id linkArrayElement in jsonLink) {
-                        OHLink *link = [[OHLink alloc] initWithJSONData:linkArrayElement rel:expandedRelation];
+                        OHLink *link = [[OHLink alloc] initWithRel:expandedRelation jsonData:linkArrayElement];
                         [linkArray addObject:link];
                     }
                 } else {
@@ -205,6 +206,42 @@
     }
     
     return rel;
+}
+
+- (void)traverseLinksUsingClient:(OHClient *)client
+                          forRel:(NSString *)rel
+                traversalHandler:(OHLinkTraversalHandler)handler
+               completionHandler:(OHCompletionHandler)completion
+{
+    completion(rel);
+    
+//    NSArray *linksForRel = [self linksForRel:rel];
+//    
+//    NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
+//    OHResourceRequestOperation *operation = [OHResourceRequestOperation OHResourceRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, OHResource *targetResource) {
+//        
+//        [self willChangeValueForKey:@"rootObjectAvailable"];
+//        [self willChangeValueForKey:@"rootObject"];
+//        
+//        _rootObject = targetResource;
+//        _rootObjectAvailable = YES;
+//        
+//        [self didChangeValueForKey:@"rootObject"];
+//        [self didChangeValueForKey:@"rootObjectAvailable"];
+//        
+//    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+//        
+//        [self willChangeValueForKey:@"rootObjectAvailable"];
+//        [self willChangeValueForKey:@"rootObject"];
+//        
+//        _rootObject = nil;
+//        _rootObjectAvailable = NO;
+//        
+//        [self didChangeValueForKey:@"rootObject"];
+//        [self didChangeValueForKey:@"rootObjectAvailable"];
+//        
+//    }];
+//    [self enqueueHTTPRequestOperation:operation];
 }
 
 - (OHLink *)linkForRel:(NSString *)rel

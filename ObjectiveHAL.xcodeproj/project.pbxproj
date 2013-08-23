@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		9114FA4F17C5CB3B00CA1DCC /* Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 9114FA5217C5CB3B00CA1DCC /* Build configuration list for PBXAggregateTarget "Documentation" */;
+			buildPhases = (
+				9114FA5317C5CB4300CA1DCC /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Documentation;
+			productName = Documentation;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		18405E084EE84B65AF4A3FF0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E7688A979C64921A72D54A9 /* libPods.a */; };
 		9128A1B717C4080D00CE73D3 /* OHResourceRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9128A1B617C4080D00CE73D3 /* OHResourceRequestOperation.m */; };
@@ -69,7 +83,6 @@
 /* Begin PBXFileReference section */
 		19DDC463AD3F4C19B4E6C52E /* libPods-ObjectiveHALTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjectiveHALTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E7688A979C64921A72D54A9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9128A1AC17C2A07B00CE73D3 /* OHClientContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHClientContext.h; sourceTree = "<group>"; };
 		9128A1B517C4080D00CE73D3 /* OHResourceRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHResourceRequestOperation.h; sourceTree = "<group>"; };
 		9128A1B617C4080D00CE73D3 /* OHResourceRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHResourceRequestOperation.m; sourceTree = "<group>"; };
 		915BC46717ADF83000230C3C /* OHResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHResource.m; sourceTree = "<group>"; };
@@ -252,7 +265,6 @@
 				917AC2EB17AF20BB005D3A4D /* OHClient.m */,
 				9128A1B517C4080D00CE73D3 /* OHResourceRequestOperation.h */,
 				9128A1B617C4080D00CE73D3 /* OHResourceRequestOperation.m */,
-				9128A1AC17C2A07B00CE73D3 /* OHClientContext.h */,
 				915BC46A17ADF83000230C3C /* OHResource.h */,
 				915BC46717ADF83000230C3C /* OHResource.m */,
 				9177FD5B17B04ABE001DEB66 /* OHResource+PrivateMethods.h */,
@@ -362,6 +374,7 @@
 			targets = (
 				91ECCC6817ADE63E00DDCCDC /* ObjectiveHAL */,
 				91ECCC7917ADE63E00DDCCDC /* ObjectiveHALTests */,
+				9114FA4F17C5CB3B00CA1DCC /* Documentation */,
 			);
 		};
 /* End PBXProject section */
@@ -415,6 +428,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-ObjectiveHALTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		9114FA5317C5CB4300CA1DCC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#appledoc Xcode script\n# Start constants\ncompany=\"ObjectiveHAL\";\ncompanyID=\"org.ObjectiveHAL\";\ncompanyURL=\"http://objectivehal.org\";\ntarget=\"iphoneos\";\n#target=\"macosx\";\noutputPath=\"~/help\";\n# End constants\n/usr/local/bin/appledoc \\\n--project-name \"${PROJECT_NAME}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--output \"${outputPath}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-invalid-crossref \\\n--exit-threshold 2 \\\n--index-desc \"${PROJECT_DIR}/README.md\" \\\n\"${PROJECT_DIR}/ObjectiveHAL\"";
 		};
 		91ECCC7817ADE63E00DDCCDC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -506,6 +532,20 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		9114FA5017C5CB3B00CA1DCC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9114FA5117C5CB3B00CA1DCC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		91ECCC8C17ADE63E00DDCCDC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -619,6 +659,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9114FA5217C5CB3B00CA1DCC /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9114FA5017C5CB3B00CA1DCC /* Debug */,
+				9114FA5117C5CB3B00CA1DCC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		91ECCC6417ADE63E00DDCCDC /* Build configuration list for PBXProject "ObjectiveHAL" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
