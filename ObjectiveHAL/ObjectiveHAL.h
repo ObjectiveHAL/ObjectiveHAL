@@ -12,3 +12,4 @@
 #import <ObjectiveHAL/OHLink.h>
 #import <ObjectiveHAL/OHResource.h>
 #import <ObjectiveHAL/OHClient.h>
+#import <ObjectiveHAL/OHResourceRequestOperation.h>

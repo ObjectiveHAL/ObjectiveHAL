@@ -10,7 +10,7 @@
 
 @implementation OHLink
 
-- (id)initWithJSONData:(id)jsonData rel:(NSString *)rel
+- (id)initWithRel:(NSString *)rel jsonData:(id)jsonData
 {
     self = [super init];
     if (self) {

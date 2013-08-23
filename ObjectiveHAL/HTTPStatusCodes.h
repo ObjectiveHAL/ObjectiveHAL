@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/* NOTE: Modified by Bennett Smith (bennett@focalshift.com) to remove the 
+ *       preprocessor conditionals since they were causing parse errors for
+ *       AppleDoc.
+ */
 
 #ifndef HTTPStatusCodes_h
 #define HTTPStatusCodes_h
@@ -29,10 +33,9 @@
  * The list here is based on the description at Wikipedia.
  * The initial version of this list was written on April 20, 2013.
  *
- * @see <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes"
- *      >List of HTTP status codes</a>
+ * @see [List of HTTP status codes](http://en.wikipedia.org/wiki/List_of_HTTP_status_codes)
  */
-typedef enum
+typedef NS_ENUM(NSInteger, HTTPStatusCode)
 {
     /*--------------------------------------------------
      * 1xx Informational
@@ -48,12 +51,12 @@ typedef enum
      */
     kHTTPStatusCodeSwitchingProtocols = 101,
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2518)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2518)
     /**
      * 103 Processing (WebDAV; RFC 2518).
      */
     kHTTPStatusCodeProcessing = 102,
-#endif
+//#endif
     
     /*--------------------------------------------------
      * 2xx Success
@@ -94,33 +97,33 @@ typedef enum
      */
     kHTTPStatusCodePartialContent = 206,
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)
     /**
      * 207 Multi-Status (WebDAV; RFC 4918).
      */
     kHTTPStatusCodeMultiStatus = 207,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_5842)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_5842)
     /**
      * 208 Already Reported (WebDAV; RFC 5842).
      */
     kHTTPStatusCodeAlreadyReported = 208,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_3229)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_3229)
     /**
      * 226 IM Used (RFC 3229)
      */
     kHTTPStatusCodeIMUsed = 226,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2326)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2326)
     /**
      * 250 Low on Storage Space (RTSP; RFC 2326).
      */
     kHTTPStatusCodeLowOnStorageSpace = 250,
-#endif
+//#endif
     
     /*--------------------------------------------------
      * 3xx Redirection
@@ -265,225 +268,225 @@ typedef enum
      */
     kHTTPStatusCodeExpectationFailed = 417,
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2324)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2324)
     /**
      * 418 I'm a teapot (RFC 2324).
      */
     kHTTPStatusCodeImATeapot = 418,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_TWITTER)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_TWITTER)
     /**
      * 420 Enhance Your Calm (Twitter).
      */
     kHTTPStatusCodeEnhanceYourCalm = 420,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)
     /**
      * 422 Unprocessable Entity (WebDAV; RFC 4918).
      */
     kHTTPStatusCodeUnprocessableEntity = 422,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)
     /**
      * 423 Locked (WebDAV; RFC 4918).
      */
     kHTTPStatusCodeLocked = 423,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)
     /**
      * 424 Failed Dependency (WebDAV; RFC 4918).
      */
     kHTTPStatusCodeFailedDependency = 424,
-#endif
+//#endif
     
     /**
      * 425 Unordered Collection (Internet draft).
      */
     kHTTPStatusCodeUnorderedCollection = 425,
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2817)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2817)
     /**
      * 426 Upgrade Required (RFC 2817).
      */
     kHTTPStatusCodeUpgradeRequired = 426,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_6585)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_6585)
     /**
      * 428 Precondition Required (RFC 6585).
      */
     kHTTPStatusCodePreconditionRequired = 428,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_6585)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_6585)
     /**
      * 429 Too Many Requests (RFC 6585).
      */
     kHTTPStatusCodeTooManyRequests = 429,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_6585)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_6585)
     /**
      * 431 Request Header Fields Too Large (RFC 6585).
      */
     kHTTPStatusCodeRequestHeaderFieldsTooLarge = 431,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)
     /**
      * 444 No Response (Nginx).
      */
     kHTTPStatusCodeNoResponse = 444,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_MICROSOFT)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_MICROSOFT)
     /**
      * 449 Retry With (Microsoft).
      */
     kHTTPStatusCodeRetryWith = 449,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_MICROSOFT)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_MICROSOFT)
     /**
      * 450 Blocked by Windows Parental Controls (Microsoft).
      */
     kHTTPStatusCodeBlockedByWindowsParentalControls = 450,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
     /**
      * 451 Parameter Not Understood (RTSP).
      */
     kHTTPStatusCodeParameterNotUnderstood = 451,
-#endif
+//#endif
     
     /**
      * 451 Unavailable For Legal Reasons (Internet draft).
      */
     kHTTPStatusCodeUnavailableForLegalReasons = 451,
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_MICROSOFT)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_MICROSOFT)
     /**
      * 451 Redirect (Microsoft).
      */
     kHTTPStatusCodeRedirect = 451,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
     /**
      * 452 Conference Not Found (RTSP).
      */
     kHTTPStatusCodeConferenceNotFound = 452,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
     /**
      * 453 Not Enough Bandwidth (RTSP).
      */
     kHTTPStatusCodeNotEnoughBandwidth = 453,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
     /**
      * 454 Session Not Found (RTSP).
      */
     kHTTPStatusCodeSessionNotFound = 454,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
     /**
      * 455 Method Not Valid in This State (RTSP).
      */
     kHTTPStatusCodeMethodNotValidInThisState = 455,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
     /**
      * 456 Header Field Not Valid for Resource (RTSP).
      */
     kHTTPStatusCodeHeaderFieldNotValidForResource = 456,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
     /**
      * 457 Invalid Range (RTSP).
      */
     kHTTPStatusCodeInvalidRange = 457,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
     /**
      * 458 Parameter Is Read-Only (RTSP).
      */
     kHTTPStatusCodeParameterIsReadOnly = 458,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
     /**
      * 459 Aggregate Operation Not Allowed (RTSP).
      */
     kHTTPStatusCodeAggregateOperationNotAllowed = 459,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
     /**
      * 460 Only Aggregate Operation Allowed (RTSP).
      */
     kHTTPStatusCodeOnlyAggregateOperationAllowed = 460,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
     /**
      * 461 Unsupported Transport (RTSP).
      */
     kHTTPStatusCodeUnsupportedTransport = 461,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
     /**
      * 462 Destination Unreachable (RTSP).
      */
     kHTTPStatusCodeDestinationUnreachable = 462,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)
     /**
      * 494 Request Header Too Large (Nginx).
      */
     kHTTPStatusCodeRequestHeaderTooLarge = 494,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)
     /**
      * 495 Cert Error (Nginx).
      */
     kHTTPStatusCodeCertError = 495,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)
     /**
      * 496 No Cert (Nginx).
      */
     kHTTPStatusCodeNoCert = 496,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)
     /**
      * 497 HTTP to HTTPS (Nginx).
      */
     kHTTPStatusCodeHTTPToHTTPS = 497,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)
     /**
      * 499 Client Closed Request (Nginx).
      */
     kHTTPStatusCodeClientClosedRequest = 499,
-#endif
+//#endif
     
     /*--------------------------------------------------
      * 5xx Server Error
@@ -519,52 +522,52 @@ typedef enum
      */
     kHTTPStatusCodeHTTPVersionNotSupported = 505,
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2295)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2295)
     /**
      * 506 Variant Also Negotiates (RFC 2295).
      */
     kHTTPStatusCodeVariantAlsoNegotiates = 506,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)
     /**
      * 507 Insufficient Storage (WebDAV; RFC 4918).
      */
     kHTTPStatusCodeInsufficientStorage = 507,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_5842)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) && !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_5842)
     /**
      * 508 Loop Detected (WebDAV; RFC 5842).
      */
     kHTTPStatusCodeLoopDetected = 508,
-#endif
+//#endif
     
     /**
      * 509 Bandwidth Limit Exceeded (Apache bw/limited extension).
      */
     kHTTPStatusCodeBandwidthLimitExceeded = 509,
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2774)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2774)
     /**
      * 510 Not Extended (RFC 2774).
      */
     kHTTPStatusCodeNotExtended = 510,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_6585)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_6585)
     /**
      * 511 Network Authentication Required (RFC 6585).
      */
     kHTTPStatusCodeNetworkAuthenticationRequired = 511,
-#endif
+//#endif
     
-#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
+//#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)
     /**
      * 551 Option not supported (RTSP).
      */
     kHTTPStatusCodeOptionNotSupported = 551,
-#endif
+//#endif
     
     /**
      * 598 Network read timeout error (Unknown).
@@ -575,8 +578,7 @@ typedef enum
      * 599 Network connect timeout error (Unknown).
      */
     kHTTPStatusCodeNetworkConnectTimeoutError = 599
-}
-HTTPStatusCode;
+};
 
 
 #endif

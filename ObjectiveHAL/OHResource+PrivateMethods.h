@@ -8,7 +8,14 @@
 
 #import "OHResource.h"
 
+// These are only here to aide with writing unit tests. No one should
+// use these in normal opeartions.
 @interface OHResource (PrivateMethods)
 - (OHResource *)embeddedResourceForRel:(NSString *)rel;
 - (NSArray *)embeddedResourcesForRel:(NSString *)rel;
+- (OHClient *)client;
+- (NSDictionary *)links;
+- (NSDictionary *)curies;
+- (NSDictionary *)embedded;
+- (NSDictionary *)resourceJSON;
 @end
