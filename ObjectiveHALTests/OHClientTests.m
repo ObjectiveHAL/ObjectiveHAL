@@ -9,7 +9,6 @@
 #import "OHClient.h"
 
     // Collaborators
-#import "OHClientContext.h"
 #import "OHLink.h"
 #import "OHResource.h"
 
@@ -34,7 +33,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 //#define MOCKITO_SHORTHAND
 //#import <OCMockitoIOS/OCMockitoIOS.h>
 
-@interface OHClientTests : SenTestCase <OHClientContext>
+@interface OHClientTests : SenTestCase
 @property (nonatomic, assign) BOOL done;
 @end
 
@@ -86,175 +85,62 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     return self.done;
 }
 
-- (void)testFollowLink
+- (BOOL)waitUntilChangeObservedForKey:(NSString *)key ofObject:(id)object
+{
+    [client addObserver:self forKeyPath:key options:0 context:NULL];
+    BOOL rval = [self waitForCompletion:timeout];
+    [client removeObserver:self forKeyPath:key];
+    return rval;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"rootObjectAvailable"]) {
+        self.done = YES;
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+- (void)testFetchRootObject
 {
     // given
-    OHResource * __block apps = nil;
+    NSString *rootPath = @"apps";
     
     // when
-    [client traverseLinkForPath:@"apps" traversalContext:self traversalHandler:^(OHResource *targetResource, NSError *error, id traversalContext) {
-        DDLogInfo(@"*** ENTERING APPS TRAVERSAL HANDLER ***");
-        DDLogInfo(@"    traversalContext = '%@'", traversalContext);
-        apps = targetResource;
-    } completionHandler:^(id traversalContext) {
-        DDLogInfo(@"*** ENTERING APPS COMPLETION HANDLER ***");
-        DDLogInfo(@"    traversalContext = '%@'", traversalContext);
+    [client fetchRootObjectFromPath:rootPath];
+    
+    // then
+    [self waitUntilChangeObservedForKey:@"rootObjectAvailable" ofObject:client];
+    
+    NSLog(@"rootObject = %@", client.rootObject);
+}
+
+- (void)testResourceTraversal
+{
+    // given
+    NSString *rootPath = @"apps";
+    [client fetchRootObjectFromPath:rootPath];
+    assertThatBool([self waitUntilChangeObservedForKey:@"rootObjectAvailable" ofObject:client], is(equalToBool(YES)));;
+    
+    // when
+    OHResource *rootObject = [client rootObject];
+    self.done = NO;
+    [rootObject traverseLinksUsingClient:client
+                                  forRel:@"r:app"
+                        traversalHandler:^(NSString *rel, OHResource *targetResource, NSError *error)
+    {
+        NSLog(@" ==> %@", targetResource);
+    }
+                       completionHandler:^(NSString *rel)
+    {
+        NSLog(@"Finished traversal for %@", rel);
         self.done = YES;
     }];
     assertThatBool([self waitForCompletion:timeout], is(equalToBool(YES)));
     
     // then
-    assertThat(apps, notNilValue());
 }
 
-- (void)testFollowLinkFromAppsToCategory
-{
-    // given
-    OHResource * __block apps = nil;
-    self.done = NO;
-    
-    [client traverseLinkForPath:@"apps" traversalContext:self traversalHandler:^(OHResource *targetResource, NSError *error, id traversalContext) {
-        DDLogInfo(@"*** ENTERING APPS TRAVERSAL HANDLER ***");
-        DDLogInfo(@"    traversalContext = '%@'", traversalContext);
-        apps = targetResource;
-    } completionHandler:^(id traversalContext) {
-        DDLogInfo(@"*** ENTERING APPS COMPLETION HANDLER ***");
-        DDLogInfo(@"    traversalContext = '%@'", traversalContext);
-        self.done = YES;
-    }];
-    
-    assertThatBool([self waitForCompletion:timeout], is(equalToBool(YES)));
-    
-    // when
-    OHResource * __block category = nil;
-    self.done = NO;
-
-    [client traverseLinkForRel:@"r:category" inResource:apps traversalContext:self traversalHandler:^(OHResource *targetResource, NSError *error, id traversalContext) {
-        DDLogInfo(@"*** ENTERING CATEGORY TRAVERSAL HANDLER ***");
-        DDLogInfo(@"    traversalContext = '%@'", traversalContext);
-        category = targetResource;
-    } completionHandler:^(id traversalContext) {
-        DDLogInfo(@"*** ENTERING CATEGORY COMPLETION HANDLER ***");
-        DDLogInfo(@"    traversalContext = '%@'", traversalContext);
-        self.done = YES;
-    }];
-
-    assertThatBool([self waitForCompletion:timeout], is(equalToBool(YES)));
-    
-    // then
-    assertThat([[category linkForRel:@"self"] href], is(@"/category/1"));
-}
-
-- (void)testFollowLinks
-{
-    // given
-    OHResource * __block apps = nil;
-    self.done = NO;
-    
-    [client traverseLinkForPath:@"apps" traversalContext:self traversalHandler:^(OHResource *targetResource, NSError *error, id traversalContext) {
-        DDLogInfo(@"*** ENTERING APPS TRAVERSAL HANDLER ***");
-        DDLogInfo(@"    traversalContext = '%@'", traversalContext);
-        apps = targetResource;
-    } completionHandler:^(id traversalContext) {
-        DDLogInfo(@"*** ENTERING APPS COMPLETION HANDLER ***");
-        DDLogInfo(@"    traversalContext = '%@'", traversalContext);
-        self.done = YES;
-    }];
-    
-    assertThatBool([self waitForCompletion:timeout], is(equalToBool(YES)));
-    
-    // when
-    NSMutableArray * __block appArray = [NSMutableArray array];
-    self.done = NO;
-    
-    [client traverseLinksForRel:@"r:app" inResource:apps traversalContext:self traversalHandler:^(OHResource *targetResource, NSError *error, id traversalContext) {
-        DDLogInfo(@"*** ENTERING APP TRAVERSAL HANDLER ***");
-        DDLogInfo(@"    traversalContext = '%@'", traversalContext);
-        [appArray addObject:targetResource];
-    } completionHandler:^(id traversalContext) {
-        DDLogInfo(@"*** ENTERING APP COMPLETION HANDLER ***");
-        DDLogInfo(@"    traversalContext = '%@'", traversalContext);
-        self.done = YES;
-    }];
-
-    assertThatBool([self waitForCompletion:timeout], is(equalToBool(YES)));
-    
-    // then
-    assertThat(appArray, hasCountOf(3));
-}
-
-- (void)testFollowLinkToRelForEmbeddedResource
-{
-    // given
-    //  .. a contact resource with embedded addr:home resource
-    OHResource *contact = [self loadResourceWithName:@"contact"];
-    
-    // when
-    [contact setUseEmbeddedResources:YES];
-    OHResource * __block home = nil;
-    
-    self.done = NO;
-    [client traverseLinkForRel:@"addr:home" inResource:contact traversalContext:self traversalHandler:^(OHResource *targetResource, NSError *error, id traversalContext) {
-        home = targetResource;
-    } completionHandler:^(id traversalContext) {
-        self.done = YES;
-    }];
-    assertThatBool([self waitForCompletion:timeout], is(equalToBool(YES)));
-    
-    // then
-    assertThat([[home linkForRel:@"self"] href], is(@"http://tempuri.org/address/827"));
-}
-
-- (OHResource *)loadResourceWithName:(NSString *)resourceName
-{
-    NSBundle *testBundle = [NSBundle bundleForClass:[self class]];
-    NSError *error = nil;
-    NSData *data = [NSData fetchTestFixtureByName:resourceName fromBundle:testBundle];
-    assertThat(data, notNilValue());
-    id resourceJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-    assertThat(error, nilValue());
-    OHResource *resource = [OHResource resourceWithJSONData:resourceJSON];
-    assertThat(resource, notNilValue());
-    return resource;
-}
-
-- (void)testFollowLinksToRelForSomeEmbeddedResources
-{
-    // given
-    OHResource * __block apps = nil;
-    self.done = NO;
-    
-    [client traverseLinkForPath:@"apps" traversalContext:self traversalHandler:^(OHResource *targetResource, NSError *error, id traversalContext) {
-        DDLogInfo(@"*** ENTERING APPS TRAVERSAL HANDLER ***");
-        DDLogInfo(@"    traversalContext = '%@'", traversalContext);
-        apps = targetResource;
-    } completionHandler:^(id traversalContext) {
-        DDLogInfo(@"*** ENTERING APPS COMPLETION HANDLER ***");
-        DDLogInfo(@"    traversalContext = '%@'", traversalContext);
-        self.done = YES;
-    }];
-    
-    assertThatBool([self waitForCompletion:timeout], is(equalToBool(YES)));
-    
-    // when
-    NSMutableArray * __block appArray = [NSMutableArray array];
-    self.done = NO;
-    
-    [apps setUseEmbeddedResources:YES];
-    [client traverseLinksForRel:@"r:app" inResource:apps traversalContext:self traversalHandler:^(OHResource *targetResource, NSError *error, id traversalContext) {
-        DDLogInfo(@"*** ENTERING APP TRAVERSAL HANDLER ***");
-        DDLogInfo(@"    traversalContext = '%@'", traversalContext);
-        [appArray addObject:targetResource];
-    } completionHandler:^(id traversalContext) {
-        DDLogInfo(@"*** ENTERING APP COMPLETION HANDLER ***");
-        DDLogInfo(@"    traversalContext = '%@'", traversalContext);
-        self.done = YES;
-    }];
-    
-    assertThatBool([self waitForCompletion:timeout], is(equalToBool(YES)));
-    
-    // then
-    assertThat(appArray, hasCountOf(3));
-}
 
 @end

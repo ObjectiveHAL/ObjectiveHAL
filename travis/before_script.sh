@@ -10,6 +10,7 @@ echo "Installing additional tools using homebrew."
 brew update
 brew install xctool
 brew install lighttpd
+brew install appledoc
 
 # Launch Lighty in the background. It serves test fixtures at port 7100.
 /usr/local/sbin/lighttpd -f lighttpd/lighttpd.conf

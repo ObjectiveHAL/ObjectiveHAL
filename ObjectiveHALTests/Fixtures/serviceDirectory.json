@@ -1,0 +1,22 @@
+{
+  "_links": {
+    "curies": [
+      {
+        "href": "http://tempuri.org/rels/{rel}",
+        "name": "r",
+        "templated": "true"
+      }
+    ],
+    "r:authenticate" : {
+        "href": "login"
+    },
+    "r:register" : {
+        "href": "register"
+    },
+    "self": {
+      "href": "/"
+    }
+  }
+  "version": "1.0",
+  "release_date": "12-Jan-2013"
+}

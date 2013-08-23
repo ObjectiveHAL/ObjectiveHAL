@@ -1,0 +1,4 @@
+rvm --create use 1.9.3@HALTestServer
+rvm_project_rvmrc_default=1
+rvm_autoinstall_bundler_flag=1
+

@@ -9,7 +9,9 @@
 #import "OHResource.h"
 #import "OHResource+PrivateMethods.h"
 
+#import "OHClient.h"
 #import "OHLink.h"
+#import "OHResourceRequestOperation.h"
 #import "CSURITemplate.h"
 
 @interface OHResource ()
@@ -131,7 +133,7 @@
             NSString *expandedRelation = [OHResource expandRelationIfPossible:linkRelation withCuries:curies];
             id embeddedJson = [jsonData objectForKey:linkRelation];
             if ([embeddedJson isKindOfClass:[NSDictionary class]]) {
-                [embedded setValue:embeddedJson forKey:expandedRelation];
+                [embedded setValue:@[embeddedJson] forKey:expandedRelation];
             } else if ([embeddedJson isKindOfClass:[NSArray class]]) {
                 NSMutableArray *embeddedArray = [NSMutableArray array];
                 [embedded setValue:embeddedArray forKey:expandedRelation];
@@ -153,7 +155,7 @@
     NSMutableDictionary *curies = [NSMutableDictionary dictionary];
     if ([jsonData isKindOfClass:[NSArray class]]) {
         for (id curieArrayElement in jsonData) {
-            OHLink *curieLink = [[OHLink alloc] initWithJSONData:curieArrayElement rel:@"curies"];
+            OHLink *curieLink = [[OHLink alloc] initWithRel:@"curies" jsonData:curieArrayElement];
             [curies setValue:curieLink forKey:[curieLink name]];
         }
     }
@@ -170,13 +172,13 @@
                 NSString *expandedRelation = [OHResource expandRelationIfPossible:linkRelation withCuries:curies];
                 id jsonLink = [jsonData objectForKey:linkRelation];
                 if ([jsonLink isKindOfClass:[NSDictionary class]]) {
-                    OHLink *link = [[OHLink alloc] initWithJSONData:jsonLink rel:expandedRelation];
-                    [links setValue:link forKey:expandedRelation];
+                    OHLink *link = [[OHLink alloc] initWithRel:expandedRelation jsonData:jsonLink];
+                    [links setValue:@[link] forKey:expandedRelation];
                 } else if ([jsonLink isKindOfClass:[NSArray class]]) {
                     NSMutableArray *linkArray = [NSMutableArray array];
                     [links setValue:linkArray forKey:expandedRelation];
                     for (id linkArrayElement in jsonLink) {
-                        OHLink *link = [[OHLink alloc] initWithJSONData:linkArrayElement rel:expandedRelation];
+                        OHLink *link = [[OHLink alloc] initWithRel:expandedRelation jsonData:linkArrayElement];
                         [linkArray addObject:link];
                     }
                 } else {
@@ -205,6 +207,33 @@
     }
     
     return rel;
+}
+
+- (void)traverseLinksUsingClient:(OHClient *)client
+                          forRel:(NSString *)rel
+                traversalHandler:(OHLinkTraversalHandler)handler
+               completionHandler:(OHCompletionHandler)completion
+{
+    NSString *expandedRelation = [OHResource expandRelationIfPossible:rel withCuries:_curies];
+    
+    NSMutableArray *linksMatchingEmbeddedResources = [NSMutableArray array];
+
+    if ([self useEmbeddedResources] == YES) {
+        NSArray *embeddedResourcesMatchingRel = [_embedded objectForKey:expandedRelation];
+        
+        // Traverse the embedded resources.
+        for (id embeddedJSON in embeddedResourcesMatchingRel) {
+            OHResource *embeddedResource = [OHResource embeddedResourceWithJSONData:embeddedJSON curies:_curies];
+            OHLink *selfLink = [embeddedResource linkForRel:@"self"];
+            [linksMatchingEmbeddedResources addObject:selfLink];
+            handler(rel, embeddedResource, nil);
+        }
+    }
+    
+    NSMutableArray *remainingLinks = [NSMutableArray arrayWithArray:[self linksForRel:rel]];
+    [remainingLinks removeObjectsInArray:linksMatchingEmbeddedResources];
+    
+    [client traverseLinks:remainingLinks forRel:rel inResource:self traversalHandler:handler completionHandler:completion];
 }
 
 - (OHLink *)linkForRel:(NSString *)rel
