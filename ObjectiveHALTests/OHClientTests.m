@@ -85,12 +85,22 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     return self.done;
 }
 
-- (void)waitUntilChangeObservedForKey:(NSString *)key ofObject:(id)object
+- (BOOL)waitUntilChangeObservedForKey:(NSString *)key ofObject:(id)object
 {
     [client addObserver:self forKeyPath:key options:0 context:NULL];
-    [self waitForCompletion:timeout];
+    BOOL rval = [self waitForCompletion:timeout];
+    [client removeObserver:self forKeyPath:key];
+    return rval;
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"rootObjectAvailable"]) {
+        self.done = YES;
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
 
 - (void)testFetchRootObject
 {
@@ -106,13 +116,31 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     NSLog(@"rootObject = %@", client.rootObject);
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void)testResourceTraversal
 {
-    if ([keyPath isEqualToString:@"rootObjectAvailable"]) {
-        self.done = YES;
-    } else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    // given
+    NSString *rootPath = @"apps";
+    [client fetchRootObjectFromPath:rootPath];
+    assertThatBool([self waitUntilChangeObservedForKey:@"rootObjectAvailable" ofObject:client], is(equalToBool(YES)));;
+    
+    // when
+    OHResource *rootObject = [client rootObject];
+    self.done = NO;
+    [rootObject traverseLinksUsingClient:client
+                                  forRel:@"r:app"
+                        traversalHandler:^(NSString *rel, OHResource *targetResource, NSError *error)
+    {
+        NSLog(@" ==> %@", targetResource);
     }
+                       completionHandler:^(NSString *rel)
+    {
+        NSLog(@"Finished traversal for %@", rel);
+        self.done = YES;
+    }];
+    assertThatBool([self waitForCompletion:timeout], is(equalToBool(YES)));
+    
+    // then
 }
+
 
 @end

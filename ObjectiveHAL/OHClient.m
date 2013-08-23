@@ -64,4 +64,31 @@
     [self enqueueHTTPRequestOperation:operation];
 }
 
+- (void)traverseLinks:(NSArray *)links forRel:(NSString *)rel inResource:(OHResource *)resource traversalHandler:(OHLinkTraversalHandler)handler completionHandler:(OHCompletionHandler)completion
+{
+    NSMutableArray *operations = [NSMutableArray array];
+    
+    for (OHLink *link in links) {
+        NSString *path = [link href];
+        NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
+        OHResourceRequestOperation *op = [OHResourceRequestOperation OHResourceRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, OHResource *targetResource) {
+            
+            handler(rel, targetResource, nil);
+            
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            
+            handler(rel, nil, error);
+            
+        }];
+        [operations addObject:op];
+    }
+    
+    [self enqueueBatchOfHTTPRequestOperations:operations progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
+        NSLog(@"Completed %d of %d operations", numberOfFinishedOperations, totalNumberOfOperations);
+    } completionBlock:^(NSArray *operations) {
+        NSLog(@"Completed all operations");
+        completion(rel);
+    }];
+}
+
 @end

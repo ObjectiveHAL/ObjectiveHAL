@@ -11,6 +11,7 @@
 
 #import "OHClient.h"
 #import "OHLink.h"
+#import "OHResourceRequestOperation.h"
 #import "CSURITemplate.h"
 
 @interface OHResource ()
@@ -132,7 +133,7 @@
             NSString *expandedRelation = [OHResource expandRelationIfPossible:linkRelation withCuries:curies];
             id embeddedJson = [jsonData objectForKey:linkRelation];
             if ([embeddedJson isKindOfClass:[NSDictionary class]]) {
-                [embedded setValue:embeddedJson forKey:expandedRelation];
+                [embedded setValue:@[embeddedJson] forKey:expandedRelation];
             } else if ([embeddedJson isKindOfClass:[NSArray class]]) {
                 NSMutableArray *embeddedArray = [NSMutableArray array];
                 [embedded setValue:embeddedArray forKey:expandedRelation];
@@ -172,7 +173,7 @@
                 id jsonLink = [jsonData objectForKey:linkRelation];
                 if ([jsonLink isKindOfClass:[NSDictionary class]]) {
                     OHLink *link = [[OHLink alloc] initWithRel:expandedRelation jsonData:jsonLink];
-                    [links setValue:link forKey:expandedRelation];
+                    [links setValue:@[link] forKey:expandedRelation];
                 } else if ([jsonLink isKindOfClass:[NSArray class]]) {
                     NSMutableArray *linkArray = [NSMutableArray array];
                     [links setValue:linkArray forKey:expandedRelation];
@@ -213,35 +214,26 @@
                 traversalHandler:(OHLinkTraversalHandler)handler
                completionHandler:(OHCompletionHandler)completion
 {
-    completion(rel);
+    NSString *expandedRelation = [OHResource expandRelationIfPossible:rel withCuries:_curies];
     
-//    NSArray *linksForRel = [self linksForRel:rel];
-//    
-//    NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
-//    OHResourceRequestOperation *operation = [OHResourceRequestOperation OHResourceRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, OHResource *targetResource) {
-//        
-//        [self willChangeValueForKey:@"rootObjectAvailable"];
-//        [self willChangeValueForKey:@"rootObject"];
-//        
-//        _rootObject = targetResource;
-//        _rootObjectAvailable = YES;
-//        
-//        [self didChangeValueForKey:@"rootObject"];
-//        [self didChangeValueForKey:@"rootObjectAvailable"];
-//        
-//    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-//        
-//        [self willChangeValueForKey:@"rootObjectAvailable"];
-//        [self willChangeValueForKey:@"rootObject"];
-//        
-//        _rootObject = nil;
-//        _rootObjectAvailable = NO;
-//        
-//        [self didChangeValueForKey:@"rootObject"];
-//        [self didChangeValueForKey:@"rootObjectAvailable"];
-//        
-//    }];
-//    [self enqueueHTTPRequestOperation:operation];
+    NSMutableArray *linksMatchingEmbeddedResources = [NSMutableArray array];
+
+    if ([self useEmbeddedResources] == YES) {
+        NSArray *embeddedResourcesMatchingRel = [_embedded objectForKey:expandedRelation];
+        
+        // Traverse the embedded resources.
+        for (id embeddedJSON in embeddedResourcesMatchingRel) {
+            OHResource *embeddedResource = [OHResource embeddedResourceWithJSONData:embeddedJSON curies:_curies];
+            OHLink *selfLink = [embeddedResource linkForRel:@"self"];
+            [linksMatchingEmbeddedResources addObject:selfLink];
+            handler(rel, embeddedResource, nil);
+        }
+    }
+    
+    NSMutableArray *remainingLinks = [NSMutableArray arrayWithArray:[self linksForRel:rel]];
+    [remainingLinks removeObjectsInArray:linksMatchingEmbeddedResources];
+    
+    [client traverseLinks:remainingLinks forRel:rel inResource:self traversalHandler:handler completionHandler:completion];
 }
 
 - (OHLink *)linkForRel:(NSString *)rel
