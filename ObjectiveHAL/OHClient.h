@@ -36,12 +36,19 @@ typedef void (^OHCompletionHandler)(NSString *rel);
  */
 - (void)fetchRootObjectFromPath:(NSString *)path;
 
+/** Fetch a resource from a specific path on the server.
+ @param path Path to the resource. Can be absolute or relative to base url.
+ @param handler The traversal handler, called for the target resource.
+ @param completion The completion handler, called once the resource traversal has completed.
+ */
+- (void)fetchResourceFromPath:(NSString *)path traversalHandler:(OHLinkTraversalHandler)handler completionHandler:(OHCompletionHandler)completion;
+
 /** Traverse links for a relation on a given resource.
  @param links An array of OHLink objects, each of which will be traversed.
  @param rel The link relation that these traversal operations are a part of.
  @param resource The resource the traversal is being done for.
  @param handler The traversal handler, called for each target resource.
- @param completion The completion handler, called once after all traversal operations have completed.
+ @param completion The completion handler, called once all traversal operations have completed.
  */
 - (void)traverseLinks:(NSArray *)links forRel:(NSString *)rel inResource:(OHResource *)resource traversalHandler:(OHLinkTraversalHandler)handler completionHandler:(OHCompletionHandler)completion;
 
