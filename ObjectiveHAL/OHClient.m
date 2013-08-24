@@ -64,6 +64,17 @@
     [self enqueueHTTPRequestOperation:operation];
 }
 
+- (void)fetchResourceFromPath:(NSString *)path traversalHandler:(OHLinkTraversalHandler)handler completionHandler:(OHCompletionHandler)completion
+{
+    NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
+    OHResourceRequestOperation *operation = [OHResourceRequestOperation OHResourceRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, OHResource *targetResource) {
+        handler(path, targetResource, nil);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        completion(path);
+    }];
+    [self enqueueHTTPRequestOperation:operation];
+}
+
 - (void)traverseLinks:(NSArray *)links forRel:(NSString *)rel inResource:(OHResource *)resource traversalHandler:(OHLinkTraversalHandler)handler completionHandler:(OHCompletionHandler)completion
 {
     NSMutableArray *operations = [NSMutableArray array];
