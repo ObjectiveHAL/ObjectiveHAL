@@ -116,6 +116,26 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     NSLog(@"rootObject = %@", client.rootObject);
 }
 
+- (void)testFetchResourceFromPath
+{
+    // given
+    NSString *rootPath = @"apps";
+    OHResource * __block rootResource = nil;
+    
+    // when
+    self.done = NO;
+    [client fetchResourceFromPath:rootPath traversalHandler:^(NSString *rel, OHResource *targetResource, NSError *error) {
+        rootResource = targetResource;
+        self.done = YES;
+    } completionHandler:^(NSString *rel) {
+        self.done = YES;
+    }];
+    assertThatBool([self waitForCompletion:timeout], is(equalToBool(YES)));
+    
+    // then
+    NSLog(@"%@", rootResource);
+}
+
 - (void)testResourceTraversal
 {
     // given
