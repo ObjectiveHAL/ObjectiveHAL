@@ -28,6 +28,11 @@ typedef void (^OHCompletionHandler)(NSString *rel);
  */
 @property (nonatomic, strong) OHResource *rootObject;
 
+/** Initialize the OHClient.
+ @param url Base URL for the service.
+ */
+- (id)initWithBaseURL:(NSURL *)url;
+
 /** Fetch the root (top-level) object from the server.
  Any additional navigation through the objects on the server is done
  using methods of the OHResource class.
