@@ -9,7 +9,6 @@
 #import "OHResource.h"
 #import "OHResource+PrivateMethods.h"
 
-#import "OHClient.h"
 #import "OHLink.h"
 #import "OHResourceRequestOperation.h"
 #import "CSURITemplate.h"
@@ -32,11 +31,6 @@
     copy.resourceJSON = [NSDictionary dictionaryWithDictionary:self.resourceJSON];
 
     return copy;
-}
-
-- (NSDictionary *)json
-{
-    return self.resourceJSON;
 }
 
 - (id)initWithJSONData:(id)jsonData
@@ -209,33 +203,6 @@
     return rel;
 }
 
-- (void)traverseLinksUsingClient:(OHClient *)client
-                          forRel:(NSString *)rel
-                traversalHandler:(OHLinkTraversalHandler)handler
-               completionHandler:(OHCompletionHandler)completion
-{
-    NSString *expandedRelation = [OHResource expandRelationIfPossible:rel withCuries:_curies];
-    
-    NSMutableArray *linksMatchingEmbeddedResources = [NSMutableArray array];
-
-    if ([self useEmbeddedResources] == YES) {
-        NSArray *embeddedResourcesMatchingRel = [_embedded objectForKey:expandedRelation];
-        
-        // Traverse the embedded resources.
-        for (id embeddedJSON in embeddedResourcesMatchingRel) {
-            OHResource *embeddedResource = [OHResource embeddedResourceWithJSONData:embeddedJSON curies:_curies];
-            OHLink *selfLink = [embeddedResource linkForRel:@"self"];
-            [linksMatchingEmbeddedResources addObject:selfLink];
-            handler(rel, embeddedResource, nil);
-        }
-    }
-    
-    NSMutableArray *remainingLinks = [NSMutableArray arrayWithArray:[self linksForRel:rel]];
-    [remainingLinks removeObjectsInArray:linksMatchingEmbeddedResources];
-    
-    [client traverseLinks:remainingLinks forRel:rel inResource:self traversalHandler:handler completionHandler:completion];
-}
-
 - (OHLink *)linkForRel:(NSString *)rel
 {
     NSString *absoluteRel = [OHResource expandRelationIfPossible:rel withCuries:self.curies];
@@ -263,6 +230,44 @@
         return (NSArray *)value;
     }
     return nil;
+}
+
+- (NSArray *)embeddedLinksForRel:(NSString *)rel {
+    NSString *absoluteRel = [OHResource expandRelationIfPossible:rel withCuries:self.curies];
+    id value = [self.links objectForKey:absoluteRel];
+    if ([value isKindOfClass:[OHLink class]]) {
+        if ([self embeddedResourceForLink:value]) {
+            return @[value];
+        }
+        else {
+            return nil;
+        }
+    } else if ([value isKindOfClass:[NSArray class]]) {
+        NSMutableArray *embeddedLinks = [NSMutableArray array];
+        for (OHLink *link in value) {
+            if ([self embeddedResourceForLink:link]) {
+                [embeddedLinks addObject:link];
+            }
+        }
+        if ([embeddedLinks count] > 0) {
+            return [NSArray arrayWithArray:embeddedLinks];
+        }
+        else {
+            return nil;
+        }
+    }
+    else {
+        return nil;
+    }
+}
+
+- (NSArray *)externalLinksForRel:(NSString *)rel {
+    NSArray *allLinksForRel = [self linksForRel:rel];
+    NSArray *embeddedLinksForRel = [self embeddedLinksForRel:rel];
+    
+    NSMutableArray *externalLinksForRel = [NSMutableArray arrayWithArray:allLinksForRel];
+    [externalLinksForRel removeObjectsInArray:embeddedLinksForRel];
+    return externalLinksForRel;
 }
 
 - (NSArray *)embeddedResourcesForRel:(NSString *)rel

@@ -93,6 +93,9 @@
                <Test
                   Identifier = "OHClientTests/testFollowLinkForPathWhenFinished">
                </Test>
+               <Test
+                  Identifier = "OHClientTests">
+               </Test>
             </SkippedTests>
          </TestableReference>
       </Testables>

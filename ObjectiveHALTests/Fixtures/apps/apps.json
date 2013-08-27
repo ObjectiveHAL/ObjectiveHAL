@@ -53,7 +53,7 @@
       }
     ],
     "self": {
-      "href": "/api/applications"
+      "href": "/api/apps"
     },
     "r:category": {
       "href": "/category/1",

@@ -41,13 +41,13 @@
 		917AC2E717AF2060005D3A4D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2E517AF2059005D3A4D /* SystemConfiguration.framework */; };
 		917AC2E817AF2063005D3A4D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2E317AF2053005D3A4D /* MobileCoreServices.framework */; };
 		917AC2E917AF2065005D3A4D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2E117AF204C005D3A4D /* Security.framework */; };
-		917AC2EC17AF20BB005D3A4D /* OHClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 917AC2EB17AF20BB005D3A4D /* OHClient.m */; };
-		917AC2EE17AF279B005D3A4D /* OHClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 917AC2ED17AF279B005D3A4D /* OHClientTests.m */; };
 		917AC2FA17AF8198005D3A4D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2F917AF8198005D3A4D /* CoreGraphics.framework */; };
 		917AC2FC17AF819E005D3A4D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2FB17AF819E005D3A4D /* UIKit.framework */; };
 		917AC2FD17AF81A9005D3A4D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2F917AF8198005D3A4D /* CoreGraphics.framework */; };
 		917AC2FE17AF81AE005D3A4D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917AC2FB17AF819E005D3A4D /* UIKit.framework */; };
+		9187244917CBEF5300AC905D /* OHLinkTraverser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9187244817CBEF5300AC905D /* OHLinkTraverser.m */; };
 		918E47F917B9551600E78CCB /* apps.json in Resources */ = {isa = PBXBuildFile; fileRef = 917AC2F417AF7CE1005D3A4D /* apps.json */; };
+		91BA8F6E17CC29E00074F6EC /* OHLinkTraverserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BA8F6D17CC29E00074F6EC /* OHLinkTraverserTests.m */; };
 		91ECCC6D17ADE63E00DDCCDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */; };
 		91ECCC7217ADE63E00DDCCDC /* ObjectiveHAL.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 91ECCC7117ADE63E00DDCCDC /* ObjectiveHAL.h */; };
 		91ECCC7C17ADE63E00DDCCDC /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91ECCC7B17ADE63E00DDCCDC /* SenTestingKit.framework */; };
@@ -110,8 +110,6 @@
 		917AC2E117AF204C005D3A4D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		917AC2E317AF2053005D3A4D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		917AC2E517AF2059005D3A4D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		917AC2EA17AF20BB005D3A4D /* OHClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHClient.h; sourceTree = "<group>"; };
-		917AC2EB17AF20BB005D3A4D /* OHClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHClient.m; sourceTree = "<group>"; };
 		917AC2ED17AF279B005D3A4D /* OHClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHClientTests.m; sourceTree = "<group>"; };
 		917AC2EF17AF2AC7005D3A4D /* travis */ = {isa = PBXFileReference; lastKnownFileType = folder; path = travis; sourceTree = "<group>"; };
 		917AC2F417AF7CE1005D3A4D /* apps.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = apps.json; path = apps/apps.json; sourceTree = "<group>"; };
@@ -122,6 +120,9 @@
 		917AC2FB17AF819E005D3A4D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		917AC30017AF89D8005D3A4D /* 1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = 1.json; path = category/1.json; sourceTree = "<group>"; };
 		917CE2EA17BDE5630029FDDB /* lighttpd */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lighttpd; sourceTree = "<group>"; };
+		9187244717CBEF5300AC905D /* OHLinkTraverser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHLinkTraverser.h; sourceTree = "<group>"; };
+		9187244817CBEF5300AC905D /* OHLinkTraverser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHLinkTraverser.m; sourceTree = "<group>"; };
+		91BA8F6D17CC29E00074F6EC /* OHLinkTraverserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHLinkTraverserTests.m; sourceTree = "<group>"; };
 		91ECCC6917ADE63E00DDCCDC /* libObjectiveHAL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libObjectiveHAL.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		91ECCC7017ADE63E00DDCCDC /* ObjectiveHAL-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjectiveHAL-Prefix.pch"; sourceTree = "<group>"; };
@@ -261,8 +262,8 @@
 			isa = PBXGroup;
 			children = (
 				9177FD5A17B04057001DEB66 /* HTTPStatusCodes.h */,
-				917AC2EA17AF20BB005D3A4D /* OHClient.h */,
-				917AC2EB17AF20BB005D3A4D /* OHClient.m */,
+				9187244717CBEF5300AC905D /* OHLinkTraverser.h */,
+				9187244817CBEF5300AC905D /* OHLinkTraverser.m */,
 				9128A1B517C4080D00CE73D3 /* OHResourceRequestOperation.h */,
 				9128A1B617C4080D00CE73D3 /* OHResourceRequestOperation.m */,
 				915BC46A17ADF83000230C3C /* OHResource.h */,
@@ -288,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				917AC2ED17AF279B005D3A4D /* OHClientTests.m */,
+				91BA8F6D17CC29E00074F6EC /* OHLinkTraverserTests.m */,
 				9162596A17ADFED200C1791F /* OHLinkTests.m */,
 				9162596B17ADFED200C1791F /* OHResourceTests.m */,
 				9162596C17ADFED200C1791F /* NSData+TestInfected.h */,
@@ -494,8 +496,8 @@
 			files = (
 				915BC46B17ADF83000230C3C /* OHResource.m in Sources */,
 				915BC46C17ADF83000230C3C /* OHLink.m in Sources */,
-				917AC2EC17AF20BB005D3A4D /* OHClient.m in Sources */,
 				9128A1B717C4080D00CE73D3 /* OHResourceRequestOperation.m in Sources */,
+				9187244917CBEF5300AC905D /* OHLinkTraverser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,7 +508,7 @@
 				9162596E17ADFED200C1791F /* OHLinkTests.m in Sources */,
 				9162596F17ADFED200C1791F /* OHResourceTests.m in Sources */,
 				9162597017ADFED200C1791F /* NSData+TestInfected.m in Sources */,
-				917AC2EE17AF279B005D3A4D /* OHClientTests.m in Sources */,
+				91BA8F6E17CC29E00074F6EC /* OHLinkTraverserTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

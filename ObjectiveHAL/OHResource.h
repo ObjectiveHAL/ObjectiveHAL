@@ -10,7 +10,7 @@
 
 #import "OHResource.h"
 #import "OHLink.h"
-#import "OHClient.h"
+#import "OHLinkTraverser.h"
 
 /** A HAL Resource
  
@@ -43,7 +43,19 @@
  "_links" and "_embedded" properties.
  
  */
-@property (nonatomic, strong, readonly) NSDictionary *json;
+@property (readonly, nonatomic, strong) NSDictionary *resourceJSON;
+
+/** The HAL links.
+ */
+@property (readonly, nonatomic, strong) NSDictionary *links;
+
+/** The HAL curies.
+ */
+@property (readonly, nonatomic, strong) NSDictionary *curies;
+
+/** The HAL embedded resources.
+ */
+@property (readonly, nonatomic, strong) NSDictionary *embedded;
 
 #pragma mark - Initializing an OHResource object
 /*******************************************************************************
@@ -105,6 +117,9 @@
  */
 - (NSArray *)linksForRel:(NSString *)rel;
 
+- (NSArray *)embeddedLinksForRel:(NSString *)rel;
+- (NSArray *)externalLinksForRel:(NSString *)rel;
+
 #pragma mark - Accessing Embedded Resources
 /*******************************************************************************
  * @name Accessing Embedded Resources
@@ -131,24 +146,12 @@
 // TODO: Figure out where this is used. It seems like this method should be internal.
 - (OHResource *)embeddedResourceForLink:(OHLink *)link;
 
-#pragma mark - Traversal of Link Relations
-/*******************************************************************************
- * @name Traversal of Link Relations
- */
+/** Expand a rel using a set of curies.
 
-/** Traverse links for the specified relation to retrieve related resources.
+ @param rel The link relation.
+ @param curies The curies.
  
- @param client A reference to the OHClient used for server interactions.
- @param rel         The link relation that should be traversed.
- @param handler     A block that will be called for each link traversal.
- @param completion  A block that will be called after all links have been traversed.
- 
- It is encumbant upon the caller to store the resources retrieved during the
- traversal.
  */
-- (void)traverseLinksUsingClient:(OHClient *)client
-                          forRel:(NSString *)rel
-                traversalHandler:(OHLinkTraversalHandler)handler
-               completionHandler:(OHCompletionHandler)completion;
++ (NSString *)expandRelationIfPossible:(NSString *)rel withCuries:(NSDictionary *)curies;
 
 @end

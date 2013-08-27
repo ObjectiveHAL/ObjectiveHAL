@@ -13,7 +13,7 @@
 @interface OHResource (PrivateMethods)
 - (OHResource *)embeddedResourceForRel:(NSString *)rel;
 - (NSArray *)embeddedResourcesForRel:(NSString *)rel;
-- (OHClient *)client;
+- (AFHTTPClient *)client;
 - (NSDictionary *)links;
 - (NSDictionary *)curies;
 - (NSDictionary *)embedded;
