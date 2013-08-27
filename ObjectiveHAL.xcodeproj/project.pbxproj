@@ -122,6 +122,9 @@
 		917CE2EA17BDE5630029FDDB /* lighttpd */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lighttpd; sourceTree = "<group>"; };
 		9187244717CBEF5300AC905D /* OHLinkTraverser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHLinkTraverser.h; sourceTree = "<group>"; };
 		9187244817CBEF5300AC905D /* OHLinkTraverser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHLinkTraverser.m; sourceTree = "<group>"; };
+		919FE04817CD23E30067DAF0 /* 1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 1.json; sourceTree = "<group>"; };
+		919FE04917CD23E30067DAF0 /* 2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 2.json; sourceTree = "<group>"; };
+		919FE04A17CD23E30067DAF0 /* 3.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 3.json; sourceTree = "<group>"; };
 		91BA8F6D17CC29E00074F6EC /* OHLinkTraverserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHLinkTraverserTests.m; sourceTree = "<group>"; };
 		91ECCC6917ADE63E00DDCCDC /* libObjectiveHAL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libObjectiveHAL.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		91ECCC6C17ADE63E00DDCCDC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -173,6 +176,7 @@
 		9162597117AE015200C1791F /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				919FE04717CD23E30067DAF0 /* icon */,
 				917AC2FF17AF8985005D3A4D /* category */,
 				917AC2F517AF7CE7005D3A4D /* app */,
 				917AC2F317AF7CC4005D3A4D /* apps */,
@@ -211,6 +215,16 @@
 				917AC30017AF89D8005D3A4D /* 1.json */,
 			);
 			name = category;
+			sourceTree = "<group>";
+		};
+		919FE04717CD23E30067DAF0 /* icon */ = {
+			isa = PBXGroup;
+			children = (
+				919FE04817CD23E30067DAF0 /* 1.json */,
+				919FE04917CD23E30067DAF0 /* 2.json */,
+				919FE04A17CD23E30067DAF0 /* 3.json */,
+			);
+			path = icon;
 			sourceTree = "<group>";
 		};
 		91ECCC6017ADE63E00DDCCDC = {

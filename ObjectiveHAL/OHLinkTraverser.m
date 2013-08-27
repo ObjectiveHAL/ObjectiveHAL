@@ -22,9 +22,17 @@
     NSMutableURLRequest *request = [client requestWithMethod:@"GET" path:path parameters:nil];
     
     OHResourceRequestOperation *op = [OHResourceRequestOperation OHResourceRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, OHResource *targetResource) {
-        handler(nil, targetResource, nil);
+        if (handler) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(nil, targetResource, nil);
+            });
+        }
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        handler(nil, nil, error);
+        if (handler) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(nil, nil, error);
+            });
+        }
     }];
     [client enqueueHTTPRequestOperation:op];
 }
@@ -35,7 +43,9 @@
     traverser.client = client;
     traverser.completionBlockOperation = [NSBlockOperation blockOperationWithBlock:^{
         if (completion) {
-            completion(traverser);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(traverser);
+            });
         }
     }];
 
@@ -62,6 +72,7 @@
     
     if (self.isCompletionOperationInQueue == NO) {
         [traversalOperations addObject:self.completionBlockOperation];
+        self.completionOperationInQueue = YES;
     }
     
     [[self.client operationQueue] addOperations:traversalOperations waitUntilFinished:NO];
@@ -75,13 +86,19 @@
         
         if (targetResource) {
             if (handler) {
-                handler(self, targetResource, nil);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    handler(self, targetResource, nil);
+                });
             }
         }
         else {
             // TODO: Add a proper error here.
             NSError *error = [NSError errorWithDomain:@"" code:1 userInfo:nil];
-            handler(self, nil, error);
+            if (handler) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    handler(nil, nil, error);
+                });
+            }
         }
         
     }];
@@ -94,11 +111,15 @@
     
     OHResourceRequestOperation *op = [OHResourceRequestOperation OHResourceRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, OHResource *targetResource) {
         if (handler) {
-            handler(self, targetResource, nil);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(self, targetResource, nil);
+            });
         }
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (handler) {
-            handler(self, nil, error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                handler(self, nil, error);
+            });
         }
     }];
     

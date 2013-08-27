@@ -24,11 +24,15 @@
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             OHResource *targetResource = [OHResource resourceWithJSONData:responseObject];
-            success(operation.request, operation.response, targetResource);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                success(operation.request, operation.response, targetResource);
+            });
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (failure) {
-            failure(operation.request, operation.response, error, [(OHResourceRequestOperation *)operation responseJSON]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                failure(operation.request, operation.response, error, [(OHResourceRequestOperation *)operation responseJSON]);
+            });
         }
     }];
     
