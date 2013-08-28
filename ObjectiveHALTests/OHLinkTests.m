@@ -25,25 +25,20 @@
 
 
 @interface OHLinkTests : SenTestCase
+@property (readwrite, strong, nonatomic) NSBundle *testBundle;
 @end
 
 @implementation OHLinkTests
-{
-    // test fixture ivars go here
-    NSBundle *testBundle;
-}
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
-    testBundle = [NSBundle bundleForClass:[self class]];
+    self.testBundle = [NSBundle bundleForClass:[self class]];
 }
 
-- (void)testSimpleLink
-{
+- (void)testSimpleLink {
     // given
     NSError *error = nil;
-    NSData *data = [NSData fetchTestFixtureByName:@"simple-link" fromBundle:testBundle];
+    NSData *data = [NSData fetchTestFixtureByName:@"simple-link" fromBundle:self.testBundle];
     assertThat(data, notNilValue());
     id simpleLink = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     
@@ -55,11 +50,10 @@
     assertThat([link href], is(@"https://example.com/api/customer/123456?users"));
 }
 
-- (void)testCompleteLink
-{
+- (void)testCompleteLink {
     // given
     NSError *error = nil;
-    NSData *data = [NSData fetchTestFixtureByName:@"complete-link" fromBundle:testBundle];
+    NSData *data = [NSData fetchTestFixtureByName:@"complete-link" fromBundle:self.testBundle];
     assertThat(data, notNilValue());
     id completeLink = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     

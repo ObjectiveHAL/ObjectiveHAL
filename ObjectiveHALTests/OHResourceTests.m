@@ -9,7 +9,6 @@
 #import "OHResource.h"
 
     // Collaborators
-#import "OHResource+PrivateMethods.h"
 #import "OHLink.h"
 
     // Test support
@@ -26,25 +25,22 @@
 
 
 @interface OHResourceTests : SenTestCase
+@property (readwrite, strong, nonatomic) NSBundle *testBundle;
 @end
 
 @implementation OHResourceTests
-{
-    // test fixture ivars go here
-    NSBundle *testBundle;
-}
 
 - (void)setUp
 {
     [super setUp];
-    testBundle = [NSBundle bundleForClass:[self class]];
+    self.testBundle = [NSBundle bundleForClass:[self class]];
 }
 
 - (void)testSimpleResource
 {
     // given
     NSError *error = nil;
-    NSData *data = [NSData fetchTestFixtureByName:@"simple-resource" fromBundle:testBundle];
+    NSData *data = [NSData fetchTestFixtureByName:@"simple-resource" fromBundle:self.testBundle];
     assertThat(data, notNilValue());
     id simpleResource = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     assertThat(error, nilValue());
@@ -63,7 +59,7 @@
 {
     // given
     NSError *error = nil;
-    NSData *data = [NSData fetchTestFixtureByName:@"curies-resource" fromBundle:testBundle];
+    NSData *data = [NSData fetchTestFixtureByName:@"curies-resource" fromBundle:self.testBundle];
     assertThat(data, notNilValue());
     id curiesResource = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     assertThat(error, nilValue());
@@ -83,7 +79,7 @@
 {
     // given
     NSError *error = nil;
-    NSData *data = [NSData fetchTestFixtureByName:@"resource-with-embeds" fromBundle:testBundle];
+    NSData *data = [NSData fetchTestFixtureByName:@"resource-with-embeds" fromBundle:self.testBundle];
     assertThat(data, notNilValue());
     id embedsResource = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     assertThat(error, nilValue());
@@ -103,7 +99,7 @@
 {
     // given
     NSError *error = nil;
-    NSData *data = [NSData fetchTestFixtureByName:@"apps" fromBundle:testBundle];
+    NSData *data = [NSData fetchTestFixtureByName:@"apps" fromBundle:self.testBundle];
     assertThat(data, notNilValue());
     id appsJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     assertThat(error, nilValue());
@@ -121,18 +117,66 @@
     assertThatInteger([icons count], equalToInteger(2));
 }
 
+- (void)testAllLinksForRel {
+    // given
+    NSError *error = nil;
+    NSData *data = [NSData fetchTestFixtureByName:@"apps" fromBundle:self.self.testBundle];
+    assertThat(data, notNilValue());
+    id appsJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    assertThat(error, nilValue());
+    OHResource *appsResource = [OHResource resourceWithJSONData:appsJSON];
+    
+    // when
+    NSArray *allLinks = [appsResource linksForRel:@"r:app"];
+    
+    // then
+    assertThat(allLinks, hasCountOf(3));
+}
+
+- (void)testEmbeddedLinksForRel {
+    // given
+    NSError *error = nil;
+    NSData *data = [NSData fetchTestFixtureByName:@"apps" fromBundle:self.self.testBundle];
+    assertThat(data, notNilValue());
+    id appsJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    assertThat(error, nilValue());
+    OHResource *appsResource = [OHResource resourceWithJSONData:appsJSON];
+    
+    // when
+    NSArray *embeddedLinks = [appsResource embeddedLinksForRel:@"r:app"];
+    
+    // then
+    assertThat(embeddedLinks, hasCountOf(2));
+}
+
+- (void)testExternalLinksForRel {
+    // given
+    NSError *error = nil;
+    NSData *data = [NSData fetchTestFixtureByName:@"apps" fromBundle:self.self.testBundle];
+    assertThat(data, notNilValue());
+    id appsJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    assertThat(error, nilValue());
+    OHResource *appsResource = [OHResource resourceWithJSONData:appsJSON];
+    
+    // when
+    NSArray *externalLinks = [appsResource externalLinksForRel:@"r:app"];
+    
+    // then
+    assertThat(externalLinks, hasCountOf(1));
+}
+
 - (void)testFetchingResourceJSON
 {
     // given
     NSError *error = nil;
-    NSData *data = [NSData fetchTestFixtureByName:@"contact" fromBundle:testBundle];
+    NSData *data = [NSData fetchTestFixtureByName:@"contact" fromBundle:self.testBundle];
     assertThat(data, notNilValue());
     id contact = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     OHResource *resource = [[OHResource alloc] initWithJSONData:contact];
     assertThat(resource, notNilValue());
 
     // when
-    id json = [resource json];
+    id json = [resource resourceJSON];
     
     // then
     assertThatBool([json isKindOfClass:[NSDictionary class]], is(equalToBool(YES)));
