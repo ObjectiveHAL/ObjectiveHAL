@@ -1,0 +1,20 @@
+{
+    "_links": {
+        "curies": [
+                   {
+                   "href": "http://tempuri.org/rels/asset/{rel}",
+                   "name": "asset",
+                   "templated": "true"
+                   }
+                   ],
+        "self": {
+            "href": "/icon/3"
+        },
+        "asset:small_image": {
+            "href": "/images/i310.png"
+        },
+        "asset:large_image": {
+            "href": "/images/i223.png"
+        }
+    }
+}
