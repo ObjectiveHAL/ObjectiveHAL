@@ -6,7 +6,7 @@
 //
 
     // Class under test
-#import "OHLinkTraverser.h"
+#import "OHLinkTraversalOperation.h"
 
     // Collaborators
 #import "OHLink.h"
@@ -64,7 +64,7 @@
     BOOL successfulCompletion = YES;
     
     while (dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_NOW)) {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.125]];
         if([timeoutDate timeIntervalSinceNow] < 0.0) {
             NSLog(@"*** TIMEOUT WHILE WAITING FOR BLOCK COMPLETION ***");
             [self resetBlockCompletionSemaphore];
@@ -80,19 +80,32 @@
     return successfulCompletion;
 }
 
+- (OHResource *)fetchRootResourceFromPath:(NSString *)rootObjectPath {
+    
+    OHResource * __block rootResource = nil;
+    
+    OHLinkTraversalOperation *rootOp = [OHLinkTraversalOperation traversePath:rootObjectPath withClient:self.client traversalHandler:^NSArray *(OHResource *targetResource, NSError *error) {
+        assertThat(error, nilValue());
+        assertThat(targetResource, notNilValue());
+        rootResource = targetResource;
+        NSLog(@"==> rootResource = %@", rootResource);
+        return @[];
+    } completion:^{
+        [self signalBlockCompletion];
+    }];
+    
+    [[self.client operationQueue] addOperation:rootOp];
+    assertThatBool([self waitForBlockCompletion:self.timeout], is(equalToBool(YES)));
+    
+    return rootResource;
+}
+
 - (void)testTraversePathWithClientHandler {
     // given
     NSString *rootObjectPath = @"apps";
     
     // when
-    OHResource * __block rootResource = nil;
-    [OHLinkTraverser traversePath:rootObjectPath withClient:self.client traversalHandler:^(OHLinkTraverser *traverser, OHResource *targetResource, NSError *error) {
-        assertThat(error, nilValue());
-        rootResource = targetResource;
-        NSLog(@"==> rootResource = %@", rootResource);
-        [self signalBlockCompletion];
-    }];
-    assertThatBool([self waitForBlockCompletion:self.timeout], is(equalToBool(YES)));
+    OHResource *rootResource = [self fetchRootResourceFromPath:rootObjectPath];
     
     // then
     assertThat(rootResource, notNilValue());
@@ -104,29 +117,24 @@
 - (void)testBeginTraversalForRel {
     // given
     NSString *rootObjectPath = @"apps";
-    
-    OHResource * __block rootResource = nil;
-    [OHLinkTraverser traversePath:rootObjectPath withClient:self.client traversalHandler:^(OHLinkTraverser *traverser, OHResource *targetResource, NSError *error) {
-        assertThat(error, nilValue());
-        rootResource = targetResource;
-        NSLog(@"==> rootResource = %@", rootResource);
-        [self signalBlockCompletion];
-    }];
-    assertThatBool([self waitForBlockCompletion:self.timeout], is(equalToBool(YES)));
+    OHResource *rootResource = [self fetchRootResourceFromPath:rootObjectPath];
+    NSMutableArray * __block applications = [NSMutableArray array];
     
     // when
-    NSMutableArray * __block applications = [NSMutableArray array];
-    [OHLinkTraverser beginTraversalForRel:@"r:app" inResource:rootResource withClient:self.client traversalHandler:^(OHLinkTraverser *traverser, OHResource *targetResource, NSError *error) {
+    OHLinkTraversalOperation *appsOp = [OHLinkTraversalOperation traverseRel:@"r:app" inResource:rootResource withClient:self.client traversalHandler:^NSArray *(OHResource *targetResource, NSError *error) {
         assertThat(error, nilValue());
         assertThat(targetResource, notNilValue());
-        [applications addObject:targetResource];
-        NSLog(@"==> application = %@", targetResource);
-    } completion:^(OHLinkTraverser *traverser) {
-        NSLog(@"completed traversal!");
+        OHResource *application = targetResource;
+        NSLog(@"==> application = %@", application);
+        [applications addObject:application];
+        return @[];
+    } completion:^{
         [self signalBlockCompletion];
     }];
+        
+    [[self.client operationQueue] addOperation:appsOp];
     assertThatBool([self waitForBlockCompletion:self.timeout], is(equalToBool(YES)));
-    
+        
     // then
     assertThat(applications, hasCountOf(3));
 }
@@ -134,44 +142,39 @@
 - (void)testMultiLevelTraversal {
     // given
     NSString *rootObjectPath = @"apps";
-    
-    OHResource * __block rootResource = nil;
-    [OHLinkTraverser traversePath:rootObjectPath withClient:self.client traversalHandler:^(OHLinkTraverser *traverser, OHResource *targetResource, NSError *error) {
-        assertThat(error, nilValue());
-        rootResource = targetResource;
-        NSLog(@"==> rootResource = %@", rootResource);
-        [self signalBlockCompletion];
-    }];
-    assertThatBool([self waitForBlockCompletion:self.timeout], is(equalToBool(YES)));
+    OHResource *rootResource = [self fetchRootResourceFromPath:rootObjectPath];
+    NSMutableArray * __block applications = [NSMutableArray array];
+    NSMutableArray * __block icons = [NSMutableArray array];
     
     // when
-    NSMutableArray * __block applications = [NSMutableArray array];
-    NSMutableDictionary * __block icons = [NSMutableDictionary dictionary];
-    [OHLinkTraverser beginTraversalForRel:@"r:app" inResource:rootResource withClient:self.client traversalHandler:^(OHLinkTraverser *traverser, OHResource *targetResource, NSError *error) {
+    OHLinkTraversalOperation *appsOp = [OHLinkTraversalOperation traverseRel:@"r:app" inResource:rootResource withClient:self.client traversalHandler:^NSArray *(OHResource *targetResource, NSError *error) {
         assertThat(error, nilValue());
         assertThat(targetResource, notNilValue());
         
-        OHResource *application = targetResource;
-        [applications addObject:application];
-        NSString *applicationHref = [[application linkForRel:@"self"] href];
-        NSLog(@"==> application = %@", application);
-        NSLog(@"==> application.href = %@", applicationHref);
+        NSLog(@"==> application = %@", targetResource);
         
-        [traverser queueTraversalForRel:@"app:icon" inResource:application withLinkTraverser:traverser traversalHandler:^(OHLinkTraverser *traverser, OHResource *targetResource, NSError *error) {
+        [applications addObject:targetResource];
+        
+        OHLinkTraversalOperation *iconOp = [OHLinkTraversalOperation traverseRel:@"app:icon" inResource:targetResource withClient:self.client traversalHandler:^NSArray *(OHResource *targetResource, NSError *error) {
             assertThat(error, nilValue());
             assertThat(targetResource, notNilValue());
             
-            OHResource *icon = targetResource;
-            NSString *iconHref = [[icon linkForRel:@"self"] href];
-            [icons setValue:targetResource forKey:[[application linkForRel:@"self"] href]];
-            NSLog(@"==> icon = %@", icon);
-            NSLog(@"==> icon.href = %@", iconHref);
+            NSLog(@"  ==> icon = %@", targetResource);
+            
+            [icons addObject:targetResource];
+            
+            return @[];
+        } completion:^{
+            NSLog(@"icon traversal completed");
         }];
         
-    } completion:^(OHLinkTraverser *traverser) {
-        NSLog(@"completed traversal!");
+        return @[ iconOp ];
+    } completion:^{
+        NSLog(@"app traversal completed");
         [self signalBlockCompletion];
     }];
+    
+    [[self.client operationQueue] addOperation:appsOp];
     assertThatBool([self waitForBlockCompletion:self.timeout], is(equalToBool(YES)));
     
     // then
@@ -182,7 +185,6 @@
 - (void)testManyMultiLevelTraversals {
     for (int counter = 0; counter < 5; counter++) {
         [self testMultiLevelTraversal];
-        [NSThread sleepForTimeInterval:1.0];
     }
 }
 

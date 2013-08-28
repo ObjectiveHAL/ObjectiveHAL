@@ -102,12 +102,6 @@
                <Test
                   Identifier = "OHResourceTests">
                </Test>
-               <Test
-                  Identifier = "OHLinkTraverserTests/testBeginTraversalForRel">
-               </Test>
-               <Test
-                  Identifier = "OHLinkTraverserTests/testTraversePathWithClientHandler">
-               </Test>
             </SkippedTests>
          </TestableReference>
       </Testables>

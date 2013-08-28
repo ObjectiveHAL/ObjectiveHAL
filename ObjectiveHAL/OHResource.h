@@ -10,7 +10,7 @@
 
 #import "OHResource.h"
 #import "OHLink.h"
-#import "OHLinkTraverser.h"
+#import "OHLinkTraversalOperation.h"
 
 /** A HAL Resource
  
