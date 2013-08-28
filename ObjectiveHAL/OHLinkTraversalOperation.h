@@ -10,6 +10,7 @@
 
 @class OHLinkTraversalOperation;
 @class OHResource;
+@class AFHTTPClient;
 
 /**
  */

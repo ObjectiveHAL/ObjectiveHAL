@@ -8,6 +8,8 @@
 
 #import "OHResource.h"
 
+#import "OHLinkTraversalOperation.h"
+
 #import "OHLink.h"
 #import "CSURITemplate.h"
 
