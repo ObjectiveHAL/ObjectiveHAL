@@ -10,13 +10,33 @@
         "href": "http://tempuri.org/rels/app/{rel}",
         "name": "app",
         "templated": "true"
+      },
+      {
+        "href": "http://tempuri.org/rels/asset/{rel}",
+        "name": "asset",
+        "templated": "true"
       }
     ],
     "self": {
       "href": "/app/2"
     },
     "app:icon": {
-      "href": "/images/i300.png"
+      "href": "/icon/2"
+    }
+  },
+  "_embedded": {
+    "app:icon": {
+      "_links": {
+        "self": {
+          "href": "/icon/2"
+        },
+        "asset:small_image": {
+          "href": "/images/i310.png"
+        },
+        "asset:large_image": {
+          "href": "/images/i223.png"
+        }
+      }
     }
   },
   "name": "High Altitude Survival (resource)",
