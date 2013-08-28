@@ -12,6 +12,11 @@
 #import "OHLink.h"
 #import "OHResource.h"
 
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <AFNetworking/AFNetworking.h>
+#import <AFNetworking/AFJSONRequestOperation.h>
+
     // Test support
 #import <SenTestingKit/SenTestingKit.h>
 

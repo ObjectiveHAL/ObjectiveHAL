@@ -6,7 +6,10 @@
 //  Copyright (c) 2013 ObjectiveHAL. All rights reserved.
 //
 
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 #import <AFNetworking/AFNetworking.h>
+#import <AFNetworking/AFJSONRequestOperation.h>
 
 #import "OHResourceRequestOperation.h"
 
