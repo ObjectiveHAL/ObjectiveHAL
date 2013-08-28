@@ -8,7 +8,7 @@ gem update cocoapods
 
 echo "Installing additional tools using homebrew."
 brew update
-brew install xctool
+#brew install xctool
 brew install lighttpd
 brew install appledoc
 

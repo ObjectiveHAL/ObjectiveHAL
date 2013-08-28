@@ -7,7 +7,7 @@
             "href": "/app/3"
           },
           "app:icon": {
-            "href": "/images.i970.png"
+            "href": "/icon/3"
           }
         },
         "name": "CPR Instructions (embedded)",
@@ -19,7 +19,7 @@
             "href": "/app/1"
           },
           "app:icon": {
-            "href": "/images/i310.png"
+            "href": "/icon/1"
           }
         },
         "name": "Family First-Aid (embedded)",
@@ -53,7 +53,7 @@
       }
     ],
     "self": {
-      "href": "/api/applications"
+      "href": "/api/apps"
     },
     "r:category": {
       "href": "/category/1",

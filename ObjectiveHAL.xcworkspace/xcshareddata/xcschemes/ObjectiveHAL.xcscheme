@@ -65,7 +65,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "(&#10; killall lighttpd&#10; ) &gt;/tmp/start.log 2&gt;&amp;1&#10;"
+               scriptText = "(&#10; # Trying to help Xcode out.  When tests complete&#10; # too quicly Xcode sometimes misses the output.&#10; sleep 2&#10; &#10; # Kill off the web server.&#10; killall lighttpd&#10; &#10; # Activate Xcode&#10; osascript -e &apos;activate application &quot;Xcode&quot;&apos;&#10; &#10; ) &gt;/tmp/start.log 2&gt;&amp;1&#10;"
                shellToInvoke = "/bin/bash">
                <EnvironmentBuildable>
                   <BuildableReference
@@ -92,6 +92,15 @@
             <SkippedTests>
                <Test
                   Identifier = "OHClientTests/testFollowLinkForPathWhenFinished">
+               </Test>
+               <Test
+                  Identifier = "OHClientTests">
+               </Test>
+               <Test
+                  Identifier = "OHLinkTests">
+               </Test>
+               <Test
+                  Identifier = "OHResourceTests">
                </Test>
             </SkippedTests>
          </TestableReference>

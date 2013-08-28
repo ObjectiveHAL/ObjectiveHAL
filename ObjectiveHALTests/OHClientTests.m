@@ -11,6 +11,7 @@
     // Collaborators
 #import "OHLink.h"
 #import "OHResource.h"
+#import "OHLinkTraverser.h"
 
     // Test support
 #import <SenTestingKit/SenTestingKit.h>
@@ -116,6 +117,46 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     NSLog(@"rootObject = %@", client.rootObject);
 }
 
+
+- (void)testResourceTraversalWithCompletion {
+    // given
+    NSString *rootPath = @"apps";
+    [client fetchRootObjectFromPath:rootPath];
+    assertThatBool([self waitUntilChangeObservedForKey:@"rootObjectAvailable" ofObject:client], is(equalToBool(YES)));;
+    
+    // when
+    OHResource *rootObject = [client rootObject];
+    self.done = NO;
+    OHLinkTraverser *traversalContext = [[OHLinkTraverser alloc] init];
+    
+    NSMutableArray *applications = [NSMutableArray *array];
+    
+    [OHLinkTraverser beginTraversalForRel:@"r:app" inResource:rootObject traversalHandler:^(OHLinkTraverser *traversalContext, NSString *rel, OHResource *targetResource, NSError *error) {
+        WMApp *app = [WMApp appWithOHResource:targetResource];
+        [traversalContext queueTraversalForRel:@"r:icon" inResource:targetResource traversalHandler:^(OHLinkTraverser *traversalContext, NSString *rel, OHResource *targetResource, NSError *error) {
+            
+        }];
+    } completion:^(OHLinkTraverser *traversalContext, NSString *rel) {
+        
+    }];
+    
+    
+    [rootObject traverseLinksUsingClient:client
+                                  forRel:@"r:app"
+                        traversalHandler:^(NSString *rel, OHResource *targetResource, NSError *error)
+     {
+         NSLog(@" ==> %@", targetResource);
+     }
+                       completionHandler:^(NSString *rel)
+     {
+         NSLog(@"Finished traversal for %@", rel);
+         self.done = YES;
+     }];
+    assertThatBool([self waitForCompletion:timeout], is(equalToBool(YES)));
+    
+    // then
+}
+
 - (void)testFetchResourceFromPath
 {
     // given
@@ -161,6 +202,5 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     
     // then
 }
-
 
 @end
