@@ -191,7 +191,7 @@
 
 - (NSOperation *)operationToTraversePath:(NSString *)path {
     NSMutableURLRequest *request = [self.client requestWithMethod:@"GET" path:path parameters:nil];
-    AFJSONRequestOperation *op = [[AFJSONRequestOperation alloc] initWithRequest:request];    
+    OHResourceRequestOperation *op = [[OHResourceRequestOperation alloc] initWithRequest:request];
     return op;
 }
 

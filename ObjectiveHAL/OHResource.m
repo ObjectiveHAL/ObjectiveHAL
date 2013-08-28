@@ -7,10 +7,8 @@
 //
 
 #import "OHResource.h"
-#import "OHResource+PrivateMethods.h"
 
 #import "OHLink.h"
-#import "OHResourceRequestOperation.h"
 #import "CSURITemplate.h"
 
 @interface OHResource ()

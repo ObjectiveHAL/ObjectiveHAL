@@ -106,7 +106,6 @@
 		91625A9B17AE018E00C1791F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		9176ACA117AE2BC1000767F0 /* contact.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = contact.json; sourceTree = "<group>"; };
 		9177FD5A17B04057001DEB66 /* HTTPStatusCodes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTTPStatusCodes.h; sourceTree = "<group>"; };
-		9177FD5B17B04ABE001DEB66 /* OHResource+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OHResource+PrivateMethods.h"; sourceTree = "<group>"; };
 		917AC2E117AF204C005D3A4D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		917AC2E317AF2053005D3A4D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		917AC2E517AF2059005D3A4D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -282,7 +281,6 @@
 				9128A1B617C4080D00CE73D3 /* OHResourceRequestOperation.m */,
 				915BC46A17ADF83000230C3C /* OHResource.h */,
 				915BC46717ADF83000230C3C /* OHResource.m */,
-				9177FD5B17B04ABE001DEB66 /* OHResource+PrivateMethods.h */,
 				915BC46817ADF83000230C3C /* OHLink.h */,
 				915BC46917ADF83000230C3C /* OHLink.m */,
 				91ECCC7117ADE63E00DDCCDC /* ObjectiveHAL.h */,

@@ -12,6 +12,6 @@
 
 #import <ObjectiveHAL/OHLink.h>
 #import <ObjectiveHAL/OHResource.h>
-#import <ObjectiveHAL/OHLinkTraverser.h>
 
+#import <ObjectiveHAL/OHLinkTraversalOperation.h>
 #import <ObjectiveHAL/OHResourceRequestOperation.h>

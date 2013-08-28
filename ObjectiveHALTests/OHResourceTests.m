@@ -9,7 +9,6 @@
 #import "OHResource.h"
 
     // Collaborators
-#import "OHResource+PrivateMethods.h"
 #import "OHLink.h"
 
     // Test support
