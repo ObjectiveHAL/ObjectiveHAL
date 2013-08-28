@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 ObjectiveHAL. All rights reserved.
 //
 
+#import <AFNetworking/AFNetworking.h>
+
 #import "OHResourceRequestOperation.h"
 
 #import "OHResource.h"
