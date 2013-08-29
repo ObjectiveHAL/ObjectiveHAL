@@ -200,6 +200,10 @@
 
 - (NSOperation *)operationToTraversePath:(NSString *)path {
     NSMutableURLRequest *request = [self.client requestWithMethod:@"GET" path:path parameters:nil];
+    
+    // TODO: Look into proper way to handle cached responses so we can re-enable the default cache policy.
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
+    
     OHResourceRequestOperation *op = [[OHResourceRequestOperation alloc] initWithRequest:request];
     return op;
 }
