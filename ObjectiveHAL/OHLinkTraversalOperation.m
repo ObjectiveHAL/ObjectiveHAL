@@ -109,8 +109,12 @@
 - (void)processExternalOperations {
     for (OHResourceRequestOperation *operation in self.externalOperations) {
         id resourceJSON = [operation responseJSON];
-        OHResource *resource = [OHResource resourceWithJSONData:resourceJSON];
-        [self.resources addObject:resource];
+        if (resourceJSON) {
+            OHResource *resource = [OHResource resourceWithJSONData:resourceJSON];
+            if (resource) {
+                [self.resources addObject:resource];
+            }
+        }
     }
 }
 
