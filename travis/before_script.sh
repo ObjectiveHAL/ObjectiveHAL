@@ -13,11 +13,11 @@ brew install lighttpd
 brew install appledoc
 
 # Launch Lighty in the background. It serves test fixtures at port 7100.
-if [ -f /usr/local/sbin/lighttpd ]
+if [ -h /usr/local/bin/lighttpd ]
 then
-    /usr/local/sbin/lighttpd -f lighttpd/lighttpd.conf
+    /usr/local/bin/lighttpd -f lighttpd/lighttpd.conf
 else
-    ls -Rla /usr/local
+    ls -Rl /usr/local
 fi
 
 # This hack is here to make sure that the xctool dividers fit.
