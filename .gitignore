@@ -21,3 +21,4 @@ Pods
 lighttpd/error.log
 lighttpd/access.log
 *.xccheckout
+ObjectiveHAL.podspec
