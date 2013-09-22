@@ -27,12 +27,10 @@
 
 /** Determines whether or not embedded resources should be considered during traversal operations.
  
- The default value for useEmbeddedResources is NO. This causes ObjectiveHAL to perform
- all traversal operations by actually querying the server for the linked resources.
- 
- Set useEmbeddedResources to YES if you wish to have ObjectiveHAL first check for an
- embedded resource, and use it if present.
- 
+ The default value for useEmbeddedResources is YES. This causes ObjectiveHAL to favor embedded
+ resources over performing additional network round-trips.  Setting this to YES will cause ObjectiveHAL
+ to perform all traversal operations by actually querying the server for the linked resources.
+  
  */
 @property (nonatomic, assign) BOOL useEmbeddedResources;
 
