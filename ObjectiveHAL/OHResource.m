@@ -50,7 +50,7 @@
             [data removeObjectForKey:@"_embedded"];
             _resourceJSON = [NSDictionary dictionaryWithDictionary:data];
             
-            _useEmbeddedResources = NO;
+            _useEmbeddedResources = YES;
         } else {
             // ERROR: Expecting an NSDictionary.
             self = nil;

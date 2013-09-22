@@ -38,7 +38,7 @@
 + (OHLinkTraversalOperation *)traverseRel:(NSString *)rel inResource:(OHResource *)resource withClient:(AFHTTPClient *)client traversalHandler:(OHLinkTraversalHandler)handler completion:(OHCompletionHandler)completion {
     
     OHLinkTraversalOperation *op = [[OHLinkTraversalOperation alloc] init];
-    op.operationQueue = [[NSOperationQueue alloc] init];
+    op.operationQueue = client.operationQueue; // [[NSOperationQueue alloc] init];
     op.rel = rel;
     op.path = nil;
     op.traversalHandler = handler;
@@ -47,11 +47,14 @@
     op.resource = resource;
     op.resources = [NSMutableArray array];
     
+    [op composeTraversalOperations];
+    
+    [op queueDependentOperations:op.embeddedOperations beforeOperation:op];
+    [op queueDependentOperations:op.externalOperations beforeOperation:op];
+    
     OHLinkTraversalOperation * __weak weakOperation = op;
     op.completionBlock = ^{
-        [weakOperation queueNestedOperations];
-        [weakOperation.operationQueue waitUntilAllOperationsAreFinished];
-        [weakOperation callCompletionHandler];
+        [weakOperation performCompletionTasks];
     };
     
     return op;
@@ -60,7 +63,7 @@
 + (OHLinkTraversalOperation *)traversePath:(NSString *)path withClient:(AFHTTPClient *)client  traversalHandler:(OHLinkTraversalHandler)handler completion:(OHCompletionHandler)completion {
     
     OHLinkTraversalOperation *op = [[OHLinkTraversalOperation alloc] init];
-    op.operationQueue = [[NSOperationQueue alloc] init];
+    op.operationQueue = client.operationQueue; // [[NSOperationQueue alloc] init];
     op.path = path;
     op.rel = nil;
     op.traversalHandler = handler;
@@ -68,23 +71,31 @@
     op.client = client;
     op.resource = nil;
     op.resources = [NSMutableArray array];
+
+    [op composeTraversalOperations];
+
+    [op queueDependentOperations:op.embeddedOperations beforeOperation:op];
+    [op queueDependentOperations:op.externalOperations beforeOperation:op];
     
     OHLinkTraversalOperation * __weak weakOperation = op;
     op.completionBlock = ^{
-        [weakOperation queueNestedOperations];
-        [weakOperation.operationQueue waitUntilAllOperationsAreFinished];
-        [weakOperation callCompletionHandler];
+        [weakOperation performCompletionTasks];
     };
     
     return op;
 }
 
+- (void)performCompletionTasks {
+    NSBlockOperation *callCompletionHandlerOp = [NSBlockOperation blockOperationWithBlock:^{
+        [self callCompletionHandler];
+    }];
+    
+    NSArray *nestedOperations = self.nestedOperations;
+    [self queueDependentOperations:nestedOperations beforeOperation:callCompletionHandlerOp];
+    [[[self client] operationQueue] addOperation:callCompletionHandlerOp];
+}
+
 - (void)main {
-    [self composeTraversalOperations];
-    [self queueTraversalOperations];
-    
-    [self.operationQueue waitUntilAllOperationsAreFinished];
-    
     [self processExternalOperations];
     [self callTraversalHandlers];
 }
@@ -128,13 +139,15 @@
     }
 }
 
-- (void)queueTraversalOperations {
-    for (NSOperation *operation in self.embeddedOperations) {
-        [self.operationQueue addOperation:operation];
+- (void)queueDependentOperations:(NSArray *)operations beforeOperation:(NSOperation *)finalOperation {
+    NSMutableArray *opArray = [NSMutableArray array];
+    
+    for (NSOperation *op in operations) {
+        [finalOperation addDependency:op];
+        [opArray addObject:op];
     }
-    for (NSOperation *operation in self.externalOperations) {
-        [self.operationQueue addOperation:operation];
-    }
+    
+    [self.operationQueue addOperations:opArray waitUntilFinished:NO];
 }
 
 - (void)queueNestedOperations {
@@ -179,6 +192,7 @@
     
     return embeddedTraversalOperations;
 }
+
 - (NSOperation *)operationToTraverseEmbeddedLink:(OHLink *)link inResource:(OHResource *)resource {
     
     NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
