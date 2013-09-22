@@ -17,8 +17,7 @@ if [ -f /usr/local/sbin/lighttpd ]
 then
     /usr/local/sbin/lighttpd -f lighttpd/lighttpd.conf
 else
-    ls -l /usr/local
-    ls -l /usr/local/sbin
+    ls -Rla /usr/local
 fi
 
 # This hack is here to make sure that the xctool dividers fit.
