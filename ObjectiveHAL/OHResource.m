@@ -195,7 +195,12 @@
         NSString *relValue = [relURL resourceSpecifier];
         NSError *error = nil;
         CSURITemplate *template = [CSURITemplate URITemplateWithString:[curie href] error:&error];
+
         rel = [template relativeStringWithVariables:@{@"rel": relValue} error:&error];
+        
+        // Decode result because some strings end up with %2F in them after using CSURITemplate.
+        NSString *decoded = (__bridge_transfer NSString *)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(NULL, (CFStringRef)rel, CFSTR(""), kCFStringEncodingUTF8);
+        rel = decoded;
     } else if (curie) {
         rel = [curie href];
     }
