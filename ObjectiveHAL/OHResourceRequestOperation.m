@@ -31,6 +31,16 @@
     return self;
 }
 
+- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response {
+    if (response) {
+        // TODO: Create a mutable request to return in the redirect scenario
+        return request;
+    }
+    else {
+        return request;
+    }
+}
+
 #pragma mark - AFHTTPRequestOperation
 
 + (NSSet *)acceptableContentTypes {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0460"
+   LastUpgradeVersion = "0500"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -20,20 +20,6 @@
                ReferencedContainer = "container:ObjectiveHAL.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9114FA4F17C5CB3B00CA1DCC"
-               BuildableName = "Documentation"
-               BlueprintName = "Documentation"
-               ReferencedContainer = "container:ObjectiveHAL.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -46,8 +32,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "(&#10; cd ${SRCROOT}&#10; /usr/local/sbin/lighttpd -f ./lighttpd/lighttpd.conf&#10;) &gt;/tmp/start.log 2&gt;&amp;1&#10; &#10;"
-               shellToInvoke = "/bin/bash">
+               scriptText = "(&#10;cd ${SRCROOT}&#10;source &quot;${SRCROOT}/travis/before.sh&quot;&#10;) | tee -a /tmp/scheme.log&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
@@ -65,8 +50,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "(&#10; # Trying to help Xcode out.  When tests complete&#10; # too quicly Xcode sometimes misses the output.&#10; sleep 2&#10; &#10; # Kill off the web server.&#10; killall lighttpd&#10; &#10; # Activate Xcode&#10; osascript -e &apos;activate application &quot;Xcode&quot;&apos;&#10; &#10; ) &gt;/tmp/start.log 2&gt;&amp;1&#10;"
-               shellToInvoke = "/bin/bash">
+               scriptText = "(&#10;cd ${SRCROOT}&#10;source &quot;${SRCROOT}/travis/after.sh&quot;&#10;) | tee -a /tmp/scheme.log&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
@@ -89,20 +73,6 @@
                BlueprintName = "ObjectiveHALTests"
                ReferencedContainer = "container:ObjectiveHAL.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "OHClientTests/testFollowLinkForPathWhenFinished">
-               </Test>
-               <Test
-                  Identifier = "OHClientTests">
-               </Test>
-               <Test
-                  Identifier = "OHLinkTests">
-               </Test>
-               <Test
-                  Identifier = "OHResourceTests">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

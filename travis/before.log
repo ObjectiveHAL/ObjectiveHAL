@@ -1,0 +1,66 @@
+BEFORE BUILD (BEGIN)
+Ensure latest version of Cocoapods is used.
+Updating installed gems
+Nothing to update
+Installing additional tools using homebrew.
+Already up-to-date.
+==> Downloading https://github.com/tomaz/appledoc/archive/v2.2.tar.gz
+==> xcodebuild -project appledoc.xcodeproj -target appledoc -configuration Release clean install SYMROOT=build DSTROOT=build INSTALL_PATH=/bin OTHER_CFLAGS='-DCOMPILE_TIME_DEFAULT_TEMPLATE_PATH=@"/usr/local/Cellar/appledoc/2.2/Templates"'
+The formula built, but is not symlinked into /usr/local
+You can try again using `brew link appledoc'
+
+Possible conflicting files are:
+/usr/local/bin/appledoc
+==> Summary
+🍺  /usr/local/Cellar/appledoc/2.2: 18 files, 952K, built in 7 seconds
+BEFORE BUILD (END)
+BEFORE BUILD (BEGIN)
+Ensure latest version of Cocoapods is used.
+Updating installed gems
+Nothing to update
+Installing additional tools using homebrew.
+Already up-to-date.
+BEFORE BUILD (END)
+BEFORE BUILD (BEGIN)
+Ensure latest version of Cocoapods is used.
+Updating installed gems
+Nothing to update
+Installing additional tools using homebrew.
+Updated Homebrew from 355a263a to d41254b6.
+==> Updated Formulae
+scons
+sqlite
+BEFORE BUILD (END)
+BEFORE BUILD (BEGIN)
+Ensure latest version of Cocoapods is used.
+Updating installed gems
+Nothing to update
+Installing additional tools using homebrew.
+Already up-to-date.
+BEFORE BUILD (END)
+BEFORE BUILD (BEGIN)
+Ensure latest version of Cocoapods is used.
+Updating installed gems
+Nothing to update
+Installing additional tools using homebrew.
+Already up-to-date.
+BEFORE BUILD (END)
+BEFORE BUILD (BEGIN)
+Ensure latest version of Cocoapods is used.
+Updating installed gems
+Nothing to update
+Installing additional tools using homebrew.
+Updated Homebrew from d41254b6 to 246bc6e4.
+==> Updated Formulae
+chromedriver
+go
+juju
+libmodbus
+mpc
+mtr
+pypy
+python
+python3
+sphinx
+subversion
+BEFORE BUILD (END)

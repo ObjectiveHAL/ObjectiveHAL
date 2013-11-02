@@ -1,6 +1,6 @@
 #!/bin/sh
-set -e
-
+(
 echo "AFTER BUILD (BEGIN)"
-
+killall lighttpd
 echo "AFTER BUILD (END)"
+) | tee -a travis/after.log

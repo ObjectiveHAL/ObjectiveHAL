@@ -16,6 +16,7 @@
     // Test support
 #import <SenTestingKit/SenTestingKit.h>
 #import "NSData+TestInfected.h"
+#import <FSClassExtensions/SenTestCase+FSClassExtensions.h>
 
 #import <CocoaLumberjack/DDLog.h>
 #import <CocoaLumberjack/DDTTYLogger.h>
@@ -73,23 +74,11 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     [super tearDown];
 }
 
-// assertThatBool([self waitForCompletion:90.0], is(equalToBool(YES)));
-- (BOOL)waitForCompletion:(NSTimeInterval)timeoutSecs {
-    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:timeoutSecs];
-    
-    do {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
-        if([timeoutDate timeIntervalSinceNow] < 0.0)
-            break;
-    } while (!self.done);
-    
-    return self.done;
-}
-
 - (BOOL)waitUntilChangeObservedForKey:(NSString *)key ofObject:(id)object
 {
+    [self prepareForAsyncTest];
     [client addObserver:self forKeyPath:key options:0 context:NULL];
-    BOOL rval = [self waitForCompletion:timeout];
+    BOOL rval = [self waitForAsyncTestCompletion:timeout];
     [client removeObserver:self forKeyPath:key];
     return rval;
 }
@@ -97,7 +86,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"rootObjectAvailable"]) {
-        self.done = YES;
+        [self signalAsyncTestCompleted];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }

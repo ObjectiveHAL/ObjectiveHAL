@@ -19,6 +19,7 @@
 
     // Test support
 #import <SenTestingKit/SenTestingKit.h>
+#import <FSClassExtensions/SenTestCase+FSClassExtensions.h>
 
 // Uncomment the next two lines to use OCHamcrest for test assertions:
 #define HC_SHORTHAND
@@ -34,7 +35,6 @@
 @property (readwrite, strong, nonatomic) NSURL *baseURL;
 @property (readwrite, strong, nonatomic) AFHTTPClient *client;
 @property (readwrite, assign, nonatomic) NSTimeInterval timeout;
-@property (readwrite, strong, nonatomic) dispatch_semaphore_t semaphore;
 @end
 
 @implementation OHLinkTraverserTests
@@ -43,46 +43,11 @@
     self.baseURL = [NSURL URLWithString:@"http://localhost:7100"];
     self.client = [AFHTTPClient clientWithBaseURL:self.baseURL];
     self.timeout = 30;
-    [self setupBlockCompletionSemaphore];
     NSLog(@"vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
 }
 
 - (void)tearDown {
     NSLog(@"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-}
-
-- (void)setupBlockCompletionSemaphore {
-    self.semaphore = dispatch_semaphore_create(0);
-}
-
-- (void)resetBlockCompletionSemaphore {
-    self.semaphore = dispatch_semaphore_create(0);
-}
-
-- (void)signalBlockCompletion {
-    NSLog(@"*** SIGNALING BLOCK COMPLETION ***");
-    dispatch_semaphore_signal(self.semaphore);
-}
-
-- (BOOL)waitForBlockCompletion:(NSTimeInterval)timeoutSecs {
-    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:self.timeout];
-    BOOL successfulCompletion = YES;
-    
-    while (dispatch_semaphore_wait(self.semaphore, DISPATCH_TIME_NOW)) {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.125]];
-        if([timeoutDate timeIntervalSinceNow] < 0.0) {
-            NSLog(@"*** TIMEOUT WHILE WAITING FOR BLOCK COMPLETION ***");
-            [self resetBlockCompletionSemaphore];
-            successfulCompletion = NO;
-            break;
-        }
-    }
-    
-    if (successfulCompletion == YES) {
-        NSLog(@"*** RECEIVED SIGNAL FOR BLOCK COMPLETION ***");
-    }
-    
-    return successfulCompletion;
 }
 
 - (OHResource *)fetchRootResourceFromPath:(NSString *)rootObjectPath {
@@ -96,11 +61,11 @@
         NSLog(@"==> rootResource = %@", rootResource);
         return @[];
     } completion:^{
-        [self signalBlockCompletion];
+        [self signalAsyncTestCompleted];
     }];
     
     [[self.client operationQueue] addOperation:rootOp];
-    assertThatBool([self waitForBlockCompletion:self.timeout], is(equalToBool(YES)));
+    assertThatBool([self waitForAsyncTestCompletion:self.timeout], is(equalToBool(YES)));
     
     return rootResource;
 }
@@ -134,11 +99,11 @@
         [applications addObject:application];
         return @[];
     } completion:^{
-        [self signalBlockCompletion];
+        [self signalAsyncTestCompleted];
     }];
         
     [[self.client operationQueue] addOperation:appsOp];
-    assertThatBool([self waitForBlockCompletion:self.timeout], is(equalToBool(YES)));
+    assertThatBool([self waitForAsyncTestCompletion:self.timeout], is(equalToBool(YES)));
         
     // then
     assertThat(applications, hasCountOf(3));
@@ -176,11 +141,11 @@
         return @[ iconOp ];
     } completion:^{
         NSLog(@"app traversal completed");
-        [self signalBlockCompletion];
+        [self signalAsyncTestCompleted];
     }];
     
     [[self.client operationQueue] addOperation:appsOp];
-    assertThatBool([self waitForBlockCompletion:self.timeout], is(equalToBool(YES)));
+    assertThatBool([self waitForAsyncTestCompletion:self.timeout], is(equalToBool(YES)));
     
     // then
     assertThat(applications, hasCountOf(3));
