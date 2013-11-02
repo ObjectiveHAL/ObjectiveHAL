@@ -1,6 +1,5 @@
 #!/bin/sh
-set -e
-
+(
 echo "BEFORE BUILD (BEGIN)"
 
 echo "Ensure latest version of Cocoapods is used."
@@ -24,3 +23,4 @@ fi
 stty columns 60
 
 echo "BEFORE BUILD (END)"
+) | tee -a travis/before.log
