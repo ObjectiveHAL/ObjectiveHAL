@@ -3,8 +3,8 @@ set -e
 
 echo "BEFORE BUILD (BEGIN)"
 
-echo "Ensure latest version of Cocoapods is used."
-gem update cocoapods
+# echo "Ensure latest version of Cocoapods is used."
+# gem update cocoapods
 
 echo "Installing additional tools using homebrew."
 brew update
