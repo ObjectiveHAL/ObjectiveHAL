@@ -7,6 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+
 #import <AFNetworking/AFNetworking.h>
 
 #import <ObjectiveHAL/HTTPStatusCodes.h>
