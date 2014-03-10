@@ -78,5 +78,6 @@ The examples are all based on the following HAL document:
     
 ## Accessing Resource Properties
 
-
+more to come....
     
+
